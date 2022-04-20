@@ -1,0 +1,32 @@
+[
+  {
+    "department": "المستشفيات",
+    "icon_path": "assets/icons/hospital.png",
+    "go_path": " "
+  },
+  {
+    "department": "العيادات",
+    "icon_path": "assets/icons/clinic.png",
+    "go_path": " "
+  },
+  {
+    "department": "خدمات التمريض",
+    "icon_path": "assets/icons/nursing.png",
+    "go_path": " "
+  },
+  {
+    "department": "الصيدليات",
+    "icon_path": "assets/icons/pharmacist.png",
+    "go_path": " "
+  },
+  {
+    "department": "مراكز الأشعة",
+    "icon_path": "assets/icons/body_scan.png",
+    "go_path": " "
+  },
+  {
+    "department": "المساعدات الطبيه",
+    "icon_path": "assets/icons/pharmacist.png",
+    "go_path": " "
+  }
+]

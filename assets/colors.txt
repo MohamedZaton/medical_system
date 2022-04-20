@@ -1,0 +1,4 @@
+primary = #69ADE9
+secound = #85C0F5
+darkColor = #85C0F5
+background = #FFFFFF

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../tools/colors.dart';
 
 ThemeData? buildLightTheme() {
-  final base = ThemeData.light();
+  final base = ThemeData(fontFamily: 'Sukar');
 
   return base.copyWith(
       textTheme: lightTextTheme(),

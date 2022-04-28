@@ -74,3 +74,10 @@ flutter:
     - assets/bottom_navbar/
     - assets/icons/
     - assets/logo/
+    - assets/local_data/
+  fonts:
+    - family: Sukar
+      fonts:
+        - asset: fonts/Sukar Black.ttf
+        - asset: fonts/SukarBold.ttf
+        - asset: fonts/SukarRegular.ttf

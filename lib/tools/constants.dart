@@ -12,11 +12,20 @@ const String kPortfolioTxt = "Portfolio";
 const String kTeckStack = "Tech Stack :";
 const String kNameTxt = "الاسم";
 const String kEmailTxt = "البريد الشخصى";
+const String kAdsSpaceTxt = "مساحه إعلانية";
 
 const String kPhoneNumberTxt = "رقم الهاتف";
+const String kNameDemo = "محمد عبد الله عارف";
+const String kPhoneDemo = "01221123345";
+
 const String kPassword = "كلمة المرور";
 const String kSignInText = "تسجيل الدخول";
 const String kSignUpText = "تسجيل حساب";
+const String kSignOutText = "تسجيل الخروج";
+const String kCompleted = "مكتمل";
+const String kWaiting = "قيد الانتظار";
+const String kCancel = "تم الالغاء";
+const String kDelivery = "فى الطريق";
 const String kLocalPersonsDB = "PersonDB";
 const String kDetailsPort =
     "If you need a Mobile Developer, feel free to contact me!";

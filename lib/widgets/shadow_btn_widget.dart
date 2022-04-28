@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../tools/styles.dart';
 
-Widget shadowButton(
+Widget ShadowButton(
     {required String name,
     Color backgroundColor = kLightPrimary,
     required Function() onPressed}) {
@@ -16,7 +16,7 @@ Widget shadowButton(
         fontFamily: fontMedium),
     textColor: Colors.white,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-    color: kLightPrimary,
+    color: backgroundColor,
     onPressed: onPressed,
   );
 }

@@ -39,7 +39,7 @@ class SignInPage extends StatelessWidget {
                 SizedBox(height: 20),
                 Padding(
                     padding: EdgeInsets.fromLTRB(60, 16, 60, 16),
-                    child: shadowButton(
+                    child: ShadowButton(
                       name: kSignInText,
                       onPressed: () {
                         return Get.to(() => HomePage());
@@ -49,7 +49,7 @@ class SignInPage extends StatelessWidget {
             )),
             Padding(
                 padding: EdgeInsets.fromLTRB(80, 16, 80, 16),
-                child: shadowButton(
+                child: ShadowButton(
                     name: kSignUpText,
                     backgroundColor: kLightAccent,
                     onPressed: () {

@@ -45,7 +45,7 @@ class SignUpPage extends StatelessWidget {
                   SizedBox(height: 20),
                   Padding(
                       padding: EdgeInsets.fromLTRB(60, 16, 60, 16),
-                      child: shadowButton(
+                      child: ShadowButton(
                         name: kSignInText,
                         onPressed: () {
                           return Get.to(() => HomePage());

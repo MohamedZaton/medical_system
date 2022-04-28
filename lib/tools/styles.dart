@@ -3,11 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
 
-/// Google fonts constant setting: https://fonts.google.com/
+/// Google fonts constant setting_page: https://fonts.google.com/
 
-const fontRegular = 'Regular';
-const fontMedium = 'Medium';
-const fontSemibold = 'Semibold';
+const fontRegular = 'Sukar';
+const fontMedium = 'Sukar';
+const fontSemibold = 'Sukar';
 const fontBold = 'Bold';
 /* font sizes*/
 const textSizeSmall = 12.0;

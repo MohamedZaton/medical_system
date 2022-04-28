@@ -1,7 +1,6 @@
-import 'package:developer/utils/screens.dart';
+import 'package:developer/tools/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../models/depart_item_model.dart';
 import 'flux_image.dart';
@@ -30,126 +29,41 @@ class DepartItemWgt extends StatelessWidget {
       ]),
       child: Material(
         borderRadius: BorderRadius.circular(12.0),
-        color: Theme.of(context).backgroundColor,
+        color: kDarkAccent,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
-            _launchURL(homeItemModel.goPath!);
+            //  _launchURL(homeItemModel.goPath!);
           },
-          child: index.isOdd
-              ? Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// main pic 1
-                    Expanded(flex: 2, child: Pic(homeItemModel.iconPath!, ctx)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              /// main info 2
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                homeItemModel.department!,
+                style: TextStyle(
+                    fontFamily: 'Sukar',
+                    fontSize: 30,
+                    fontWeight: FontWeight.normal),
+              ),
+              SizedBox(
+                width: 20,
+              ),
 
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                        width: ScreenDevice.width(ctx) * 0.1,
-                      ),
-                    ),
-
-                    /// main info 1
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: ScreenDevice.heigth(ctx) * 0.05),
-                        child: Info(
-                          homeItemModel: homeItemModel,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              : Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// main info 2
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: ScreenDevice.heigth(ctx) * 0.05,
-                            left: ScreenDevice.width(ctx) * 0.05),
-                        child: Info(
-                          homeItemModel: homeItemModel,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                        width: ScreenDevice.width(ctx) * 0.1,
-                      ),
-                    ),
-
-                    /// main pic 2
-                    Expanded(flex: 2, child: Pic(homeItemModel.iconPath!, ctx)),
-                  ],
-                ),
-        ),
-      ),
-    );
-  }
-
-  Widget Pic(String imagePath, BuildContext ctx) {
-    return SizedBox(
-      width: ScreenDevice.width(ctx) * 0.30,
-      height: ScreenDevice.heigth(ctx) * 0.30,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: FluxImage(
-          imageUrl: homeItemModel.iconPath!,
-          fit: BoxFit.fitWidth,
-          width: ScreenDevice.width(ctx) * 0.30,
-          height: ScreenDevice.heigth(ctx) * 0.30,
+              /// main pic 2
+              FluxImage(
+                imageUrl: homeItemModel.iconPath!,
+                width: 100,
+                height: 100,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-_launchURL(String urlValue) async {
-  String url = urlValue;
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
-/// info  App
-class Info extends StatelessWidget {
-  final DepartItemModel homeItemModel;
-
-  Info({
-    required this.homeItemModel,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Wrap(
-          children: [
-            Text(
-              homeItemModel.department!,
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-/// tech icons

@@ -74,6 +74,8 @@ flutter:
     - assets/bottom_navbar/
     - assets/icons/
     - assets/logo/
+    - assets/pharmacies/
+    - assets/clinics/
     - assets/local_data/
   fonts:
     - family: Sukar

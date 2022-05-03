@@ -1,10 +1,8 @@
 import 'package:developer/tools/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../tools/colors.dart';
 import '../../widgets/flux_image.dart';
-import 'home_logic.dart';
 
 class HomeTabWidget extends StatelessWidget {
   const HomeTabWidget({
@@ -13,7 +11,6 @@ class HomeTabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logic = Get.put(HomeLogic());
     return Stack(
       children: [
         Container(

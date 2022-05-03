@@ -1,0 +1,28 @@
+[
+{
+"department": "عيادات العظام",
+"icon_path": "assets/clinics/al_orthopedic_clinics.png",
+"go_path": " "
+},
+{
+"department": "عيادات الرمد  ",
+"icon_path": "assets/clinics/al_eyes_Clinic.png",
+"go_path": " "
+},
+{
+"department": "عيادات الأسنان  ",
+"icon_path": "assets/clinics/al_tooth_clinic.png",
+"go_path": " "
+},
+{
+"department": "عيادات الباطنه ",
+"icon_path": "assets/clinics/al_batinah_clinic.png",
+"go_path": " "
+},
+{
+"department": "عيادات البيطريه ",
+"icon_path": "assets/clinics/al_animels_clinics.png",
+"go_path": " "
+}
+
+]

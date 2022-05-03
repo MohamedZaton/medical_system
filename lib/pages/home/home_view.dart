@@ -1,7 +1,6 @@
 import 'package:developer/pages/department_page/depart_view.dart';
 import 'package:developer/pages/orders_page/orders_view.dart';
 import 'package:developer/utils/screens.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -112,6 +111,7 @@ class HomePage extends StatelessWidget {
               width: 70,
               height: 70,
               child: FloatingActionButton(
+                heroTag: "home_nav_btn",
                 backgroundColor: Colors.white,
                 onPressed: () {
                   controller.changeTabIndex(5);

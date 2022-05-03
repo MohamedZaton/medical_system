@@ -26,6 +26,7 @@ const String kCompleted = "مكتمل";
 const String kWaiting = "قيد الانتظار";
 const String kCancel = "تم الالغاء";
 const String kDelivery = "فى الطريق";
+const String kSectionName = "section";
 const String kLocalPersonsDB = "PersonDB";
 const String kDetailsPort =
     "If you need a Mobile Developer, feel free to contact me!";

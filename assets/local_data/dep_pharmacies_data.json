@@ -1,0 +1,32 @@
+[
+  {
+    "department": "صيدليات العزبي",
+    "icon_path": "assets/pharmacies/el_azaby.png",
+    "go_path": " "
+  },
+  {
+    "department": "صيدليات الحياه",
+    "icon_path": "assets/pharmacies/life.png",
+    "go_path": " "
+  },
+  {
+    "department": "صيدليات سيف ",
+    "icon_path": "assets/pharmacies/saaf.png",
+    "go_path": " "
+  },
+  {
+    "department": "صيدليات خليل",
+    "icon_path": "assets/pharmacies/el_5aleal.png",
+    "go_path": " "
+  },
+  {
+    "department": "صيدليات البركه",
+    "icon_path": "assets/pharmacies/el_baraka.png",
+    "go_path": " "
+  },
+  {
+    "department": "صيدليات الورده البيضاء ",
+    "icon_path": "assets/pharmacies/al_warda.png",
+    "go_path": " "
+  }
+]

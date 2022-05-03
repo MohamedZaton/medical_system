@@ -2,7 +2,6 @@ import 'package:developer/models/delivery_model.dart';
 import 'package:developer/tools/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DeliveryWgt extends StatelessWidget {
   final DeliveryModel deliveryModel;
@@ -44,12 +43,13 @@ class DeliveryWgt extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: FloatingActionButton(
+                      heroTag: "delivery_item_call" + index.toString(),
                       child: Icon(
                         Icons.call,
                         color: kDarkAccent,
                       ),
                       onPressed: () {
-                        launch("tel://${deliveryModel.phone}");
+                        //launch("tel://${deliveryModel.phone}");
                       }),
                 ),
 

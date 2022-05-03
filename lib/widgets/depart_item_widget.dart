@@ -8,10 +8,12 @@ import 'flux_image.dart';
 class DepartItemWgt extends StatelessWidget {
   final DepartItemModel homeItemModel;
   final int index;
+  final Function()? onPressed;
   const DepartItemWgt({
     Key? key,
     required this.homeItemModel,
     required this.index,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -32,9 +34,7 @@ class DepartItemWgt extends StatelessWidget {
         color: kDarkAccent,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            //  _launchURL(homeItemModel.goPath!);
-          },
+          onTap: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,7 +47,7 @@ class DepartItemWgt extends StatelessWidget {
                 homeItemModel.department!,
                 style: TextStyle(
                     fontFamily: 'Sukar',
-                    fontSize: 30,
+                    fontSize: 20,
                     fontWeight: FontWeight.normal),
               ),
               SizedBox(

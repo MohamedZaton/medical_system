@@ -4,6 +4,8 @@ import 'package:developer/pages/delivery_page/delivery_logic.dart';
 import 'package:developer/pages/delivery_page/delivery_view.dart';
 import 'package:developer/pages/department_page/depart_logic.dart';
 import 'package:developer/pages/department_page/depart_view.dart';
+import 'package:developer/pages/doctor_list_page/doctors_list_logic.dart';
+import 'package:developer/pages/doctor_list_page/doctors_list_view.dart';
 import 'package:developer/pages/home/home_logic.dart';
 import 'package:developer/pages/medical_form/medical_form_logic.dart';
 import 'package:developer/pages/medical_form/medical_form_view.dart';
@@ -94,6 +96,13 @@ class MyApp extends StatelessWidget {
           page: () => MedicalFormPage(),
           binding: BindingsBuilder(() {
             Get.lazyPut<MedicalFormLogic>(() => MedicalFormLogic());
+          }),
+        ),
+        GetPage(
+          name: DoctorListPage.id,
+          page: () => DoctorListPage(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut<DoctorsListLogic>(() => DoctorsListLogic());
           }),
         ),
         GetPage(

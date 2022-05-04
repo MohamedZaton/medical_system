@@ -1,3 +1,4 @@
+import 'package:developer/pages/doctor_list_page/doctors_list_view.dart';
 import 'package:developer/tools/api_keys.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +40,9 @@ class ClinicsListLogic extends GetxController {
             return DepartItemWgt(
               homeItemModel: item,
               index: numPostion,
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => DoctorListPage());
+              },
             );
           },
         ),

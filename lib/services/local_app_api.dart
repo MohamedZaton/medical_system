@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:developer/models/booking_doctor_model.dart';
 import 'package:developer/models/delivery_model.dart';
 import 'package:developer/models/depart_item_model.dart';
 import 'package:developer/services/app_api.dart';
@@ -43,6 +44,15 @@ class LocalAppApi implements AppApi {
         await rootBundle.loadString('assets/local_data/' + fileName);
     List<dynamic> jsonData = json.decode(jsonContent);
     List<DepartItemModel> items = DepartItemModel.getListObject(jsonData);
+    return items;
+  }
+
+  @override
+  Future<List<BookingDoctorModel>> fetchDoctorBookingItems() async {
+    String jsonContent =
+        await rootBundle.loadString('assets/local_data/' + kDoctorBookingPath);
+    List<dynamic> jsonData = json.decode(jsonContent);
+    List<BookingDoctorModel> items = BookingDoctorModel.getListObject(jsonData);
     return items;
   }
 }

@@ -39,7 +39,7 @@ class SignUpPage extends StatelessWidget {
                   SizedBox(height: 30),
                   EditTextStyle(kPhoneNumberTxt),
                   SizedBox(height: 30),
-                  EditTextStyle(kEmailTxt),
+                  EditTextStyle(kAddressTxt),
                   SizedBox(height: 30),
                   EditTextStyle(kPassword, isPassword: true),
                   SizedBox(height: 20),

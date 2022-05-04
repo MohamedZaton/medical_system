@@ -11,7 +11,7 @@ const String kTitleTxt = "Title";
 const String kPortfolioTxt = "Portfolio";
 const String kTeckStack = "Tech Stack :";
 const String kNameTxt = "الاسم";
-const String kEmailTxt = "البريد الشخصى";
+const String kAddressTxt = "العنوان";
 const String kAdsSpaceTxt = "مساحه إعلانية";
 
 const String kPhoneNumberTxt = "رقم الهاتف";
@@ -20,6 +20,11 @@ const String kPhoneDemo = "01221123345";
 
 const String kPassword = "كلمة المرور";
 const String kSignInText = "تسجيل الدخول";
+const String kDoctorPaperText = "صورة الروشتة";
+const String kDoctorBk = "حجز دكتور";
+const String kSelectDay = "اختيار اليوم ";
+const String kSelectTime = "اختيار الوقت ";
+const String kSendPaperText = "ارسال الروشتة";
 const String kSignUpText = "تسجيل حساب";
 const String kSignOutText = "تسجيل الخروج";
 const String kCompleted = "مكتمل";

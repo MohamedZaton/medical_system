@@ -1,3 +1,4 @@
+import 'package:developer/pages/medical_form/medical_form_view.dart';
 import 'package:developer/tools/api_keys.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +40,12 @@ class PharmaciesListLogic extends GetxController {
             return DepartItemWgt(
               homeItemModel: item,
               index: numPostion,
-              onPressed: () {},
+              onPressed: () {
+                Get.to(MedicalFormPage(
+                  pharmacyLogo: item.iconPath.toString(),
+                  pharmacyTitle: item.department.toString(),
+                ));
+              },
             );
           },
         ),

@@ -1,0 +1,74 @@
+[
+  {
+    "address": "٥ شارع العبور سيدنى",
+    "name": "د/ محمد عبد الكريم ",
+    "day_start":"السبت",
+    "day_end":"الخميس",
+    "time_start": "09:30 ص ",
+    "time_end": "05:30 م ",
+    "clinic_price": "200 جنية",
+    "home_price": "300 جنية",
+    "image_path": "assets/icons/d_male.png"
+  },
+  {
+    "address": "٥ شارع العبور سيدنى",
+    "name": "د/ عبد الفتاح هنو ",
+    "day_start":"السبت",
+    "day_end":"الخميس",
+    "time_start": "09:30 ص ",
+    "time_end": "05:30 م ",
+    "clinic_price": "200 جنية",
+    "home_price": "300 جنية",
+    "image_path": "assets/icons/d_male.png"
+
+  },
+  {
+    "address": "٥ شارع العبور سيدنى",
+    "name": "د/ رياض الزعبلاوي ",
+    "day_start":"السبت",
+    "day_end":"الخميس",
+    "time_start": "09:30 ص ",
+    "time_end": "05:30 م ",
+    "clinic_price": "200 جنية",
+    "home_price": "300 جنية",
+    "image_path": "assets/icons/d_male.png"
+
+  },
+  {
+    "address": "٥ شارع العبور سيدنى",
+    "name": "د/ إيمان عبد المقصود ",
+    "day_start":"السبت",
+    "day_end":"الخميس",
+    "time_start": "09:30 ص ",
+    "time_end": "05:30 م ",
+    "clinic_price": "200 جنية",
+    "home_price": "300 جنية",
+    "image_path": "assets/icons/d_female.png"
+
+  },
+  {
+    "address": "٥ شارع العبور سيدنى",
+    "name": "د/ قدري العنبري ",
+    "day_start":"السبت",
+    "day_end":"الخميس",
+    "time_start": "09:30 ص ",
+    "time_end": "05:30 م ",
+    "clinic_price": "200 جنية",
+    "home_price": "300 جنية",
+    "image_path": "assets/icons/d_male.png"
+
+
+  },
+  {
+    "address": "٥ شارع العبور سيدنى",
+    "name": "د/ ساره السعيد",
+    "day_start":"السبت",
+    "day_end":"الخميس",
+    "time_start": "09:30 ص ",
+    "time_end": "05:30 م ",
+    "clinic_price": "200 جنية",
+    "home_price": "300 جنية",
+    "image_path": "assets/icons/d_female.png"
+  }
+
+]

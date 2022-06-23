@@ -181,7 +181,7 @@ class PatientBkPage extends StatelessWidget {
                   height: 10,
                 ),
           SizedBox(
-            height: 20,
+            height: 3,
           ),
         ],
       );

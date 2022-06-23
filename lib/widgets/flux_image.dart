@@ -13,8 +13,8 @@ class FluxImage extends StatelessWidget {
   const FluxImage({
     required this.imageUrl,
     Key? key,
-    this.width = 300,
-    this.height = 300,
+    this.width = 30,
+    this.height = 30,
     this.fit,
     this.color,
   }) : super(key: key);
@@ -27,13 +27,23 @@ class FluxImage extends StatelessWidget {
 
       imageProxy = kImageProxy;
     }
-
-    if (imageUrl.contains('http')) {
-      return ExtendedImage.network(
-        '$imageProxy$imageUrl',
+    if (imageUrl == null) {
+      return Image.asset(
+        "assets/images/user.png",
         width: width,
         height: height,
         fit: fit,
+        color: color,
+      );
+    }
+    if (imageUrl.contains('http')) {
+      return ExtendedImage.network(
+        '$imageProxy$imageUrl',
+        enableMemoryCache: true,
+        width: width,
+        height: height,
+        fit: fit,
+        color: color,
         loadStateChanged: (state) {
           switch (state.extendedImageLoadState) {
             case LoadState.completed:
@@ -60,6 +70,7 @@ class FluxImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      color: color,
     );
   }
 }

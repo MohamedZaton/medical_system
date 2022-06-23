@@ -9,6 +9,8 @@ import 'package:developer/pages/doctor_list_page/doctors_list_view.dart';
 import 'package:developer/pages/home/home_logic.dart';
 import 'package:developer/pages/medical_form/medical_form_logic.dart';
 import 'package:developer/pages/medical_form/medical_form_view.dart';
+import 'package:developer/pages/message/message_logic.dart';
+import 'package:developer/pages/message/message_view.dart';
 import 'package:developer/pages/places_list/clinics_list/clinic_list_logic.dart';
 import 'package:developer/pages/places_list/clinics_list/clinic_list_view.dart';
 import 'package:developer/pages/places_list/hospitals_list/hospitals_list_logic.dart';
@@ -154,6 +156,13 @@ class MyApp extends StatelessWidget {
           page: () => XRayListPage(),
           binding: BindingsBuilder(() {
             Get.lazyPut<XRayListLogic>(() => XRayListLogic());
+          }),
+        ),
+        GetPage(
+          name: MessagePage.id,
+          page: () => MessagePage(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut<MessageLogic>(() => MessageLogic());
           }),
         ),
       ],

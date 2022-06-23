@@ -1,12 +1,6 @@
 import 'package:get/get.dart';
 
-class HomeLogic extends GetxController {
-  var tabIndex = 4;
-  void changeTabIndex(int index) {
-    tabIndex = index;
-    update();
-  }
-
+class MessageLogic extends GetxController {
   @override
   void onReady() {
     // TODO: implement onReady

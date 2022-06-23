@@ -147,7 +147,7 @@ class DoctorInfoPage extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 20,
+          height: 3,
         ),
       ],
     );

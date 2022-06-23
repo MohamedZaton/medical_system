@@ -24,12 +24,16 @@ class SignInPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 30,
+              height: 10,
             ),
             Hero(
                 tag: 'logo_splash',
-                child: FluxImage(imageUrl: 'assets/logo/logo.png')),
-            SizedBox(height: 50),
+                child: FluxImage(
+                  imageUrl: 'assets/logo/logo.png',
+                  width: 200,
+                  height: 200,
+                )),
+            SizedBox(height: 5),
             Form(
                 child: Column(
               children: [

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:developer/tools/constants.dart';
 import 'package:flutter/material.dart';
 
 const kLightPrimary = Color(0xFF69ADE9);
@@ -41,3 +42,9 @@ const kErrorRed = Color(0xFFe74c3c);
 const kOrangeColor = Color(0xffef8712);
 const kColorRed = Color(0xFFF3090B);
 const kSurfaceWhite = Color(0xFFFFFBFA);
+
+const Map<String, Color> kStatueOrderColorsMap = {
+  kCompleted: Colors.green,
+  kWaiting: Colors.blueGrey,
+  kCancel: Colors.red,
+};

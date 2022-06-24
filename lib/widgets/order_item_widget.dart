@@ -18,15 +18,17 @@ class OrderItemWgt extends StatelessWidget {
     var ctx = context;
 
     return Container(
-      height: 150,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(12.0), boxShadow: [
-        BoxShadow(
-          color: Colors.black45,
-          offset: Offset(0, 1),
-          blurRadius: 2.0,
-        ),
-      ]),
+      height: 100,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black45,
+            offset: Offset(0, 1),
+            blurRadius: 2.0,
+          ),
+        ],
+      ),
       child: Material(
         borderRadius: BorderRadius.circular(12.0),
         color: kDarkAccent,
@@ -37,57 +39,83 @@ class OrderItemWgt extends StatelessWidget {
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   /// main info 2
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    orderItem.state!,
-                    style: TextStyle(
-                        fontFamily: 'Sukar',
-                        fontSize: 30,
-                        fontWeight: FontWeight.normal),
+
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      width: 150,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: kStatueOrderColorsMap[orderItem.state!] ??
+                            Colors.deepOrange,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(40),
+                        ),
+                      ),
+                      child: Text(
+                        orderItem.state!,
+                        style: TextStyle(
+                            fontFamily: 'Sukar',
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
                   ),
 
-                  MaterialButton(
-                    height: 60,
-                    child: Icon(
-                      Icons.delete_forever_outlined,
-                      color: Colors.white,
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      width: 150,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(40),
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.delete_forever_outlined,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0)),
-                    color: Colors.red,
-                    onPressed: () {},
                   ),
                 ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   /// main type
-                  Container(
-                    width: 180,
-                    child: ShadowButton(
-                      name: orderItem.type!,
-                      onPressed: () {},
+
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      width: 120,
+                      child: ShadowButton(
+                        name: orderItem.type!,
+                        height: 30,
+                        onPressed: () {},
+                      ),
                     ),
                   ),
 
                   /// main pic 2
-                  Container(
-                    width: 180,
-                    child: ShadowButton(
-                      name: " جنيه ${orderItem.price.toString()}",
-                      onPressed: () {},
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      width: 120,
+                      child: ShadowButton(
+                        height: 30,
+                        name: " جنيه ${orderItem.price.toString()}",
+                        onPressed: () {},
+                      ),
                     ),
                   ),
                 ],

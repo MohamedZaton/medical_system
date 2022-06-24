@@ -24,15 +24,16 @@ class OrdersPage extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 } else {
                   return Container(
-                    height: ScreenDevice.heigth(context),
-                    width: ScreenDevice.width(context),
+                    alignment: Alignment.center,
+                    height: ScreenDevices.heigth(context),
+                    width: ScreenDevices.width(context),
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: logic.mainItemList.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: ScreenDevice.heigth(context) * 0.01),
+                              vertical: ScreenDevices.heigth(context) * 0.01),
                           child: logic.mainItemList[index],
                         );
                       },

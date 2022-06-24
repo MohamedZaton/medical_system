@@ -3,6 +3,7 @@ import 'package:developer/widgets/flux_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../utils/images_path.dart';
 import 'splash_logic.dart';
 
 class SplashPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double? targetValue = 2.0;
+    double? targetValue = 200;
 
     return Container(
       color: Colors.white,
@@ -23,9 +24,13 @@ class SplashPage extends StatelessWidget {
           tween: Tween<double>(begin: 0, end: targetValue),
           duration: const Duration(seconds: 2),
           builder: (context, value, Widget? child) {
-            return FluxImage(imageUrl: 'assets/logo/logo.png');
+            return FluxImage(
+              imageUrl: kLogoAppImg,
+              width: value,
+              height: value,
+            );
           },
-          child: FluxImage(imageUrl: 'assets/logo/logo.png'),
+          child: FluxImage(imageUrl: kLogoAppImg),
           onEnd: () async {
             Get.to(() => SignInPage());
           },

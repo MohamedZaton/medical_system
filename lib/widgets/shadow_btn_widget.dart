@@ -6,14 +6,17 @@ import '../tools/styles.dart';
 Widget ShadowButton(
     {required String name,
     Color backgroundColor = kLightPrimary,
+    double height = 60.0,
     required Function() onPressed}) {
   return MaterialButton(
-    height: 60,
+    height: height,
     minWidth: double.infinity,
-    child: kCustomText(name,
-        fontSize: textSizeLargeMedium,
-        textColor: Colors.white,
-        fontFamily: fontMedium),
+    child: FittedBox(
+      child: kCustomText(name,
+          fontSize: textSizeLargeMedium,
+          textColor: Colors.white,
+          fontFamily: fontMedium),
+    ),
     textColor: Colors.white,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
     color: backgroundColor,

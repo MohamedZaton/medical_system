@@ -33,7 +33,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   # manage statement
-  get: ^4.6.1
+  get: ^4.6.5
 
   # tools & custom ui
   google_fonts: 2.2.0
@@ -44,6 +44,7 @@ dependencies:
   image_picker: ^0.8.5
   extended_image: ^6.2.1
   carousel_slider: ^4.1.1
+  flutter_rating_bar: ^4.0.1
 
   intl: ^0.17.0
   # network

@@ -10,6 +10,7 @@ class BookingDoctorLogic extends GetxController {
   BookingDoctorModel bookingDoctorModel = BookingDoctorModel();
   int bookingPage = 0;
   bool isHomeVisited = false;
+  String selectedAddress = kSelectedAddressTxt;
 
   ///date
   bool isdaySelected = false;
@@ -29,6 +30,11 @@ class BookingDoctorLogic extends GetxController {
 
   void selectHomePriceVisit({bool select = true}) {
     isHomeVisited = select;
+    update();
+  }
+
+  void choseAddress(String address) {
+    selectedAddress = address;
     update();
   }
 

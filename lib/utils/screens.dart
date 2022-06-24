@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ScreenDevice {
+class ScreenDevices {
   static double heigth(BuildContext context) {
     return MediaQuery.of(context).size.height;
   }
@@ -39,10 +39,10 @@ class ScreenDevice {
   }
 
   static double logoSize(BuildContext context) {
-    if (ScreenDevice.isPortrait(context)) {
-      return ScreenDevice.heigth(context) * 0.05;
+    if (ScreenDevices.isPortrait(context)) {
+      return ScreenDevices.heigth(context) * 0.05;
     } else {
-      return ScreenDevice.width(context) * 0.05;
+      return ScreenDevices.width(context) * 0.05;
     }
   }
 

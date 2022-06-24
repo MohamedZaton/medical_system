@@ -32,7 +32,7 @@ class DeliveryPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: ScreenDevice.heigth(context) * 0.01),
+                              vertical: ScreenDevices.heigth(context) * 0.01),
                           child: logic.mainItemList[index],
                         );
                       },

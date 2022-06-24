@@ -40,6 +40,7 @@ class DoctorsListLogic extends GetxController {
             return DoctorItemWgt(
               doctorItemModel: item,
               index: numPostion,
+              initialRating: 3.0,
               onPressed: () {
                 Get.to(() => BookingDoctorPage(
                       doctorInfoModel: item,

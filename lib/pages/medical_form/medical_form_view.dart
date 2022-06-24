@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../tools/constants.dart';
+import '../../widgets/oval_btn_widget.dart';
 import '../../widgets/shadow_btn_widget.dart';
 import 'medical_form_logic.dart';
 
@@ -33,6 +34,51 @@ class MedicalFormPage extends StatelessWidget {
           init: MedicalFormLogic(),
           assignId: true,
           builder: (logic) {
+            Future<dynamic> selectAddressDialog(MedicalFormLogic controller) {
+              return Get.defaultDialog(
+                title: kSelectedAddressTxt,
+                titleStyle: TextStyle(color: kLightAccent),
+                middleTextStyle: TextStyle(color: Colors.black),
+                backgroundColor: Colors.white,
+                content: Container(
+                  height: ScreenDevices.heigth(context) * 0.60,
+                  width: ScreenDevices.width(context) * 0.70,
+                  child: ListView(
+                    children: [
+                      OvalButtonWdgt(
+                        text: kDemoAddressOneTxt,
+                        onPressed: () {
+                          controller.choseAddressPharmices(kDemoAddressOneTxt);
+                          Get.back();
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      OvalButtonWdgt(
+                        text: kDemoAddressTwoTxt,
+                        onPressed: () {
+                          controller.choseAddressPharmices(kDemoAddressTwoTxt);
+                          Get.back();
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      OvalButtonWdgt(
+                        text: kDemoAddressThreeTxt,
+                        onPressed: () {
+                          controller
+                              .choseAddressPharmices(kDemoAddressThreeTxt);
+                          Get.back();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
+
             return Container(
               alignment: Alignment.center,
               child: Column(
@@ -77,7 +123,7 @@ class MedicalFormPage extends StatelessWidget {
                         height: 20,
                       ),
                       Container(
-                        width: ScreenDevice.width(context) * 0.70,
+                        width: ScreenDevices.width(context) * 0.70,
                         child: ShadowButton(
                           backgroundColor: kSeeMoreColor,
                           name: kDoctorPaperText,
@@ -89,18 +135,33 @@ class MedicalFormPage extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  (logic.isAttached)
-                      ? Container(
-                          width: ScreenDevice.width(context) * 0.70,
+                  Container(
+                    width: ScreenDevices.width(context) * 0.90,
+                    child: ShadowButton(
+                      backgroundColor: kDarkAccent,
+                      name: logic.selectedAddressPharmices,
+                      onPressed: () {
+                        selectAddressDialog(logic);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  if (logic.isAttached) ...[
+                    Column(
+                      children: [
+                        Container(
+                          width: ScreenDevices.width(context) * 0.70,
                           child: ShadowButton(
                             backgroundColor: kDarkAccent,
                             name: kSendPaperText,
                             onPressed: () {},
                           ),
-                        )
-                      : SizedBox(
-                          height: 10,
                         ),
+                      ],
+                    )
+                  ],
                 ],
               ),
             );

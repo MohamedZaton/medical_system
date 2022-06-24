@@ -37,7 +37,7 @@ class DeliveryWgt extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
@@ -54,17 +54,17 @@ class DeliveryWgt extends StatelessWidget {
                 ),
 
                 /// main info 2
-                SizedBox(
-                  width: 20,
-                ),
+                Spacer(),
                 Expanded(
                   flex: 1,
-                  child: Text(
-                    deliveryModel.name!,
-                    style: TextStyle(
-                        fontFamily: 'Sukar',
-                        fontSize: 30,
-                        fontWeight: FontWeight.normal),
+                  child: FittedBox(
+                    child: Text(
+                      deliveryModel.name!,
+                      style: TextStyle(
+                          fontFamily: 'Sukar',
+                          fontSize: 30,
+                          fontWeight: FontWeight.normal),
+                    ),
                   ),
                 ),
               ],

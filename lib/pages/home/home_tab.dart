@@ -26,7 +26,7 @@ class HomeTabWidget extends StatelessWidget {
           ),
         ),
         Container(
-            width: ScreenDevice.width(context),
+            width: ScreenDevices.width(context),
             height: 150,
             child: CarouselSlider(
               options: CarouselOptions(

@@ -1,11 +1,12 @@
-import 'package:developer/pages/sign_in_page/sign_in_view.dart';
+import 'package:developer/pages/profile/profile_view.dart';
 import 'package:developer/tools/colors.dart';
+import 'package:developer/tools/constants.dart';
+import 'package:developer/utils/images_path.dart';
+import 'package:developer/widgets/oval_btn_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../tools/constants.dart';
-import '../../widgets/shadow_btn_widget.dart';
-import '../../widgets/text_display_widget.dart';
+import '../../utils/screens.dart';
 import 'setting_logic.dart';
 
 class SettingPage extends StatelessWidget {
@@ -21,8 +22,10 @@ class SettingPage extends StatelessWidget {
         actions: [
           FloatingActionButton(
             heroTag: "setting_profile_btn",
-            backgroundColor: kDarkAccent,
-            onPressed: () {},
+            backgroundColor: kLightAccent,
+            onPressed: () {
+              Get.to(() => ProfilePage());
+            },
             child: Icon(
               Icons.person_outline_rounded,
               color: Colors.white,
@@ -32,31 +35,62 @@ class SettingPage extends StatelessWidget {
         ],
       ),
       body: Container(
+        width: ScreenDevices.width(context),
+        height: ScreenDevices.heigth(context) * 0.80,
         padding: EdgeInsets.symmetric(horizontal: 16),
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(height: 50),
-            Column(
-              children: [
-                TextDisplayWidget(text: kNameDemo, onPressed: () {}),
-                SizedBox(height: 30),
-                TextDisplayWidget(text: kPhoneDemo, onPressed: () {}),
-                SizedBox(height: 20),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(60, 16, 60, 16),
-                    child: ShadowButton(
-                      name: kSignOutText,
-                      onPressed: () {
-                        return Get.to(() => SignInPage());
-                      },
-                    )),
-              ],
-            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  OvalButtonWdgt(
+                    text: kWhatsappTxt,
+                    imagePath: kWhatsAppImg,
+                    isCenter: false,
+                    onPressed: () {},
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  OvalButtonWdgt(
+                    text: kLanguageTxt,
+                    imagePath: kLanguageImg,
+                    isCenter: false,
+                    onPressed: () {},
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  OvalButtonWdgt(
+                    text: kShareAppTxt,
+                    imagePath: kShareAppImg,
+                    isCenter: false,
+                    onPressed: () {},
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  OvalButtonWdgt(
+                    text: kRateAppTxt,
+                    imagePath: kRateImg,
+                    isCenter: false,
+                    onPressed: () {},
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  OvalButtonWdgt(
+                    text: kAboutAppTxt,
+                    imagePath: kAboutImg,
+                    isCenter: false,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

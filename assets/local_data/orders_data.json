@@ -18,5 +18,15 @@
     "Price": 200,
     "Type": "طلب من صيدلة العزبى ",
     "state": "canceled"
+  },
+  {
+    "Price": 200,
+    "Type": "اشعة مغناطيس",
+    "state": "completed"
+  },
+  {
+    "Price": 200,
+    "Type": "تحليل دم",
+    "state": "completed"
   }
 ]

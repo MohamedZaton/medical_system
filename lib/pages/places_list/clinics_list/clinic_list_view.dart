@@ -39,7 +39,7 @@ class ClinicsListPage extends StatelessWidget {
                               return Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical:
-                                        ScreenDevice.heigth(context) * 0.01),
+                                        ScreenDevices.heigth(context) * 0.01),
                                 child: logic.mainItemList[index],
                               );
                             },

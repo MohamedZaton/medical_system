@@ -56,6 +56,15 @@ class SettingPage extends StatelessWidget {
                     height: 6,
                   ),
                   OvalButtonWdgt(
+                    text: kFacebookTxt,
+                    imagePath: kFaceBookAppImg,
+                    isCenter: false,
+                    onPressed: () {},
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  OvalButtonWdgt(
                     text: kLanguageTxt,
                     imagePath: kLanguageImg,
                     isCenter: false,
@@ -86,6 +95,14 @@ class SettingPage extends StatelessWidget {
                     text: kAboutAppTxt,
                     imagePath: kAboutImg,
                     isCenter: false,
+                    onPressed: () {},
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  OvalButtonWdgt(
+                    text: kSignOutText,
+                    isCenter: true,
                     onPressed: () {},
                   ),
                 ],

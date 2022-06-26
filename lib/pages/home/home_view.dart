@@ -107,7 +107,7 @@ class HomePage extends StatelessWidget {
               Container(
                 width: ScreenDevices.width(context),
                 height: 30,
-                color: controller.tabIndex == 4 ? kCyanColor : Colors.white,
+                color: controller.tabIndex == 4 ? kCyanHomeColor : Colors.white,
               ),
               Container(
                 width: 70,

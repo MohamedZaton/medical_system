@@ -40,13 +40,14 @@ class DoctorItemWgt extends StatelessWidget {
           onTap: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               /// main info 2
               SizedBox(
                 width: 20,
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     doctorItemModel.name!,
@@ -57,11 +58,14 @@ class DoctorItemWgt extends StatelessWidget {
                   ),
                   Container(
                     child: RatingBar.builder(
+                      itemSize: 25,
                       initialRating: initialRating,
                       minRating: 1,
                       direction: Axis.horizontal,
-                      allowHalfRating: true,
+                      allowHalfRating: false,
                       itemCount: 5,
+                      ignoreGestures: true,
+                      tapOnlyMode: true,
                       itemBuilder: (context, _) => Icon(
                         Icons.star,
                         color: Colors.amber,

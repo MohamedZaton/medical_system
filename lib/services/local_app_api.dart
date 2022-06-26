@@ -10,10 +10,11 @@ import '../models/order_model.dart';
 import '../tools/api_keys.dart';
 
 class LocalAppApi implements AppApi {
+  final String localServer = 'assets/local_data/';
   @override
   Future<List<DepartItemModel>> fetchDepartmentsItems() async {
     String jsonContent =
-        await rootBundle.loadString('assets/local_data/department_data.json');
+        await rootBundle.loadString(localServer + 'department_data.json');
     List<dynamic> jsonData = json.decode(jsonContent);
     List<DepartItemModel> items = DepartItemModel.getListObject(jsonData);
     return items;
@@ -22,7 +23,7 @@ class LocalAppApi implements AppApi {
   @override
   Future<List<OrderModel>> fetchOrdersItems() async {
     String jsonContent =
-        await rootBundle.loadString('assets/local_data/orders_data.json');
+        await rootBundle.loadString(localServer + 'orders_data.json');
     List<dynamic> jsonData = json.decode(jsonContent);
     List<OrderModel> items = OrderModel.getListObject(jsonData);
     return items;
@@ -31,7 +32,7 @@ class LocalAppApi implements AppApi {
   @override
   Future<List<DeliveryModel>> fetchDeliveriesItems() async {
     String jsonContent =
-        await rootBundle.loadString('assets/local_data/delivery_boy_data.json');
+        await rootBundle.loadString(localServer + 'delivery_boy_data.json');
     List<dynamic> jsonData = json.decode(jsonContent);
     List<DeliveryModel> items = DeliveryModel.getListObject(jsonData);
     return items;
@@ -40,8 +41,7 @@ class LocalAppApi implements AppApi {
   @override
   Future<List<DepartItemModel>> fetchSubDepartItems(
       {String fileName = kClinicsPath}) async {
-    String jsonContent =
-        await rootBundle.loadString('assets/local_data/' + fileName);
+    String jsonContent = await rootBundle.loadString(localServer + fileName);
     List<dynamic> jsonData = json.decode(jsonContent);
     List<DepartItemModel> items = DepartItemModel.getListObject(jsonData);
     return items;
@@ -50,7 +50,7 @@ class LocalAppApi implements AppApi {
   @override
   Future<List<BookingDoctorModel>> fetchDoctorBookingItems() async {
     String jsonContent =
-        await rootBundle.loadString('assets/local_data/' + kDoctorBookingPath);
+        await rootBundle.loadString(localServer + kDoctorBookingPath);
     List<dynamic> jsonData = json.decode(jsonContent);
     List<BookingDoctorModel> items = BookingDoctorModel.getListObject(jsonData);
     return items;

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../services/local_app_api.dart';
 import '../../tools/api_keys.dart';
+import '../../utils/math_methods.dart';
 import '../booking_doctor/booking_doctor_view.dart';
 
 class DoctorsListLogic extends GetxController {
@@ -40,7 +41,7 @@ class DoctorsListLogic extends GetxController {
             return DoctorItemWgt(
               doctorItemModel: item,
               index: numPostion,
-              initialRating: 3.0,
+              initialRating: MathMethods.getRandom(1, 5),
               onPressed: () {
                 Get.to(() => BookingDoctorPage(
                       doctorInfoModel: item,

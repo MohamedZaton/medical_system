@@ -3,6 +3,7 @@ import 'package:developer/tools/colors.dart';
 import 'package:developer/utils/screens.dart';
 import 'package:developer/widgets/flux_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 import '../../tools/constants.dart';
@@ -24,6 +25,50 @@ class MedicalFormPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<dynamic> selectAddressDialog(MedicalFormLogic controller) {
+      return Get.defaultDialog(
+        title: kSelectedAddressTxt,
+        titleStyle: TextStyle(color: kLightAccent),
+        middleTextStyle: TextStyle(color: Colors.black),
+        backgroundColor: Colors.white,
+        content: Container(
+          height: ScreenDevices.heigth(context) * 0.90,
+          width: ScreenDevices.width(context) * 0.70,
+          child: ListView(
+            children: [
+              OvalButtonWdgt(
+                text: kDemoAddressOneTxt,
+                onPressed: () {
+                  controller.choseAddressPharmices(kDemoAddressOneTxt);
+                  Get.back();
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              OvalButtonWdgt(
+                text: kDemoAddressTwoTxt,
+                onPressed: () {
+                  controller.choseAddressPharmices(kDemoAddressTwoTxt);
+                  Get.back();
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              OvalButtonWdgt(
+                text: kDemoAddressThreeTxt,
+                onPressed: () {
+                  controller.choseAddressPharmices(kDemoAddressThreeTxt);
+                  Get.back();
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -34,135 +79,113 @@ class MedicalFormPage extends StatelessWidget {
           init: MedicalFormLogic(),
           assignId: true,
           builder: (logic) {
-            Future<dynamic> selectAddressDialog(MedicalFormLogic controller) {
-              return Get.defaultDialog(
-                title: kSelectedAddressTxt,
-                titleStyle: TextStyle(color: kLightAccent),
-                middleTextStyle: TextStyle(color: Colors.black),
-                backgroundColor: Colors.white,
-                content: Container(
-                  height: ScreenDevices.heigth(context) * 0.60,
-                  width: ScreenDevices.width(context) * 0.70,
-                  child: ListView(
-                    children: [
-                      OvalButtonWdgt(
-                        text: kDemoAddressOneTxt,
-                        onPressed: () {
-                          controller.choseAddressPharmices(kDemoAddressOneTxt);
-                          Get.back();
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      OvalButtonWdgt(
-                        text: kDemoAddressTwoTxt,
-                        onPressed: () {
-                          controller.choseAddressPharmices(kDemoAddressTwoTxt);
-                          Get.back();
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      OvalButtonWdgt(
-                        text: kDemoAddressThreeTxt,
-                        onPressed: () {
-                          controller
-                              .choseAddressPharmices(kDemoAddressThreeTxt);
-                          Get.back();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
-
             return Container(
-              alignment: Alignment.center,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  (logic.isAttached == false)
-                      ? FluxImage(
-                          imageUrl: pharmacyLogo,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.file(
-                          logic.image,
-                          height: 300.0,
-                          fit: BoxFit.cover,
-                        ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      FloatingActionButton(
-                          heroTag: "upload_image",
-                          child: Icon(Icons.add_a_photo_sharp),
-                          backgroundColor: kDarkAccent,
-                          onPressed: () {
-                            logic.getImage();
-                          }),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: ScreenDevices.width(context) * 0.70,
-                        child: ShadowButton(
-                          backgroundColor: kSeeMoreColor,
-                          name: kDoctorPaperText,
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: ScreenDevices.width(context) * 0.90,
-                    child: ShadowButton(
-                      backgroundColor: kDarkAccent,
-                      name: logic.selectedAddressPharmices,
-                      onPressed: () {
-                        selectAddressDialog(logic);
-                      },
+              alignment: Alignment.topCenter,
+              width: ScreenDevices.width(context),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  if (logic.isAttached) ...[
-                    Column(
+                    SizedBox(
+                      height: 20,
+                    ),
+                    (logic.isAttached == false)
+                        ? FluxImage(
+                            imageUrl: pharmacyLogo,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            logic.image,
+                            height: 300.0,
+                            fit: BoxFit.cover,
+                          ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      child: RatingBar.builder(
+                        initialRating: 3,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {
+                          print(rating);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        FloatingActionButton(
+                            heroTag: "upload_image",
+                            child: Icon(Icons.add_a_photo_sharp),
+                            backgroundColor: kDarkAccent,
+                            onPressed: () {
+                              logic.getImage();
+                            }),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Container(
                           width: ScreenDevices.width(context) * 0.70,
                           child: ShadowButton(
-                            backgroundColor: kDarkAccent,
-                            name: kSendPaperText,
+                            backgroundColor: kSeeMoreColor,
+                            name: kDoctorPaperText,
                             onPressed: () {},
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: ScreenDevices.width(context) * 0.90,
+                      child: ShadowButton(
+                        backgroundColor: kDarkAccent,
+                        name: logic.selectedAddressPharmices,
+                        onPressed: () {
+                          selectAddressDialog(logic);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    if (logic.isAttached) ...[
+                      Column(
+                        children: [
+                          Container(
+                            width: ScreenDevices.width(context) * 0.70,
+                            child: ShadowButton(
+                              backgroundColor: kDarkAccent,
+                              name: kSendPaperText,
+                              onPressed: () {},
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ],
-                ],
+                ),
               ),
             );
           },

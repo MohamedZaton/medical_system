@@ -1,3 +1,4 @@
+import 'package:developer/utils/screens.dart';
 import 'package:flutter/material.dart';
 
 import 'flux_image.dart';
@@ -13,7 +14,13 @@ class UnderConstructionWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [FluxImage(imageUrl: "assets/icons/work_in_progress.png")],
+        children: [
+          FluxImage(
+            imageUrl: "assets/icons/work_in_progress.png",
+            width: ScreenDevices.width(context) * 0.9,
+            height: ScreenDevices.heigth(context) * 0.5,
+          )
+        ],
       ),
     );
   }

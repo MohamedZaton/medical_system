@@ -1,0 +1,33 @@
+[
+  {
+    "department": "معامل حساب ",
+    "icon_path": "assets/labs/lab_7sab.png",
+    "go_path": " "
+  },
+  {
+    "department": "معامل ألفا ",
+    "icon_path": "assets/labs/lab_alfa.png",
+    "go_path": " "
+  },
+  {
+    "department": "معامل البرج ",
+    "icon_path": "assets/labs/lab_el_barg.png",
+    "go_path": " "
+  },
+  {
+    "department": "معامل المختبر ",
+    "icon_path": "assets/labs/lab_elb5tabr.png",
+    "go_path": " "
+  },
+  {
+    "department": "معامل دار الحكمه ",
+    "icon_path": "assets/labs/lab_eldar.png",
+    "go_path": " "
+  },
+  {
+    "department": "معامل الشمس ",
+    "icon_path": "assets/labs/lab_sun.png",
+    "go_path": " "
+  }
+
+]

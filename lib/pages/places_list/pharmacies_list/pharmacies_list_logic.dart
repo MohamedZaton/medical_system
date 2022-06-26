@@ -40,6 +40,7 @@ class PharmaciesListLogic extends GetxController {
             return DepartItemWgt(
               homeItemModel: item,
               index: numPostion,
+              hasRating: true,
               onPressed: () {
                 Get.to(MedicalFormPage(
                   pharmacyLogo: item.iconPath.toString(),

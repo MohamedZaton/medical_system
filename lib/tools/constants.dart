@@ -35,6 +35,7 @@ const String kDelivery = "فى الطريق";
 const kProfileTxt = "الملف الشخصي";
 const kLanguageTxt = "اللغة";
 const kWhatsappTxt = "الواتساب ";
+const kFacebookTxt = "فيس بوك ";
 const kContactUsTxt = "تواصل معنا";
 const kShareAppTxt = "مشاركة التطبيق";
 const kRateAppTxt = "تقيم التطبيق";

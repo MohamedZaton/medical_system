@@ -1,6 +1,8 @@
 import 'package:developer/tools/colors.dart';
+import 'package:developer/utils/math_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../models/depart_item_model.dart';
 import 'flux_image.dart';
@@ -8,12 +10,17 @@ import 'flux_image.dart';
 class DepartItemWgt extends StatelessWidget {
   final DepartItemModel homeItemModel;
   final int index;
+  final bool? hasRating;
+  final double? initialRating;
+
   final Function()? onPressed;
   const DepartItemWgt({
     Key? key,
     required this.homeItemModel,
     required this.index,
     required this.onPressed,
+    this.initialRating,
+    this.hasRating = false,
   }) : super(key: key);
 
   @override
@@ -43,12 +50,40 @@ class DepartItemWgt extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              Text(
-                homeItemModel.department!,
-                style: TextStyle(
-                    fontFamily: 'Sukar',
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    homeItemModel.department!,
+                    style: TextStyle(
+                        fontFamily: 'Sukar',
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal),
+                  ),
+                  if (hasRating ?? false) ...[
+                    Container(
+                      child: RatingBar.builder(
+                        itemSize: 25,
+                        initialRating:
+                            initialRating ?? MathMethods.getRandom(1, 5),
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: false,
+                        itemCount: 5,
+                        ignoreGestures: true,
+                        tapOnlyMode: true,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {
+                          print(rating);
+                        },
+                      ),
+                    ),
+                  ]
+                ],
               ),
               SizedBox(
                 width: 20,

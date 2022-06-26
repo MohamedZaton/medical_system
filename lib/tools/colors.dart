@@ -9,6 +9,7 @@ const KLogCardColor = Color(0xFFE3E6EC);
 const KDropBoxTwoShadowColor = Color(0xFFD1D9E6);
 const kLightAccent = Color(0xFF17b1f5);
 const kCyanColor = Color(0xFF83B8E0);
+const kCyanHomeColor = Color(0xFF8AC1E7);
 const kBackgdDarkColor = Color(0xFF1A202C);
 const kBackgdLightColor = Color(0xFFFFFFFF);
 Color shadowColorGlobal = Colors.grey.withOpacity(0.2);

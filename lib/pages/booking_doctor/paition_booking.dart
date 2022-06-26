@@ -1,6 +1,7 @@
 import 'package:developer/pages/booking_doctor/booking_doctor_logic.dart';
 import 'package:developer/tools/constants.dart';
 import 'package:developer/widgets/oval_btn_widget.dart';
+import 'package:developer/widgets/side_menu_bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -103,70 +104,30 @@ class PatientBkPage extends StatelessWidget {
                 /// calender piker popup
                 _selectCalenderPicker(context);
               },
-              child: Container(
-                width: ScreenDevices.width(context) * 0.90,
-                height: ScreenDevices.width(context) * 0.15,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                      color: Colors.white,
-                    ),
-                    kCustomText(logic.selectDayTitle,
-                        fontSize: textSizeLargeMedium,
-                        textColor: Colors.white,
-                        fontFamily: fontMedium),
-                    Image.asset(
-                      kCalenderIcon,
-                      width: 40,
-                      height: 40,
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    color: kDarkAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-              ),
+              child: SideMenuButton(
+                  width: ScreenDevices.width(context) * 0.90,
+                  height: ScreenDevices.heigth(context) * 0.05,
+                  centerTitle: logic.selectDayTitle,
+                  rightImagePath: kCalenderIcon),
             ),
 
             /// select time
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             InkWell(
               onTap: () {
-                //todo time picker popup
                 _selectTimePicker(context);
               },
-              child: Container(
-                width: ScreenDevices.width(context) * 0.90,
-                height: ScreenDevices.width(context) * 0.15,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                      color: Colors.white,
-                    ),
-                    kCustomText(logic.selectTimeTitle,
-                        fontSize: textSizeLargeMedium,
-                        textColor: Colors.white,
-                        fontFamily: fontMedium),
-                    Image.asset(
-                      kClockWallIcon,
-                      width: 40,
-                      height: 40,
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    color: kDarkAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-              ),
+              child: SideMenuButton(
+                  width: ScreenDevices.width(context) * 0.90,
+                  height: ScreenDevices.heigth(context) * 0.05,
+                  centerTitle: logic.selectTimeTitle,
+                  iconScale: 10,
+                  rightImagePath: kClockWallIcon),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Align(
               alignment: Alignment.center,
@@ -176,13 +137,14 @@ class PatientBkPage extends StatelessWidget {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Container(
                   width: ScreenDevices.width(context) * 0.90,
+                  height: ScreenDevices.heigth(context) * 0.05,
                   child: ShadowButton(
                     backgroundColor: (logic.isHomeVisited == false)
                         ? kDarkAccent
@@ -199,13 +161,14 @@ class PatientBkPage extends StatelessWidget {
               height: 20,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 10,
                 ),
                 Container(
                   width: ScreenDevices.width(context) * 0.90,
+                  height: ScreenDevices.heigth(context) * 0.05,
                   child: ShadowButton(
                     backgroundColor:
                         (logic.isHomeVisited) ? kDarkAccent : kSeeMoreColor,
@@ -222,15 +185,21 @@ class PatientBkPage extends StatelessWidget {
               height: 20,
             ),
             (logic.isHomeVisited)
-                ? Container(
-                    width: ScreenDevices.width(context) * 0.90,
-                    child: ShadowButton(
-                      backgroundColor: kDarkAccent,
-                      name: logic.selectedAddress,
-                      onPressed: () {
-                        selectAddressDialog(logic);
-                      },
-                    ),
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: ScreenDevices.width(context) * 0.90,
+                        height: ScreenDevices.heigth(context) * 0.05,
+                        child: ShadowButton(
+                          backgroundColor: kDarkAccent,
+                          name: logic.selectedAddress,
+                          onPressed: () {
+                            selectAddressDialog(logic);
+                          },
+                        ),
+                      ),
+                    ],
                   )
                 : SizedBox(
                     height: 20,

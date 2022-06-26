@@ -17,7 +17,7 @@ class HomeTabWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          color: kCyanColor,
+          color: kCyanHomeColor,
           alignment: Alignment.bottomCenter,
           child: FluxImage(
             imageUrl: kHomeIcon,
@@ -25,28 +25,32 @@ class HomeTabWidget extends StatelessWidget {
             height: 400,
           ),
         ),
-        Container(
-            width: ScreenDevices.width(context),
-            height: 150,
-            child: CarouselSlider(
-              options: CarouselOptions(
-                autoPlay: true,
-                autoPlayAnimationDuration: Duration(seconds: 2),
-                viewportFraction: 1,
-                aspectRatio: 1,
-                enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
-              ),
-              items: [
-                AdsSpaceWidget(),
-                AdsSpaceWidget(
-                  backgroundColor: Colors.blue,
+        Positioned(
+          top: 30,
+          child: Container(
+              width: ScreenDevices.width(context),
+              color: kCyanHomeColor,
+              height: 160,
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  autoPlayAnimationDuration: Duration(seconds: 2),
+                  viewportFraction: 1,
+                  aspectRatio: 1,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
                 ),
-                AdsSpaceWidget(
-                  backgroundColor: Colors.green,
-                ),
-              ],
-            ))
+                items: [
+                  AdsSpaceWidget(),
+                  AdsSpaceWidget(
+                    backgroundColor: Colors.blue,
+                  ),
+                  AdsSpaceWidget(
+                    backgroundColor: Colors.green,
+                  ),
+                ],
+              )),
+        )
       ],
     );
   }

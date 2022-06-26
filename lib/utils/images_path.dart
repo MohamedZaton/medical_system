@@ -7,4 +7,5 @@ const String kShareAppImg = "assets/icons/share_icon.png";
 const String kRateImg = "assets/icons/rate_icon.png";
 const String kAboutImg = "assets/icons/info_icon.png";
 const String kWhatsAppImg = "assets/icons/whatsapp.png";
+const String kFaceBookAppImg = "assets/icons/facebook.png";
 const String kLogoAppImg = 'assets/logo/logo.png';

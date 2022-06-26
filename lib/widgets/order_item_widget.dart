@@ -45,7 +45,6 @@ class OrderItemWgt extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   /// main info 2
-
                   Flexible(
                     flex: 1,
                     child: Container(
@@ -62,9 +61,10 @@ class OrderItemWgt extends StatelessWidget {
                       child: Text(
                         orderItem.state!,
                         style: TextStyle(
-                            fontFamily: 'Sukar',
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal),
+                          fontFamily: 'Sukar',
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ),
@@ -72,12 +72,12 @@ class OrderItemWgt extends StatelessWidget {
                   Flexible(
                     flex: 1,
                     child: Container(
-                      width: 150,
+                      width: 60,
                       height: 30,
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.all(
-                          Radius.circular(40),
+                          Radius.circular(10),
                         ),
                       ),
                       child: Icon(

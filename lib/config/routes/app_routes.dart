@@ -1,3 +1,5 @@
+import 'package:developer/pages/places_list/labs_list/labs_list_logic.dart';
+import 'package:developer/pages/places_list/labs_list/labs_list_view.dart';
 import 'package:developer/pages/profile/profile_controller.dart';
 import 'package:developer/pages/profile/profile_view.dart';
 import 'package:get/get.dart';
@@ -135,6 +137,13 @@ class AppRoutes {
         page: () => PharmaciesListPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut<PharmaciesListLogic>(() => PharmaciesListLogic());
+        }),
+      ),
+      GetPage(
+        name: LabsListPage.id,
+        page: () => LabsListPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<LabsListLogic>(() => LabsListLogic());
         }),
       ),
       GetPage(

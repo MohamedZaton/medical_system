@@ -25,8 +25,14 @@
     "go_path": " "
   },
   {
+    "department": "التحاليل الطبيه",
+    "icon_path": "assets/icons/lab_dep.png",
+    "go_path": " "
+  },
+  {
     "department": "المساعدات الطبيه",
     "icon_path": "assets/icons/pharmacist.png",
     "go_path": " "
   }
+
 ]

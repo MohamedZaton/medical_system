@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 
 import '../../../models/depart_item_model.dart';
 import '../../../services/local_app_api.dart';
-import '../../../widgets/depart_item_widget.dart';
 
 class LabsListLogic extends GetxController {
   RxBool isLoading = false.obs;
-  RxList mainItemList = <DepartItemWgt>[].obs;
+  RxList<DepartItemModel> mainItemList = <DepartItemModel>[].obs;
+  Rx<DepartItemModel> selectedLab = DepartItemModel().obs;
   RxString title = kMedicalLabsKey.obs;
 
   @override
@@ -29,22 +29,8 @@ class LabsListLogic extends GetxController {
     try {
       isLoading.value = true;
 
-      List<DepartItemModel> homeItems = await LocalAppApi()
+      mainItemList.value = await LocalAppApi()
           .fetchSubDepartItems(fileName: kDepartmentsApi[title.value]!);
-      int numPostion = -1;
-      mainItemList.value = List<DepartItemWgt>.from(
-        homeItems.map(
-          (item) {
-            numPostion++;
-            return DepartItemWgt(
-              homeItemModel: item,
-              index: numPostion,
-              hasRating: false,
-              onPressed: () {},
-            );
-          },
-        ),
-      );
     } finally {
       isLoading.value = false;
     }

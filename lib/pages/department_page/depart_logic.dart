@@ -1,7 +1,7 @@
 import 'package:developer/models/depart_item_model.dart';
+import 'package:developer/pages/labs_medical_department/lab_sections/lab_sections_view.dart';
 import 'package:developer/pages/places_list/clinics_list/clinic_list_view.dart';
 import 'package:developer/pages/places_list/hospitals_list/hospitals_list_view.dart';
-import 'package:developer/pages/places_list/labs_list/labs_list_view.dart';
 import 'package:developer/pages/places_list/medical_support_list/medical_support_list_view.dart';
 import 'package:developer/pages/places_list/nursing_services_list/nursing_services_list_view.dart';
 import 'package:developer/pages/places_list/pharmacies_list/pharmacies_list_view.dart';
@@ -34,7 +34,7 @@ class DepartmentLogic extends GetxController {
       NursingServicesListPage.id,
       PharmaciesListPage.id,
       XRayListPage.id,
-      LabsListPage.id,
+      LabSectionsPage.id,
       MedicalSupportListPage.id,
     ];
     try {

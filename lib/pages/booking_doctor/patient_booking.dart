@@ -1,4 +1,5 @@
 import 'package:developer/pages/booking_doctor/booking_doctor_logic.dart';
+import 'package:developer/pages/divisions/divisions_logic.dart';
 import 'package:developer/tools/constants.dart';
 import 'package:developer/widgets/oval_btn_widget.dart';
 import 'package:developer/widgets/side_menu_bottom.dart';
@@ -14,6 +15,7 @@ import '../../widgets/shadow_btn_widget.dart';
 
 class PatientBkPage extends StatelessWidget {
   final logic = Get.put(BookingDoctorLogic());
+  final divisionsLogic = Get.put(DivisionsLogic());
   DateTime initDate = DateTime.now();
 
   PatientBkPage({
@@ -142,68 +144,57 @@ class PatientBkPage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  width: ScreenDevices.width(context) * 0.90,
-                  height: ScreenDevices.heigth(context) * 0.05,
-                  child: ShadowButton(
-                    backgroundColor: (logic.isHomeVisited == false)
-                        ? kDarkAccent
-                        : kSeeMoreColor,
-                    name: "  كشف عيادة ${doctorInfoModel!.clinicPrice} ",
-                    onPressed: () {
-                      logic.selectHomePriceVisit(select: false);
-                    },
+                if (divisionsLogic.selectedIndex == 0) ...[
+                  Container(
+                    width: ScreenDevices.width(context) * 0.90,
+                    height: ScreenDevices.heigth(context) * 0.05,
+                    child: ShadowButton(
+                      backgroundColor: (logic.isHomeVisited == false)
+                          ? kDarkAccent
+                          : kSeeMoreColor,
+                      name:
+                          " ${kClinicExaminationTxt} ${doctorInfoModel!.clinicPrice} ",
+                      onPressed: () {
+                        logic.selectHomePriceVisit(select: false);
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: ScreenDevices.width(context) * 0.90,
-                  height: ScreenDevices.heigth(context) * 0.05,
-                  child: ShadowButton(
-                    backgroundColor:
-                        (logic.isHomeVisited) ? kDarkAccent : kSeeMoreColor,
-                    name: "  كشف منزلى ${doctorInfoModel!.homePrice} ",
-                    onPressed: () {
-                      logic.selectHomePriceVisit(select: true);
-                    },
+                ] else ...[
+                  Container(
+                    width: ScreenDevices.width(context) * 0.90,
+                    height: ScreenDevices.heigth(context) * 0.05,
+                    child: ShadowButton(
+                      backgroundColor: kSeeMoreColor,
+                      name:
+                          "  $kHomeExaminationTxt ${doctorInfoModel!.homePrice} ",
+                      onPressed: () {},
+                    ),
                   ),
-                ),
+                ],
               ],
             ),
 
             SizedBox(
               height: 20,
             ),
-            (logic.isHomeVisited)
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: ScreenDevices.width(context) * 0.90,
-                        height: ScreenDevices.heigth(context) * 0.05,
-                        child: ShadowButton(
-                          backgroundColor: kDarkAccent,
-                          name: logic.selectedAddress,
-                          onPressed: () {
-                            selectAddressDialog(logic);
-                          },
-                        ),
-                      ),
-                    ],
-                  )
-                : SizedBox(
-                    height: 20,
+            if (divisionsLogic.selectedIndex != 0) ...[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: ScreenDevices.width(context) * 0.90,
+                    height: ScreenDevices.heigth(context) * 0.05,
+                    child: ShadowButton(
+                      backgroundColor: kDarkAccent,
+                      name: logic.selectedAddress,
+                      onPressed: () {
+                        selectAddressDialog(logic);
+                      },
+                    ),
                   ),
+                ],
+              )
+            ],
             SizedBox(
               height: 3,
             ),

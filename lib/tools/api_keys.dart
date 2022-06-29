@@ -7,6 +7,7 @@ const String kHospitalsTitleKey = "المستشفيات";
 const String kClinicsTitleKey = "العيادات";
 const String kNursingKey = "خدمات التمريض";
 const String kPharmacyTitleKey = "الصيدليات";
+const String kDivisionTitleKey = "النوع";
 const String kXRayTitleKey = "مراكز الأشعة";
 const String kMedicalLabsKey = "التحاليل الطبيه";
 const String kMedicalSupportTitleKey = "المساعدات الطبيه";

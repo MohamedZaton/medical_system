@@ -1,3 +1,4 @@
+import '../models/analyses_model.dart';
 import '../models/booking_doctor_model.dart';
 import '../models/delivery_model.dart';
 import '../models/depart_item_model.dart';
@@ -19,4 +20,5 @@ abstract class AppApi {
   Future<List<OrderModel>> fetchOrdersItems();
 
   Future<List<DeliveryModel>> fetchDeliveriesItems();
+  Future<List<AnalysesModel>> fetchAnalysesItems();
 }

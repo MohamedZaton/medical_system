@@ -1,5 +1,4 @@
-import 'package:developer/models/booking_doctor_model.dart';
-import 'package:developer/pages/booking_doctor/paition_booking.dart';
+import 'package:developer/pages/booking_doctor/patient_booking.dart';
 import 'package:developer/pages/message/message_view.dart';
 import 'package:developer/tools/colors.dart';
 import 'package:developer/tools/constants.dart';
@@ -16,10 +15,9 @@ import 'doctor_info.dart';
 
 class BookingDoctorPage extends StatelessWidget {
   final logic = Get.put(BookingDoctorLogic());
-  final BookingDoctorModel? doctorInfoModel;
   static const String id = "/doctors_booking";
 
-  BookingDoctorPage({Key? key, this.doctorInfoModel}) : super(key: key);
+  BookingDoctorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +50,7 @@ class BookingDoctorPage extends StatelessWidget {
                         width: 100,
                         height: 100,
                         child: FluxImage(
-                          imageUrl: doctorInfoModel!.imagePath!,
+                          imageUrl: logic.selectedDoctorModel.value.imagePath!,
                           width: 80,
                           height: 80,
                           fit: BoxFit.contain,
@@ -80,7 +78,7 @@ class BookingDoctorPage extends StatelessWidget {
 
                       ///  name doctor
                       Text(
-                        doctorInfoModel!.name!,
+                        logic.selectedDoctorModel.value.name!,
                         style: kHeaderTextStyle.copyWith(color: kDarkAccent),
                       ),
                       SizedBox(
@@ -88,8 +86,12 @@ class BookingDoctorPage extends StatelessWidget {
                         child: IndexedStack(
                           index: logic.bookingPage,
                           children: [
-                            DoctorInfoPage(doctorInfoModel: doctorInfoModel),
-                            PatientBkPage(doctorInfoModel: doctorInfoModel),
+                            DoctorInfoPage(
+                                doctorInfoModel:
+                                    logic.selectedDoctorModel.value),
+                            PatientBkPage(
+                                doctorInfoModel:
+                                    logic.selectedDoctorModel.value),
                           ],
                         ),
                       ),

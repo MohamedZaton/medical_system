@@ -7,7 +7,7 @@ import '../../tools/constants.dart';
 
 class BookingDoctorLogic extends GetxController {
   RxBool isLoading = false.obs;
-  BookingDoctorModel bookingDoctorModel = BookingDoctorModel();
+  Rx<BookingDoctorModel> selectedDoctorModel = BookingDoctorModel().obs;
   int bookingPage = 0;
   bool isHomeVisited = false;
   String selectedAddress = kSelectedAddressTxt;

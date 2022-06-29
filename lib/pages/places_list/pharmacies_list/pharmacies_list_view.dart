@@ -1,8 +1,12 @@
+import 'package:developer/tools/constants.dart';
+import 'package:developer/widgets/depart_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/screens.dart';
 import '../../../widgets/unber_constract_widget.dart';
+import '../../medical_form/medical_form_view.dart';
+import '../../message/message_view.dart';
 import 'pharmacies_list_logic.dart';
 
 class PharmaciesListPage extends StatelessWidget {
@@ -27,20 +31,48 @@ class PharmaciesListPage extends StatelessWidget {
               //WebBarWidget(),
 
               Expanded(child: Obx(() {
+                int numPostion = -1;
+                List<DepartItemWgt> mainItemList = List<DepartItemWgt>.from(
+                  logic.mainItemList.value.map(
+                    (item) {
+                      numPostion++;
+                      return DepartItemWgt(
+                        homeItemModel: item,
+                        index: numPostion,
+                        hasRating: true,
+                        onPressed: () {
+                          Get.to(MedicalFormPage(
+                            pharmacyLogo: item.iconPath.toString(),
+                            pharmacyTitle: item.department.toString(),
+                            isRate: true,
+                            onSend: () {
+                              Get.to(() => MessagePage());
+                            },
+                            addressList: [
+                              kDemoAddressOneTxt,
+                              kDemoAddressTwoTxt,
+                              kDemoAddressThreeTxt
+                            ],
+                          ));
+                        },
+                      );
+                    },
+                  ),
+                );
                 if (logic.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  return (logic.mainItemList.length > 0)
+                  return (mainItemList.length > 0)
                       ? Container(
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
-                            itemCount: logic.mainItemList.length,
+                            itemCount: mainItemList.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical:
                                         ScreenDevices.heigth(context) * 0.01),
-                                child: logic.mainItemList[index],
+                                child: mainItemList[index],
                               );
                             },
                           ),

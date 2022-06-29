@@ -1,15 +1,12 @@
 import 'package:developer/models/booking_doctor_model.dart';
-import 'package:developer/widgets/doctor_item_widget.dart';
 import 'package:get/get.dart';
 
 import '../../services/local_app_api.dart';
 import '../../tools/api_keys.dart';
-import '../../utils/math_methods.dart';
-import '../booking_doctor/booking_doctor_view.dart';
 
 class DoctorsListLogic extends GetxController {
   RxBool isLoading = false.obs;
-  RxList mainItemList = <DoctorItemWgt>[].obs;
+  RxList<BookingDoctorModel> mainItemList = <BookingDoctorModel>[].obs;
   RxString title = kClinicsTitleKey.obs;
 
   @override
@@ -22,8 +19,6 @@ class DoctorsListLogic extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
-
     super.onClose();
   }
 
@@ -31,26 +26,7 @@ class DoctorsListLogic extends GetxController {
     try {
       isLoading.value = true;
 
-      List<BookingDoctorModel> homeItems =
-          await LocalAppApi().fetchDoctorBookingItems();
-      int numPostion = -1;
-      mainItemList.value = List<DoctorItemWgt>.from(
-        homeItems.map(
-          (item) {
-            numPostion++;
-            return DoctorItemWgt(
-              doctorItemModel: item,
-              index: numPostion,
-              initialRating: MathMethods.getRandom(1, 5),
-              onPressed: () {
-                Get.to(() => BookingDoctorPage(
-                      doctorInfoModel: item,
-                    ));
-              },
-            );
-          },
-        ),
-      );
+      mainItemList.value = await LocalAppApi().fetchDoctorBookingItems();
     } finally {
       isLoading.value = false;
     }

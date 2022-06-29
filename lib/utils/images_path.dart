@@ -9,3 +9,5 @@ const String kAboutImg = "assets/icons/info_icon.png";
 const String kWhatsAppImg = "assets/icons/whatsapp.png";
 const String kFaceBookAppImg = "assets/icons/facebook.png";
 const String kLogoAppImg = 'assets/logo/logo.png';
+const String kMicroScopeImg = 'assets/icons/lab.png';
+const String kAddPhotoImg = 'assets/icons/add-photo.png';

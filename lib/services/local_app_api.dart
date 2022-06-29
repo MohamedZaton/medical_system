@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:developer/models/analyses_model.dart';
 import 'package:developer/models/booking_doctor_model.dart';
 import 'package:developer/models/delivery_model.dart';
 import 'package:developer/models/depart_item_model.dart';
@@ -26,6 +27,15 @@ class LocalAppApi implements AppApi {
         await rootBundle.loadString(localServer + 'orders_data.json');
     List<dynamic> jsonData = json.decode(jsonContent);
     List<OrderModel> items = OrderModel.getListObject(jsonData);
+    return items;
+  }
+
+  @override
+  Future<List<AnalysesModel>> fetchAnalysesItems() async {
+    String jsonContent =
+        await rootBundle.loadString(localServer + 'analyses_data.json');
+    List<dynamic> jsonData = json.decode(jsonContent);
+    List<AnalysesModel> items = AnalysesModel.getListObject(jsonData);
     return items;
   }
 

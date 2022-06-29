@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/screens.dart';
+import '../../../widgets/depart_item_widget.dart';
+import '../../doctor_list_page/doctors_list_view.dart';
 import 'clinic_list_logic.dart';
 
 class ClinicsListPage extends StatelessWidget {
@@ -27,20 +29,36 @@ class ClinicsListPage extends StatelessWidget {
               //WebBarWidget(),
 
               Expanded(child: Obx(() {
+                int numPostion = -1;
+                List<DepartItemWgt> clinicItems = List<DepartItemWgt>.from(
+                  logic.mainItemList.value.map(
+                    (item) {
+                      numPostion++;
+                      return DepartItemWgt(
+                        homeItemModel: item,
+                        index: numPostion,
+                        hasRating: false,
+                        onPressed: () {
+                          Get.to(() => DoctorListPage());
+                        },
+                      );
+                    },
+                  ),
+                );
                 if (logic.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  return (logic.mainItemList.length > 0)
+                  return (logic.mainItemList.value.length > 0)
                       ? Container(
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
-                            itemCount: logic.mainItemList.length,
+                            itemCount: clinicItems.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical:
                                         ScreenDevices.heigth(context) * 0.01),
-                                child: logic.mainItemList[index],
+                                child: clinicItems[index],
                               );
                             },
                           ),

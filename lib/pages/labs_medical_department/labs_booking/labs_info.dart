@@ -1,19 +1,19 @@
+import 'package:developer/models/booking_lab_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/booking_doctor_model.dart';
-import '../../tools/colors.dart';
-import '../../tools/constants.dart';
-import '../../utils/images_path.dart';
-import '../../utils/screens.dart';
-import '../../widgets/shadow_btn_widget.dart';
+import '../../../tools/colors.dart';
+import '../../../tools/constants.dart';
+import '../../../utils/images_path.dart';
+import '../../../utils/screens.dart';
+import '../../../widgets/shadow_btn_widget.dart';
 
-class DoctorInfoPage extends StatelessWidget {
-  const DoctorInfoPage({
+class LabInfoPage extends StatelessWidget {
+  const LabInfoPage({
     Key? key,
-    required this.doctorInfoModel,
+    required this.labInfoModel,
   }) : super(key: key);
 
-  final BookingDoctorModel? doctorInfoModel;
+  final BookingLabModel? labInfoModel;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class DoctorInfoPage extends StatelessWidget {
                 child: ShadowButton(
                   backgroundColor: kSeeMoreColor,
                   name:
-                      "من ${doctorInfoModel!.dayStart} إلي  ${doctorInfoModel!.dayEnd}",
+                      "من ${labInfoModel!.dayStart} إلي  ${labInfoModel!.dayEnd}",
                   onPressed: () {},
                 ),
               ),
@@ -109,7 +109,7 @@ class DoctorInfoPage extends StatelessWidget {
                 child: ShadowButton(
                   backgroundColor: kSeeMoreColor,
                   name:
-                      " من ${doctorInfoModel!.timeStart} إلي  ${doctorInfoModel!.timeEnd}",
+                      " من ${labInfoModel!.timeStart} إلي  ${labInfoModel!.timeEnd}",
                   onPressed: () {},
                 ),
               ),

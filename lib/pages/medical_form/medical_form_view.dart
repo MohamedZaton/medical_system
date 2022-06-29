@@ -16,59 +16,21 @@ class MedicalFormPage extends StatelessWidget {
   static const String id = "/medical_form";
   final String pharmacyLogo;
   final String pharmacyTitle;
+  final bool? isRate;
+  final List<String>? addressList;
+  final dynamic onSend;
 
   MedicalFormPage(
       {Key? key,
       this.pharmacyLogo = "assets/pharmacies/life.png",
-      this.pharmacyTitle = kPharmacyTitleKey})
+      this.pharmacyTitle = kPharmacyTitleKey,
+      this.isRate = false,
+      this.addressList = const <String>[],
+      this.onSend})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Future<dynamic> selectAddressDialog(MedicalFormLogic controller) {
-      return Get.defaultDialog(
-        title: kSelectedAddressTxt,
-        titleStyle: TextStyle(color: kLightAccent),
-        middleTextStyle: TextStyle(color: Colors.black),
-        backgroundColor: Colors.white,
-        content: Container(
-          height: ScreenDevices.heigth(context) * 0.90,
-          width: ScreenDevices.width(context) * 0.70,
-          child: ListView(
-            children: [
-              OvalButtonWdgt(
-                text: kDemoAddressOneTxt,
-                onPressed: () {
-                  controller.choseAddressPharmices(kDemoAddressOneTxt);
-                  Get.back();
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              OvalButtonWdgt(
-                text: kDemoAddressTwoTxt,
-                onPressed: () {
-                  controller.choseAddressPharmices(kDemoAddressTwoTxt);
-                  Get.back();
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              OvalButtonWdgt(
-                text: kDemoAddressThreeTxt,
-                onPressed: () {
-                  controller.choseAddressPharmices(kDemoAddressThreeTxt);
-                  Get.back();
-                },
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -109,25 +71,27 @@ class MedicalFormPage extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      child: RatingBar.builder(
-                        initialRating: 3,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
+                    if (isRate == true) ...[
+                      Container(
+                        child: RatingBar.builder(
+                          initialRating: 3,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
                         ),
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -157,16 +121,18 @@ class MedicalFormPage extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      width: ScreenDevices.width(context) * 0.90,
-                      child: ShadowButton(
-                        backgroundColor: kDarkAccent,
-                        name: logic.selectedAddressPharmices,
-                        onPressed: () {
-                          selectAddressDialog(logic);
-                        },
+                    if (addressList!.length > 0) ...[
+                      Container(
+                        width: ScreenDevices.width(context) * 0.90,
+                        child: ShadowButton(
+                          backgroundColor: kDarkAccent,
+                          name: logic.selectedAddressPharmices,
+                          onPressed: () {
+                            selectAddressDialog(logic, context, addressList!);
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                     SizedBox(
                       height: 10,
                     ),
@@ -178,7 +144,7 @@ class MedicalFormPage extends StatelessWidget {
                             child: ShadowButton(
                               backgroundColor: kDarkAccent,
                               name: kSendPaperText,
-                              onPressed: () {},
+                              onPressed: onSend,
                             ),
                           ),
                         ],
@@ -190,5 +156,37 @@ class MedicalFormPage extends StatelessWidget {
             );
           },
         ));
+  }
+
+  Future<dynamic> selectAddressDialog(MedicalFormLogic controller,
+      BuildContext context, List<String> addressList) {
+    return Get.defaultDialog(
+      title: kSelectedAddressTxt,
+      titleStyle: TextStyle(color: kLightAccent),
+      middleTextStyle: TextStyle(color: Colors.black),
+      backgroundColor: Colors.white,
+      content: Container(
+        height: ScreenDevices.heigth(context) * 0.50,
+        width: ScreenDevices.width(context) * 0.70,
+        child: ListView(
+          children: addressList.map((item) {
+            return Column(
+              children: [
+                OvalButtonWdgt(
+                  text: item,
+                  onPressed: () {
+                    controller.choseAddressPharmices(item);
+                    Get.back();
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            );
+          }).toList(),
+        ),
+      ),
+    );
   }
 }

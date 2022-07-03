@@ -1,10 +1,10 @@
 import 'package:developer/tools/colors.dart';
-import 'package:developer/utils/math_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../models/depart_item_model.dart';
+import '../core/utils/math_methods.dart';
+import '../data/models/depart_item_model.dart';
 import 'flux_image.dart';
 
 class DepartItemWgt extends StatelessWidget {

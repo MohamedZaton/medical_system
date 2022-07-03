@@ -1,4 +1,4 @@
-import 'package:developer/models/booking_doctor_model.dart';
+import 'package:developer/data/models/booking_doctor_model.dart';
 import 'package:developer/tools/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

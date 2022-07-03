@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../core/utils/images_path.dart';
 import '../tools/colors.dart';
 import '../tools/styles.dart';
-import '../utils/images_path.dart';
 
 class SideMenuButton extends StatelessWidget {
   final String centerTitle;

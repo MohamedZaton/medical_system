@@ -27,11 +27,14 @@ const String kSelectDay = "اختيار اليوم ";
 const String kSelectTime = "اختيار الوقت ";
 const String kSendPaperText = "ارسال الروشتة";
 const String kSignUpText = "تسجيل حساب";
+const String kSignUpSuccessText = "تم تسجيلك بنجاح ";
+const String kSignUpFailedText = "هناك خطافى التسجيل";
 const String kSignOutText = "تسجيل الخروج";
 const String kCompleted = "مكتمل";
 const String kWaiting = "قيد الانتظار";
 const String kCancel = "تم الالغاء";
 const String kDelivery = "فى الطريق";
+const String kOrderYetTxt = "لم تقم باى طلب حتى الان ";
 // setting
 const kProfileTxt = "الملف الشخصي";
 const kLanguageTxt = "اللغة";

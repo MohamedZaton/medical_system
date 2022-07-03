@@ -11,6 +11,10 @@ const String kDivisionTitleKey = "النوع";
 const String kXRayTitleKey = "مراكز الأشعة";
 const String kMedicalLabsKey = "التحاليل الطبيه";
 const String kMedicalSupportTitleKey = "المساعدات الطبيه";
+const String kAccessKey = "access_token";
+const String kAutoLoginKey = "auto_login";
+const String kprofileInfoKey = "profile_info";
+const String kLogInfoKey = "Login_info";
 
 const Map<String, String> kDepartmentsApi = {
   kPharmacyTitleKey: kPharmacyPath,

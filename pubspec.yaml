@@ -34,7 +34,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   # manage statement
   get: ^4.6.5
-
+  get_storage: ^2.0.3
+  #value equality
+  equatable: ^2.0.3
+  # function programing thinking
+  dartz: ^0.10.1
   # tools & custom ui
   google_fonts: 2.2.0
   flutter_svg: ^1.0.3
@@ -48,30 +52,27 @@ dependencies:
 
   intl: ^0.17.0
   # network
+  connectivity_plus: ^2.3.0
   connectivity: ^3.0.6
   url_launcher: ^6.0.20
+  dio: ^4.0.6
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
+  test: ^1.14.4
+  mockito: ^5.2.0
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
+
   flutter_lints: ^1.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
+
   uses-material-design: true
 
   assets:

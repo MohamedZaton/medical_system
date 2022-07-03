@@ -1,11 +1,13 @@
-import 'package:developer/models/order_model.dart';
+import 'package:developer/data/models/reserv_model.dart' as reservList;
 import 'package:developer/tools/colors.dart';
 import 'package:developer/widgets/shadow_btn_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+enum Status { PENDING, INPROGRESS, REJECTED, COMPLETED, CANCELED }
+
 class OrderItemWgt extends StatelessWidget {
-  final OrderModel orderItem;
+  final reservList.Data orderItem;
   final int index;
   const OrderItemWgt({
     Key? key,
@@ -52,14 +54,14 @@ class OrderItemWgt extends StatelessWidget {
                       height: 30,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: kStatueOrderColorsMap[orderItem.state!] ??
+                        color: kStatueRevColorsMap[orderItem.status] ??
                             Colors.deepOrange,
                         borderRadius: BorderRadius.all(
                           Radius.circular(40),
                         ),
                       ),
                       child: Text(
-                        orderItem.state!,
+                        orderItem.status ?? "nullx",
                         style: TextStyle(
                           fontFamily: 'Sukar',
                           fontSize: 20,
@@ -99,7 +101,7 @@ class OrderItemWgt extends StatelessWidget {
                     child: Container(
                       width: 120,
                       child: ShadowButton(
-                        name: orderItem.type!,
+                        name: orderItem.serviceName.toString(),
                         height: 30,
                         onPressed: () {},
                       ),
@@ -113,7 +115,7 @@ class OrderItemWgt extends StatelessWidget {
                       width: 120,
                       child: ShadowButton(
                         height: 30,
-                        name: " جنيه ${orderItem.price.toString()}",
+                        name: " جنيه ${orderItem.totalPrice.toString()}",
                         onPressed: () {},
                       ),
                     ),
@@ -127,3 +129,11 @@ class OrderItemWgt extends StatelessWidget {
     );
   }
 }
+
+Map<String, Color> kStatueRevColorsMap = {
+  Status.COMPLETED.name: Colors.green,
+  Status.PENDING.name: Colors.blueGrey,
+  Status.INPROGRESS.name: Colors.blueGrey,
+  Status.CANCELED.name: Colors.red,
+  Status.REJECTED.name: Colors.red,
+};

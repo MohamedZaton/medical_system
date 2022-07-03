@@ -1,6 +1,6 @@
-import 'package:developer/utils/screens.dart';
 import 'package:flutter/material.dart';
 
+import '../core/utils/screens.dart';
 import 'flux_image.dart';
 
 class UnderConstructionWidget extends StatelessWidget {

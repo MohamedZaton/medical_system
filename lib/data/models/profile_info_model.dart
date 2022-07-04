@@ -62,7 +62,7 @@ class Data {
   String? name;
   String? phone;
   dynamic emailVerifiedAt;
-  int? active;
+  String? active;
   String? createdAt;
   String? updatedAt;
   Data copyWith({
@@ -70,7 +70,7 @@ class Data {
     String? name,
     String? phone,
     dynamic emailVerifiedAt,
-    int? active,
+    String? active,
     String? createdAt,
     String? updatedAt,
   }) =>

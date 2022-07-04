@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 
 class SettingLogic extends GetxController {
   String facebookPage = "";
-
+  List<String> numbersWatsappList = [];
   @override
   void onInit() {
     super.onInit();
     getFacebookPage();
-    getwhatsappPage();
+    getwhatsappNumbers();
   }
 
   @override
@@ -29,10 +29,16 @@ class SettingLogic extends GetxController {
     final responce = await ServerAppApi().getFacebookPageRequest();
 
     facebookPage = "https://" + responce.toString();
+    update();
   }
 
-  void getwhatsappPage() async {
+  void getwhatsappNumbers() async {
     final responce = await ServerAppApi().getWhatsAppNumbersRequest();
+    String numbersText = responce.data.toString();
+    numbersWatsappList =
+        numbersText.substring(1, numbersText.length - 1).split(',');
+    print("numbersWatsappList 0 :${numbersWatsappList[0].toString()}");
+    update();
   }
 
   void signOutProcess() async {

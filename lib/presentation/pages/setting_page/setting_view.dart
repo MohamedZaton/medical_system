@@ -54,7 +54,9 @@ class SettingPage extends StatelessWidget {
                         text: kWhatsappTxt,
                         imagePath: kWhatsAppImg,
                         isCenter: false,
-                        onPressed: () {},
+                        onPressed: () {
+                          numbersDialog(context, controller.numbersWatsappList);
+                        },
                       ),
                       SizedBox(
                         height: 6,
@@ -124,6 +126,38 @@ class SettingPage extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Future<dynamic> numbersDialog(
+      BuildContext context, List<String> numbersWatsAppList) {
+    return Get.defaultDialog(
+      title: "Select WhatsApp Number ",
+      titleStyle: TextStyle(color: kLightAccent),
+      middleTextStyle: TextStyle(color: Colors.green),
+      backgroundColor: Colors.white,
+      content: Container(
+        height: ScreenDevices.heigth(context) * 0.2,
+        width: ScreenDevices.width(context) * 0.8,
+        child: ListView(
+          children: numbersWatsAppList
+              .map(
+                (item) => OvalButtonWdgt(
+                  text: item,
+                  imagePath: kWhatsAppImg,
+                  onPressed: () async {
+                    var whatsappUrl = "whatsapp://send?phone=$item";
+                    await canLaunchUrl(Uri.parse(whatsappUrl))
+                        ? launchUrl(Uri.parse(whatsappUrl))
+                        : print(
+                            "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
+                    Get.back();
+                  },
+                ),
+              )
+              .toList(),
+        ),
       ),
     );
   }

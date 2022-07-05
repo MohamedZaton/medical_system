@@ -34,7 +34,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   # manage statement
   get: ^4.6.5
-  get_storage: ^2.0.3
+  # Local DataBase
+  shared_preferences: ^2.0.15
   #value equality
   equatable: ^2.0.3
   # function programing thinking

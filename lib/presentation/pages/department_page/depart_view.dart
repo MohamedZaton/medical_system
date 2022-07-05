@@ -2,6 +2,10 @@ import 'package:developer/core/utils/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/utils/images_path.dart';
+import '../../../tools/constants.dart';
+import '../../../widgets/message_img_btn_widget.dart';
+import '../../../widgets/parent_depart_widget.dart';
 import 'depart_logic.dart';
 
 class DepartmentPage extends StatelessWidget {
@@ -11,8 +15,7 @@ class DepartmentPage extends StatelessWidget {
   @override
   build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // // Initialize Firebase.
-    // await Firebase.initializeApp();
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -24,6 +27,11 @@ class DepartmentPage extends StatelessWidget {
               Expanded(child: Obx(() {
                 if (logic.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());
+                } else if (logic.isLoading.value == false &&
+                    logic.mainItemList.length <= 0) {
+                  return Center(
+                      child: MessageImgButtonWdgt(
+                          message: kNoParentDepTxt, imageUrl: kOrderBoxImg));
                 } else {
                   return Container(
                     child: ListView.builder(
@@ -33,7 +41,11 @@ class DepartmentPage extends StatelessWidget {
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: ScreenDevices.heigth(context) * 0.01),
-                          child: logic.mainItemList[index],
+                          child: ParentDpItemWgt(
+                            homeItemModel: logic.mainItemList[index],
+                            onPressed: () {},
+                            index: index,
+                          ),
                         );
                       },
                     ),

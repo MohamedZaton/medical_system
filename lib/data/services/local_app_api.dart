@@ -117,4 +117,10 @@ class LocalAppApi implements AppApi {
     // TODO: implement getWhatsAppNumbersRequest
     throw UnimplementedError();
   }
+
+  @override
+  Future<Response> getParentDepartmentRequest() {
+    // TODO: implement fetchParentDepartmentRequest
+    throw UnimplementedError();
+  }
 }

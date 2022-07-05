@@ -34,10 +34,10 @@ class SplashPage extends StatelessWidget {
           },
           child: FluxImage(imageUrl: kLogoAppImg),
           onEnd: () async {
-            if (LocalData().isClearAccessToken()) {
-              return Get.to(() => SignInPage());
-            } else {
+            if (await LocalData().readAcceptAutoLogin()) {
               return Get.to(() => HomePage());
+            } else {
+              return Get.to(() => SignInPage());
             }
           },
         ),

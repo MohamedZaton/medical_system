@@ -1,19 +1,11 @@
-import 'package:developer/data/models/depart_item_model.dart';
-import 'package:developer/presentation/pages/labs_medical_department/lab_sections/lab_sections_view.dart';
-import 'package:developer/presentation/pages/places_list/clinics_list/clinic_list_view.dart';
-import 'package:developer/presentation/pages/places_list/hospitals_list/hospitals_list_view.dart';
-import 'package:developer/presentation/pages/places_list/medical_support_list/medical_support_list_view.dart';
-import 'package:developer/presentation/pages/places_list/nursing_services_list/nursing_services_list_view.dart';
-import 'package:developer/presentation/pages/places_list/pharmacies_list/pharmacies_list_view.dart';
-import 'package:developer/presentation/pages/places_list/x_ray_list/xray_list_view.dart';
-import 'package:developer/widgets/depart_item_widget.dart';
+import 'package:developer/data/models/parent_categ_model.dart' as parentList;
 import 'package:get/get.dart';
 
-import '../../../data/services/local_app_api.dart';
+import '../../../data/repositories/user_repository_impl.dart';
 
 class DepartmentLogic extends GetxController {
   RxBool isLoading = false.obs;
-  RxList mainItemList = <DepartItemWgt>[].obs;
+  RxList mainItemList = <parentList.Data>[].obs;
   @override
   void onReady() {
     ///implement onReady
@@ -28,52 +20,16 @@ class DepartmentLogic extends GetxController {
   }
 
   void fetchList() async {
-    final listDepsPage = <String>[
-      HospitalsListPage.id,
-      ClinicsListPage.id,
-      NursingServicesListPage.id,
-      PharmaciesListPage.id,
-      XRayListPage.id,
-      LabSectionsPage.id,
-      MedicalSupportListPage.id,
-    ];
-    try {
-      isLoading.value = true;
-      List<DepartItemModel> homeItems =
-          await LocalAppApi().fetchDepartmentsItems();
-
-      mainItemList.value = <DepartItemWgt>[
-        for (int i = 0; i < homeItems.length; i++)
-          DepartItemWgt(
-            homeItemModel: homeItems[i],
-            index: i,
-            onPressed: () {
-              try {
-                Get.toNamed(listDepsPage[i]);
-              } on Exception catch (e) {
-                Get.toNamed(listDepsPage[0]);
-              }
-            },
-          )
-      ];
-
-      /*
-      * List<DepartItemWgt>.from(homeItems.map(
-        (item) {
-          numPostion++;
-          return DepartItemWgt(
-            homeItemModel: item,
-            index: numPostion,
-            onPressed: () {
-              Get.toNamed(listDepsPage[numPostion]);
-            },
-          );
-        },
-      ));*/
-    } catch (e) {
-      print("error [fetchList] [depart_logic] " + e.toString());
-    } finally {
+    isLoading.value = true;
+    final response = await UserRepositoryImpl().getParentCtgList();
+    response.fold((l) {
+      print("[getAds] error: " + l.message);
       isLoading.value = false;
-    }
+    }, (fetchlist) {
+      mainItemList.value = fetchlist;
+      isLoading.value = false;
+
+      return;
+    });
   }
 }

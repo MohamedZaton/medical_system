@@ -1,56 +1,70 @@
+import 'dart:convert';
+
 import 'package:developer/data/models/log_in_model.dart';
 import 'package:developer/data/models/profile_info_model.dart';
 import 'package:developer/tools/api_keys.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalData {
-  final box = GetStorage();
-
   /// token
-  void writeAccessToken(String token) {
-    box.write(kAccessKey, token);
+  Future<void> writeAccessToken(String token) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(kAccessKey, token);
   }
 
-  void clearAccessToken() {
-    box.write(kAccessKey, "");
+  Future<void> clearAccessToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(kAccessKey);
   }
 
-  bool isClearAccessToken() {
-    return box.read(kAccessKey) == "";
-  }
-
-  String readAccessToken() {
-    return box.read(kAccessKey);
+  Future<String> readAccessToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(kAccessKey).toString();
   }
 
   /// Auto Login
-  void writeAutoLogin() {
-    box.write(kAutoLoginKey, true);
+  Future<void> writeAutoLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool(kAutoLoginKey, true);
   }
 
-  bool readAutoLogin() {
-    return box.read(kAutoLoginKey) ?? false;
+  Future<bool> readAcceptAutoLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(kAutoLoginKey) ?? false;
   }
 
-  void deleteAutoLogin() {
-    box.write(kAutoLoginKey, false);
+  Future<void> writeRejectAutoLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setBool(kAutoLoginKey, false);
   }
 
   /// profile info
-  void writeProfileInfo(ProfileInfoModel profileInfoModel) {
-    box.write(kprofileInfoKey, profileInfoModel);
+  Future<void> writeProfileInfo(ProfileInfoModel profileInfoModel) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString(kprofileInfoKey, jsonEncode(profileInfoModel));
   }
 
-  ProfileInfoModel readProfileInfo() {
-    return ProfileInfoModel.fromJson(box.read(kprofileInfoKey));
+  Future<ProfileInfoModel> readProfileInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map json = jsonDecode(prefs.getString(kprofileInfoKey).toString());
+
+    return ProfileInfoModel.fromJson(json);
   }
 
   /// Login password & phone
-  void writeLogin(LogInModel logInModel) {
-    box.write(kLogInfoKey, logInModel);
+  Future<void> writeLogin(LogInModel logInModel) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString(kLogInfoKey, jsonEncode(logInModel));
   }
 
-  LogInModel readLogin() {
-    return LogInModel.fromJson(box.read(kLogInfoKey));
+  Future<LogInModel> readLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map json = jsonDecode(prefs.getString(kLogInfoKey).toString());
+
+    return LogInModel.fromJson(json);
   }
 }

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class HomeLogic extends GetxController {
   var tabIndex = 4;
-  List<listAds.Data> adsList = [];
+  RxList<listAds.Data> adsList = <listAds.Data>[].obs;
   void changeTabIndex(int index) {
     tabIndex = index;
     update();
@@ -16,9 +16,8 @@ class HomeLogic extends GetxController {
       print("[getAds] error: " + l.message);
       return;
     }, (fetchlist) {
-      adsList = fetchlist;
-      update();
-      return adsList;
+      adsList.value = fetchlist;
+      return adsList.value;
     });
     update();
   }

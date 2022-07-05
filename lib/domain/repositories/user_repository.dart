@@ -9,6 +9,8 @@ import 'package:developer/data/models/register_model.dart';
 import 'package:developer/data/models/register_rp_model.dart';
 import 'package:developer/data/models/reserv_model.dart' as reservList;
 
+import '../../data/models/parent_categ_model.dart' as parentList;
+
 abstract class UserRepository {
   Future<Either<Failure, RegisterRpModel>> createNewUser(
       RegisterModel registerModel);
@@ -19,4 +21,5 @@ abstract class UserRepository {
   Future<Either<Failure, List<listAds.Data>>> getAdsUser();
   Future<Either<Failure, List<reservList.Data>>> getReservList();
   Future<Either<Failure, List<deliverList.Data>>> getDeliverList();
+  Future<Either<Failure, List<parentList.Data>>> getParentCtgList();
 }

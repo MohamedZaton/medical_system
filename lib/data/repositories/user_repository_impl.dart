@@ -9,9 +9,11 @@ import 'package:developer/data/models/reserv_model.dart' as reservList;
 import 'package:developer/data/services/server_app_api.dart';
 
 import '../../core/error/failure.dart';
+import '../../data/models/parent_categ_model.dart' as parentList;
 import '../../domain/repositories/user_repository.dart';
 import '../models/log_in_model.dart';
 import '../models/log_in_rp_model.dart';
+import '../models/parent_categ_model.dart';
 import '../models/register_model.dart';
 import '../models/register_rp_model.dart';
 import '../services/local_data.dart';
@@ -58,7 +60,7 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, String>> logOutUser() async {
     try {
       LocalData().clearAccessToken();
-      LocalData().deleteAutoLogin();
+      LocalData().writeRejectAutoLogin();
       final response = await ServerAppApi().getLogOutRequest();
       String message = response.data['message'];
 
@@ -80,7 +82,7 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(profileInfoModel);
     } catch (e) {
-      refreshToken(response.statusCode, getAdsUser());
+      // refreshToken(response.statusCode, getAdsUser());
 
       return left(Failure(e.toString()));
     }
@@ -89,7 +91,7 @@ class UserRepositoryImpl implements UserRepository {
   /// refresh token
   @override
   Future<void> refreshToken(int? statueCode, Future sameMethod) async {
-    LogInModel logInModel = LocalData().readLogin();
+    LogInModel logInModel = await LocalData().readLogin();
     if (statueCode == 401 || statueCode == 403) {
       final response = await ServerAppApi().postLoginRequest(logInModel);
       LogInRpModel logInRpModel = LogInRpModel.fromJson(response.data);
@@ -113,7 +115,7 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(adsList!);
     } catch (e) {
-      refreshToken(response.statusCode, getAdsUser());
+      // refreshToken(response.statusCode, getAdsUser());
       return left(Failure(e.toString()));
     }
   }
@@ -130,10 +132,9 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(resList!);
     } catch (e) {
-      refreshToken(response.statusCode, getReservList());
+      // refreshToken(response.statusCode, getReservList());
       return left(Failure(e.toString()));
     }
-    throw UnimplementedError();
   }
 
   @override
@@ -148,10 +149,22 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(resList!);
     } catch (e) {
-      refreshToken(response.statusCode, getDeliverList());
+      // refreshToken(response.statusCode, getDeliverList());
 
       return left(Failure(e.toString()));
-      throw UnimplementedError();
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<parentList.Data>>> getParentCtgList() async {
+    try {
+      final response = await ServerAppApi().getParentDepartmentRequest();
+      ParentCategModel parentCategModel =
+          ParentCategModel.fromJson(response.data);
+      List<parentList.Data>? resList = parentCategModel.data;
+      return right(resList!);
+    } catch (e) {
+      return left(Failure(e.toString()));
     }
   }
 }

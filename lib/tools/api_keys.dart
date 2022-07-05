@@ -15,6 +15,7 @@ const String kAccessKey = "access_token";
 const String kAutoLoginKey = "auto_login";
 const String kprofileInfoKey = "profile_info";
 const String kLogInfoKey = "Login_info";
+const String kMainLocalDataBaseKey = "mainLocalDB";
 
 const Map<String, String> kDepartmentsApi = {
   kPharmacyTitleKey: kPharmacyPath,

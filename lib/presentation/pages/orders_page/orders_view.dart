@@ -13,8 +13,7 @@ class OrdersPage extends StatelessWidget {
   @override
   build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // // Initialize Firebase.
-    // await Firebase.initializeApp();
+
     return SafeArea(
       child: Scaffold(
         body: Container(

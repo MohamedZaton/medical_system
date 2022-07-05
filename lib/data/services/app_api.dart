@@ -25,6 +25,7 @@ abstract class AppApi {
 
   Future<List<DeliveryModel>> fetchDeliveriesItems();
   Future<List<AnalysesModel>> fetchAnalysesItems();
+  Future<Response> getParentDepartmentRequest();
 
   Future<Response> postRegisterRequest(RegisterModel registerModel);
   Future<Response> postLoginRequest(LogInModel logInModel);

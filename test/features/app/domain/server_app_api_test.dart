@@ -5,7 +5,6 @@ import 'package:developer/data/models/register_model.dart';
 import 'package:developer/data/services/server_app_api.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_storage/get_storage.dart';
 
 void main() async {
   group("register  request ", () {
@@ -43,8 +42,6 @@ void main() async {
   });
   group("ads List  request ", () {
     test(" get request", () async {
-      await GetStorage.init();
-
       Response response = await ServerAppApi().getAdsRequest();
       AdsModel adsModel = AdsModel.fromJson(response.data);
       expect(adsModel.data?.length, greaterThanOrEqualTo(1));

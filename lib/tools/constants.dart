@@ -35,6 +35,7 @@ const String kWaiting = "قيد الانتظار";
 const String kCancel = "تم الالغاء";
 const String kDelivery = "فى الطريق";
 const String kOrderYetTxt = "لم تقم باى طلب حتى الان ";
+const String kNoParentDepTxt = "لأا يوجد اقسام رئيسية";
 // setting
 const kProfileTxt = "الملف الشخصي";
 const kLanguageTxt = "اللغة";

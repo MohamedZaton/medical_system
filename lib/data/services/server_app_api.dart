@@ -34,7 +34,7 @@ class ServerAppApi implements AppApi {
   Future<Response> getLogOutRequest() async {
     String logOutUrl = baseServer + 'client/logout';
 
-    String token = LocalData().readAccessToken();
+    String token = await LocalData().readAccessToken();
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
 
@@ -47,7 +47,7 @@ class ServerAppApi implements AppApi {
   @override
   Future<Response> getProfileInfoRequest() async {
     String profileInfoUrl = baseServer + 'client/getProfile';
-    String token = LocalData().readAccessToken();
+    String token = await LocalData().readAccessToken();
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
     Response profileResponse = await dio.get(profileInfoUrl);
@@ -57,7 +57,7 @@ class ServerAppApi implements AppApi {
   @override
   Future<Response> getAdsRequest() async {
     String adsUrl = baseServer + 'client/adsList';
-    String token = LocalData().readAccessToken();
+    String token = await LocalData().readAccessToken();
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
     Response adsResponse = await dio.get(adsUrl);
@@ -68,7 +68,7 @@ class ServerAppApi implements AppApi {
   @override
   Future<Response> getReservationRequest() async {
     String ReservUrl = baseServer + 'client/myReservations';
-    String token = LocalData().readAccessToken();
+    String token = await LocalData().readAccessToken();
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
     Response reservResponse = await dio.get(ReservUrl);
@@ -79,7 +79,7 @@ class ServerAppApi implements AppApi {
   @override
   Future<Response> getDeleverRequest() async {
     String deliverUrl = baseServer + 'client/deliveriesList';
-    String token = LocalData().readAccessToken();
+    String token = await LocalData().readAccessToken();
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
     Response deliverResponse = await dio.get(deliverUrl);
@@ -87,9 +87,19 @@ class ServerAppApi implements AppApi {
   }
 
   @override
+  Future<Response> getParentDepartmentRequest() async {
+    String parentCtgUrl = baseServer + 'client/parentCategoriesList';
+    String token = await LocalData().readAccessToken();
+    dio.options.headers["Authorization"] = "Bearer ${token}";
+    dio.options.headers["Accept"] = 'application/json';
+    Response parentResponse = await dio.get(parentCtgUrl);
+    return parentResponse;
+  }
+
+  @override
   Future<Response> getFacebookPageRequest() async {
     String facebookUrl = baseServer + 'client/getFacebookUrl';
-    String token = LocalData().readAccessToken();
+    String token = await LocalData().readAccessToken();
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
     Response faceBookResponse = await dio.get(facebookUrl);
@@ -100,7 +110,7 @@ class ServerAppApi implements AppApi {
   @override
   Future<Response> getWhatsAppNumbersRequest() async {
     String facebookUrl = baseServer + 'client/getWhatsAppContact';
-    String token = LocalData().readAccessToken();
+    String token = await LocalData().readAccessToken();
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
     Response whatsapResponse = await dio.get(facebookUrl);

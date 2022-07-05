@@ -29,10 +29,10 @@ class HomeTabWidget extends StatelessWidget {
             height: 400,
           ),
         ),
-        GetBuilder<HomeLogic>(builder: (controller) {
-          return (controller.adsList.length > 0)
+        Obx(() {
+          return (logic.adsList.length > 0)
               ? AdsListWidget(
-                  itemList: controller.adsList.map((item) {
+                  itemList: logic.adsList.map((item) {
                     return Builder(
                       builder: (context) {
                         return AdsSpaceWidget(
@@ -61,6 +61,7 @@ class HomeTabWidget extends StatelessWidget {
 
 class AdsListWidget extends StatelessWidget {
   List<Widget> itemList;
+
   AdsListWidget({
     required this.itemList,
     Key? key,
@@ -95,7 +96,7 @@ class AdsSpaceWidget extends StatelessWidget {
 
   const AdsSpaceWidget({
     Key? key,
-    this.backgroundColor = kSubTextColor,
+    this.backgroundColor = kDarkAccent,
     this.adsImagePath = "",
   }) : super(key: key);
 
@@ -134,9 +135,9 @@ class AdsSpaceWidget extends StatelessWidget {
                   child: (adsImagePath != "")
                       ? FluxImage(
                           imageUrl: adsImagePath.toString(),
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.fill,
                           height: 150,
-                          width: 200,
+                          width: 300,
                         )
                       : Text(
                           kAdsSpaceTxt,

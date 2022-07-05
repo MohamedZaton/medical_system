@@ -2,13 +2,10 @@ import 'package:developer/presentation/pages/splash/splash_view.dart';
 import 'package:developer/themes/get_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import 'config/routes/app_routes.dart';
 
 void main() async {
-  await GetStorage.init();
-
   runApp(const MyApp());
 }
 

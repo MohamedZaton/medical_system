@@ -17,6 +17,11 @@ const String kprofileInfoKey = "profile_info";
 const String kLogInfoKey = "Login_info";
 const String kMainLocalDataBaseKey = "mainLocalDB";
 
+/// parent and sub keys list :
+const String kUploadFlowKey = "UploadFlow";
+const String kRegularFlowKey = "RegularFlow";
+const String kParentFlowKey = "ParentFlow";
+
 const Map<String, String> kDepartmentsApi = {
   kPharmacyTitleKey: kPharmacyPath,
   kClinicsTitleKey: kClinicsPath,

@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
-import '../../../tools/constants.dart';
 import '../../../../widgets/oval_btn_widget.dart';
 import '../../../../widgets/shadow_btn_widget.dart';
+import '../../../core/utils/images_path.dart';
+import '../../../tools/constants.dart';
 import 'medical_form_logic.dart';
 
 class MedicalFormPage extends StatelessWidget {
@@ -22,7 +23,7 @@ class MedicalFormPage extends StatelessWidget {
 
   MedicalFormPage(
       {Key? key,
-      this.pharmacyLogo = "assets/pharmacies/life.png",
+      this.pharmacyLogo = kAddPhotoImg,
       this.pharmacyTitle = kPharmacyTitleKey,
       this.isRate = false,
       this.addressList = const <String>[],

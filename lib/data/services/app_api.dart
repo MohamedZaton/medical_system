@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:developer/data/models/log_in_model.dart';
 import 'package:developer/data/models/register_model.dart';
+import 'package:developer/data/models/upload_model.dart';
 import 'package:dio/dio.dart';
 
 import '../models/analyses_model.dart';
@@ -26,9 +29,11 @@ abstract class AppApi {
   Future<List<DeliveryModel>> fetchDeliveriesItems();
   Future<List<AnalysesModel>> fetchAnalysesItems();
   Future<Response> getParentDepartmentRequest();
+  Future<Response> getSubDepartmentRequest(int id);
 
   Future<Response> postRegisterRequest(RegisterModel registerModel);
   Future<Response> postLoginRequest(LogInModel logInModel);
+  Future<Response> postUploadFlowRequest(UploadModel uploadModel, File file);
   Future<Response> getLogOutRequest();
   Future<Response> getProfileInfoRequest();
   Future<Response> getAdsRequest();

@@ -1,17 +1,16 @@
 import 'dart:convert';
 
-ParentCategModel parentCategModelFromJson(String str) =>
-    ParentCategModel.fromJson(json.decode(str));
-String parentCategModelToJson(ParentCategModel data) =>
-    json.encode(data.toJson());
+CategoryModel parentCategModelFromJson(String str) =>
+    CategoryModel.fromJson(json.decode(str));
+String parentCategModelToJson(CategoryModel data) => json.encode(data.toJson());
 
-class ParentCategModel {
-  ParentCategModel({
+class CategoryModel {
+  CategoryModel({
     this.success,
     this.data,
   });
 
-  ParentCategModel.fromJson(dynamic json) {
+  CategoryModel.fromJson(dynamic json) {
     success = json['success'];
     if (json['data'] != null) {
       data = [];
@@ -22,11 +21,11 @@ class ParentCategModel {
   }
   bool? success;
   List<Data>? data;
-  ParentCategModel copyWith({
+  CategoryModel copyWith({
     bool? success,
     List<Data>? data,
   }) =>
-      ParentCategModel(
+      CategoryModel(
         success: success ?? this.success,
         data: data ?? this.data,
       );

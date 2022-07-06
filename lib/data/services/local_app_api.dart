@@ -6,6 +6,7 @@ import 'package:developer/data/models/delivery_model.dart';
 import 'package:developer/data/models/depart_item_model.dart';
 import 'package:developer/data/models/log_in_model.dart';
 import 'package:developer/data/models/register_model.dart';
+import 'package:developer/data/models/upload_model.dart';
 import 'package:dio/src/response.dart';
 import 'package:flutter/services.dart';
 
@@ -121,6 +122,18 @@ class LocalAppApi implements AppApi {
   @override
   Future<Response> getParentDepartmentRequest() {
     // TODO: implement fetchParentDepartmentRequest
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> getSubDepartmentRequest(int id) {
+    // TODO: implement getSubDepartmentRequest
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> postUploadFlowRequest(UploadModel uploadModel) {
+    // TODO: implement postUploadFlowRequest
     throw UnimplementedError();
   }
 }

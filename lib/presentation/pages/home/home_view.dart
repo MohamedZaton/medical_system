@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../tools/colors.dart';
 import '../delivery_page/delivery_view.dart';
-import '../department_page/depart_view.dart';
 import '../orders_page/orders_view.dart';
+import '../parents_departments_page/depart_view.dart';
 import '../setting_page/setting_view.dart';
 import 'home_logic.dart';
 import 'home_tab.dart';

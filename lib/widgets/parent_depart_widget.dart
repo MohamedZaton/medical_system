@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../data/models/parent_categ_model.dart' as parentList;
+import '../../data/models/category_model.dart' as categoryList;
 import '../core/utils/math_methods.dart';
 import 'flux_image.dart';
 
 class ParentDpItemWgt extends StatelessWidget {
-  final parentList.Data homeItemModel;
+  final categoryList.Data homeItemModel;
   final int index;
   final bool? hasRating;
   final double? initialRating;
@@ -55,7 +55,7 @@ class ParentDpItemWgt extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    homeItemModel.nameAr!,
+                    homeItemModel.nameAr ?? homeItemModel.nameEn!,
                     style: TextStyle(
                         fontFamily: 'Sukar',
                         fontSize: 20,

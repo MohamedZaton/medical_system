@@ -9,11 +9,11 @@ import 'package:developer/data/models/reserv_model.dart' as reservList;
 import 'package:developer/data/services/server_app_api.dart';
 
 import '../../core/error/failure.dart';
-import '../../data/models/parent_categ_model.dart' as parentList;
+import '../../data/models/category_model.dart' as categoryList;
 import '../../domain/repositories/user_repository.dart';
+import '../models/category_model.dart';
 import '../models/log_in_model.dart';
 import '../models/log_in_rp_model.dart';
-import '../models/parent_categ_model.dart';
 import '../models/register_model.dart';
 import '../models/register_rp_model.dart';
 import '../services/local_data.dart';
@@ -156,12 +156,23 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, List<parentList.Data>>> getParentCtgList() async {
+  Future<Either<Failure, List<categoryList.Data>>> getParentCtgList() async {
     try {
       final response = await ServerAppApi().getParentDepartmentRequest();
-      ParentCategModel parentCategModel =
-          ParentCategModel.fromJson(response.data);
-      List<parentList.Data>? resList = parentCategModel.data;
+      CategoryModel parentCategModel = CategoryModel.fromJson(response.data);
+      List<categoryList.Data>? resList = parentCategModel.data;
+      return right(resList!);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<categoryList.Data>>> getSubCtgList(int id) async {
+    try {
+      final response = await ServerAppApi().getSubDepartmentRequest(id);
+      CategoryModel subCategModel = CategoryModel.fromJson(response.data);
+      List<categoryList.Data>? resList = subCategModel.data;
       return right(resList!);
     } catch (e) {
       return left(Failure(e.toString()));

@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:developer/data/models/analyses_model.dart';
 import 'package:developer/data/models/booking_doctor_model.dart';
 import 'package:developer/data/models/delivery_model.dart';
 import 'package:developer/data/models/depart_item_model.dart';
 import 'package:developer/data/models/log_in_model.dart';
 import 'package:developer/data/models/register_model.dart';
+import 'package:developer/data/models/upload_model.dart';
 import 'package:developer/data/services/app_api.dart';
 import 'package:dio/dio.dart';
 
@@ -29,6 +32,46 @@ class ServerAppApi implements AppApi {
     final loginResponse = await dio.post(loginUrl, data: logInModel.toJson());
     return loginResponse;
   }
+
+  @override
+  Future<Response> postUploadFlowRequest(
+      UploadModel uploadModel, File file) async {
+    dio.options.headers["locale"] = "ar";
+    dio.options.headers["Accept"] = 'application/json';
+    dio.options.headers["Content-Type"] = 'application/x-www-form-urlencoded';
+
+    String fileName = file.path.split('/').last;
+    String UploadUrl = baseServer + 'client/createReservation';
+
+    var formData = FormData.fromMap({
+      'reservation_date': uploadModel.reservationDate,
+      'reservation_time': uploadModel.reservationTime,
+      'service_id': uploadModel.serviceId,
+      'zone_id': uploadModel.zoneId,
+      'image': await MultipartFile.fromFile(file.path, filename: fileName),
+    });
+
+    final UploadResponse = await dio.post(UploadUrl, data: formData);
+    return UploadResponse;
+  }
+
+/*  Future addImage(
+      reservationDate, reservationTime, serviceId, zoneId, File file) async {
+    String fileName = file.path.split('/').last;
+
+    var formData = FormData.fromMap({
+      'reservation_date': reservationDate,
+      'reservation_time': reservationTime,
+      'service_id': serviceId,
+      'zone_id': zoneId,
+      'image': await MultipartFile.fromFile(file.path, filename: fileName),
+    });
+
+    await dio.post("${host}/add", data: formData).then((data) {
+      ad_data = data.data;
+    });
+    return ad_data;
+  }*/
 
   @override
   Future<Response> getLogOutRequest() async {
@@ -94,6 +137,16 @@ class ServerAppApi implements AppApi {
     dio.options.headers["Accept"] = 'application/json';
     Response parentResponse = await dio.get(parentCtgUrl);
     return parentResponse;
+  }
+
+  @override
+  Future<Response> getSubDepartmentRequest(int id) async {
+    String parentCtgUrl = baseServer + 'client/subCategoriesList/$id';
+    String token = await LocalData().readAccessToken();
+    dio.options.headers["Authorization"] = "Bearer ${token}";
+    dio.options.headers["Accept"] = 'application/json';
+    Response childResponse = await dio.get(parentCtgUrl);
+    return childResponse;
   }
 
   @override

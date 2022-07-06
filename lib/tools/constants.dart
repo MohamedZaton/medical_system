@@ -39,6 +39,7 @@ const String kNoParentDepTxt = "لأا يوجد اقسام رئيسية";
 // setting
 const kProfileTxt = "الملف الشخصي";
 const kLanguageTxt = "اللغة";
+const kDepartmentsTxt = "الاقسام";
 const kWhatsappTxt = "الواتساب ";
 const kFacebookTxt = "فيس بوك ";
 const kContactUsTxt = "تواصل معنا";

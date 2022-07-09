@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:developer/data/models/ads_model.dart';
 import 'package:developer/data/models/ads_model.dart' as listAds;
@@ -6,16 +8,25 @@ import 'package:developer/data/models/deliver_model.dart' as deliverList;
 import 'package:developer/data/models/profile_info_model.dart';
 import 'package:developer/data/models/reserv_model.dart';
 import 'package:developer/data/models/reserv_model.dart' as reservList;
+import 'package:developer/data/models/service_details_model.dart';
+import 'package:developer/data/models/service_details_model.dart'
+    as serviceDetails;
+import 'package:developer/data/models/services_list_model.dart' as servicesList;
+import 'package:developer/data/models/upload_model.dart';
 import 'package:developer/data/services/server_app_api.dart';
+import 'package:developer/tools/api_keys.dart';
 
 import '../../core/error/failure.dart';
 import '../../data/models/category_model.dart' as categoryList;
+import '../../data/models/service_pdr_model.dart' as servicePdrList;
 import '../../domain/repositories/user_repository.dart';
 import '../models/category_model.dart';
 import '../models/log_in_model.dart';
 import '../models/log_in_rp_model.dart';
 import '../models/register_model.dart';
 import '../models/register_rp_model.dart';
+import '../models/service_pdr_model.dart';
+import '../models/services_list_model.dart';
 import '../services/local_data.dart';
 
 class UserRepositoryImpl implements UserRepository {
@@ -30,6 +41,8 @@ class UserRepositoryImpl implements UserRepository {
       /// save token
       LocalData().writeAccessToken(_token);
       LocalData().writeAutoLogin();
+      LocalData().writeLogin(LogInModel(
+          phone: registerModel.phone, password: registerModel.password));
 
       print("token : " + _token);
       return right(responseModel);
@@ -48,6 +61,7 @@ class UserRepositoryImpl implements UserRepository {
       /// save token
       LocalData().writeAccessToken(_token);
       LocalData().writeAutoLogin();
+      LocalData().writeLogin(logInModel);
 
       print("token : " + _token);
       return right(logInRpModel);
@@ -82,26 +96,21 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(profileInfoModel);
     } catch (e) {
-      // refreshToken(response.statusCode, getAdsUser());
-
       return left(Failure(e.toString()));
     }
   }
 
   /// refresh token
   @override
-  Future<void> refreshToken(int? statueCode, Future sameMethod) async {
+  Future<void> refreshToken() async {
     LogInModel logInModel = await LocalData().readLogin();
-    if (statueCode == 401 || statueCode == 403) {
-      final response = await ServerAppApi().postLoginRequest(logInModel);
-      LogInRpModel logInRpModel = LogInRpModel.fromJson(response.data);
-      String _token = logInRpModel.accessToken.toString();
 
-      /// save token
-      LocalData().writeAccessToken(_token);
+    final response = await ServerAppApi().postLoginRequest(logInModel);
+    LogInRpModel logInRpModel = LogInRpModel.fromJson(response.data);
+    String _token = logInRpModel.accessToken.toString();
 
-      await sameMethod;
-    }
+    /// save token
+    LocalData().writeAccessToken(_token);
   }
 
   @override
@@ -115,7 +124,6 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(adsList!);
     } catch (e) {
-      // refreshToken(response.statusCode, getAdsUser());
       return left(Failure(e.toString()));
     }
   }
@@ -132,7 +140,6 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(resList!);
     } catch (e) {
-      // refreshToken(response.statusCode, getReservList());
       return left(Failure(e.toString()));
     }
   }
@@ -149,8 +156,6 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(resList!);
     } catch (e) {
-      // refreshToken(response.statusCode, getDeliverList());
-
       return left(Failure(e.toString()));
     }
   }
@@ -175,7 +180,75 @@ class UserRepositoryImpl implements UserRepository {
       List<categoryList.Data>? resList = subCategModel.data;
       return right(resList!);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure("[getSubCtgList] : ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, serviceDetails.Data>> getServiceDetails(int id) async {
+    try {
+      final response = await ServerAppApi().getServiceDetailsRequest(id);
+      ServiceDetailsModel serviceDetailsModel =
+          ServiceDetailsModel.fromJson(response);
+      serviceDetails.Data? servData = serviceDetailsModel.data;
+
+      return right(servData!);
+    } catch (e) {
+      return left(Failure("[getServiceDetails] : ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<servicesList.Data>>> getServicesList(
+      int? id) async {
+    try {
+      final response = await ServerAppApi().getServicesListRequest(id!);
+      ServicesListModel servicesListModel =
+          ServicesListModel.fromJson(response.data);
+      List<servicesList.Data>? servList = servicesListModel.data;
+      return right(servList!);
+    } catch (e) {
+      return left(Failure("[getServicesList] : ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<servicePdrList.Data>>> getServiceProviderList(
+      int? id) async {
+    try {
+      final response = await ServerAppApi().getSubDepartmentRequest(id!);
+      ServiceProviderModel serviceProviderModel =
+          ServiceProviderModel.fromJson(response.data);
+      List<servicePdrList.Data>? serviceList = serviceProviderModel.data;
+      return right(serviceList!);
+    } catch (e) {
+      return left(Failure("[getServiceProviderList] : ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> createMedicalPaper(
+      UploadModel uploadModel, File file) async {
+    try {
+      final response =
+          await ServerAppApi().postUploadFlowRequest(uploadModel, file);
+      bool isSuccess = response.data[kSuccessMsgUploadValue] ?? false;
+
+      return right(isSuccess);
+    } catch (e) {
+      return left(Failure("${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> deletePutReservationOrder(int id) async {
+    try {
+      final response = await ServerAppApi().putReservationRequest(id);
+      bool isSuccess = response.data[kSuccessMsgUploadValue] ?? false;
+
+      return right(isSuccess);
+    } catch (e) {
+      return left(Failure("${e.toString()}"));
     }
   }
 }

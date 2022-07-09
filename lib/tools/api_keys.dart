@@ -4,7 +4,7 @@ const String kClinicsPath = 'dep_clinics_data.json';
 const String kEmptyPath = 'empty_data.json';
 const String kDoctorBookingPath = 'doctor_data.json';
 const String kHospitalsTitleKey = "المستشفيات";
-const String kClinicsTitleKey = "العيادات";
+const String kServicesListKey = "الخدمات المقدمة";
 const String kNursingKey = "خدمات التمريض";
 const String kPharmacyTitleKey = "الصيدليات";
 const String kDivisionTitleKey = "النوع";
@@ -18,13 +18,16 @@ const String kLogInfoKey = "Login_info";
 const String kMainLocalDataBaseKey = "mainLocalDB";
 
 /// parent and sub keys list :
-const String kUploadFlowKey = "UploadFlow";
-const String kRegularFlowKey = "RegularFlow";
-const String kParentFlowKey = "ParentFlow";
+const String kUploadFlowValue = "UploadFlow";
+const String kRegularFlowValue = "RegularFlow";
+const String kParentFlowValue = "ParentFlow";
+const String kFlowTypeParamKey = 'flow_type';
+const String kSuccessMsgUploadValue = "success";
+const String kFailedMsgUploadValue = "failed";
 
 const Map<String, String> kDepartmentsApi = {
   kPharmacyTitleKey: kPharmacyPath,
-  kClinicsTitleKey: kClinicsPath,
+  kServicesListKey: kClinicsPath,
   kMedicalLabsKey: kLabsPath,
   kHospitalsTitleKey: kEmptyPath,
   kNursingKey: kEmptyPath,

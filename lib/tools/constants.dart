@@ -40,6 +40,7 @@ const String kNoParentDepTxt = "لأا يوجد اقسام رئيسية";
 const kProfileTxt = "الملف الشخصي";
 const kLanguageTxt = "اللغة";
 const kDepartmentsTxt = "الاقسام";
+const kServiceProviderTxt = "مقدم الخدمة";
 const kWhatsappTxt = "الواتساب ";
 const kFacebookTxt = "فيس بوك ";
 const kContactUsTxt = "تواصل معنا";
@@ -59,6 +60,14 @@ const String kClinicExaminationTxt = "كشف عيادة";
 const String kHomeExaminationTxt = "كشف منزلى";
 const String kChooseTypeTestsTxt = "اختيار نوع التحليل";
 const String kChooseTypeBookingTxt = "اختيار الطريقة الحجز ";
+const String kUploadFaildTxt = "حدث خطا ما يرجى المحاول مره اخر ";
+const String kUploadSuccessTxt = "تم ارسال طلبك  ";
+const String kCancelTitleTxt = "طلب الالغاء  ";
+const String kCancelRejectedTxt = "لم يتم طلب الالغاء ";
+const String kCancelAcceptedTxt = "تم طلب الالغاء ";
+
+//"طلب الالغاء", "لم يتم طلب الالغاء ",
+const String kBackTxt = "رجوع";
 const String kSectionName = "section";
 const String kLocalPersonsDB = "PersonDB";
 const String kDetailsPort =

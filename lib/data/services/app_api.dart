@@ -38,7 +38,10 @@ abstract class AppApi {
   Future<Response> getProfileInfoRequest();
   Future<Response> getAdsRequest();
   Future<Response> getReservationRequest();
+  Future<Response> putReservationRequest(int id);
   Future<Response> getDeleverRequest();
   Future<Response> getFacebookPageRequest();
   Future<Response> getWhatsAppNumbersRequest();
+  Future<Response> getServicesListRequest(int id);
+  Future<Response> getServiceDetailsRequest(int id);
 }

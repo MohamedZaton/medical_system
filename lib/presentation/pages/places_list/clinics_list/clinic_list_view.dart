@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/utils/screens.dart';
 import '../../../../widgets/depart_item_widget.dart';
-import '../../doctor_list_page/doctors_list_view.dart';
+import '../../services_list_page/services_list_view.dart';
 import 'clinic_list_logic.dart';
 
 class ClinicsListPage extends StatelessWidget {
@@ -39,7 +39,7 @@ class ClinicsListPage extends StatelessWidget {
                         index: numPostion,
                         hasRating: false,
                         onPressed: () {
-                          Get.to(() => DoctorListPage());
+                          Get.to(() => ServicesListPage());
                         },
                       );
                     },

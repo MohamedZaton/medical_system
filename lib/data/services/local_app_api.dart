@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:developer/data/models/analyses_model.dart';
 import 'package:developer/data/models/booking_doctor_model.dart';
@@ -132,8 +133,26 @@ class LocalAppApi implements AppApi {
   }
 
   @override
-  Future<Response> postUploadFlowRequest(UploadModel uploadModel) {
+  Future<Response> postUploadFlowRequest(UploadModel uploadModel, File file) {
     // TODO: implement postUploadFlowRequest
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> putReservationRequest(int id) {
+    // TODO: implement putReservationRequest
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> getServiceDetailsRequest(int id) {
+    // TODO: implement getServiceDetailsRequest
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> getServicesListRequest(int id) {
+    // TODO: implement getServicesListRequest
     throw UnimplementedError();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:developer/core/utils/screens.dart';
-import 'package:developer/tools/api_keys.dart';
+import 'package:developer/data/models/upload_model.dart';
+import 'package:developer/presentation/pages/orders_page/orders_logic.dart';
 import 'package:developer/tools/colors.dart';
 import 'package:developer/widgets/flux_image.dart';
 import 'package:flutter/material.dart';
@@ -9,26 +10,31 @@ import 'package:get/get.dart';
 import '../../../../widgets/oval_btn_widget.dart';
 import '../../../../widgets/shadow_btn_widget.dart';
 import '../../../core/utils/images_path.dart';
+import '../../../tools/api_keys.dart';
 import '../../../tools/constants.dart';
 import 'medical_form_logic.dart';
 
 class MedicalFormPage extends StatelessWidget {
   final logic = Get.put(MedicalFormLogic());
+  final orderLogic = Get.find<OrdersLogic>();
   static const String id = "/medical_form";
   final String pharmacyLogo;
   final String pharmacyTitle;
   final bool? isRate;
-  final List<String>? addressList;
-  final dynamic onSend;
+  final String? serviceId;
+  final String? zoneId;
 
-  MedicalFormPage(
-      {Key? key,
-      this.pharmacyLogo = kAddPhotoImg,
-      this.pharmacyTitle = kPharmacyTitleKey,
-      this.isRate = false,
-      this.addressList = const <String>[],
-      this.onSend})
-      : super(key: key);
+  final List<String>? addressList;
+
+  MedicalFormPage({
+    Key? key,
+    this.pharmacyLogo = kAddPhotoImg,
+    this.pharmacyTitle = kPharmacyTitleKey,
+    this.isRate = false,
+    this.addressList = const <String>[],
+    this.serviceId = '1',
+    this.zoneId = '1',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +110,10 @@ class MedicalFormPage extends StatelessWidget {
                             child: Icon(Icons.add_a_photo_sharp),
                             backgroundColor: kDarkAccent,
                             onPressed: () {
+                              logic.setUploadModel(UploadModel(
+                                serviceId: serviceId,
+                                zoneId: zoneId,
+                              ));
                               logic.getImage();
                             }),
                         SizedBox(
@@ -145,7 +155,12 @@ class MedicalFormPage extends StatelessWidget {
                             child: ShadowButton(
                               backgroundColor: kDarkAccent,
                               name: kSendPaperText,
-                              onPressed: onSend,
+                              onPressed: () {
+                                if (logic.imagePath != null) {
+                                  logic.sendMedicalPaper();
+                                  orderLogic.fetchList();
+                                }
+                              },
                             ),
                           ),
                         ],

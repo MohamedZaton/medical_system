@@ -1,5 +1,5 @@
 import 'package:developer/core/utils/screens.dart';
-import 'package:developer/tools/api_keys.dart';
+import 'package:developer/presentation/pages/service_provider/service_provider_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,11 +7,10 @@ import '../../../core/utils/images_path.dart';
 import '../../../tools/constants.dart';
 import '../../../widgets/message_img_btn_widget.dart';
 import '../../../widgets/parent_depart_widget.dart';
-import '../medical_form/medical_form_view.dart';
 import 'depart_logic.dart';
 
 class DepartmentPage extends StatelessWidget {
-  final logic = Get.put(DepartmentLogic());
+  final depLogic = Get.put(DepartmentLogic());
   static const String id = "/department";
 
   @override
@@ -29,7 +28,7 @@ class DepartmentPage extends StatelessWidget {
                 Icons.arrow_back,
               ),
               onPressed: () {
-                logic.fetchSubList(logic.idParentBack?.value);
+                depLogic.fetchSubList(depLogic.idParentBack?.value);
               },
             ),
             actions: [
@@ -39,7 +38,7 @@ class DepartmentPage extends StatelessWidget {
                 ),
                 onPressed: () {
                   /// back to home page
-                  logic.fetchSubList(-1);
+                  depLogic.fetchSubList(-1);
                 },
               ),
             ],
@@ -52,10 +51,10 @@ class DepartmentPage extends StatelessWidget {
 
                 Expanded(
                     child: (() {
-                  if (logic.isLoading.value) {
+                  if (depLogic.isLoading.value) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (logic.isLoading.value == false &&
-                      logic.mainItemList.length <= 0) {
+                  } else if (depLogic.isLoading.value == false &&
+                      depLogic.mainItemList.length <= 0) {
                     return Center(
                         child: MessageImgButtonWdgt(
                             message: kNoParentDepTxt, imageUrl: kOrderBoxImg));
@@ -63,50 +62,29 @@ class DepartmentPage extends StatelessWidget {
                     return Container(
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
-                        itemCount: logic.mainItemList.length,
+                        itemCount: depLogic.mainItemList.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 vertical: ScreenDevices.heigth(context) * 0.01),
                             child: ParentDpItemWgt(
-                              homeItemModel: logic.mainItemList[index],
+                              homeItemModel: depLogic.mainItemList[index],
                               onPressed: () {
-                                logic.typeGo.value =
-                                    logic.mainItemList[index].type.toString();
-                                logic.idGo?.value =
-                                    logic.mainItemList[index].id!;
+                                depLogic.typeGo.value = depLogic
+                                    .mainItemList[index].type
+                                    .toString();
+                                depLogic.idGo?.value =
+                                    depLogic.mainItemList[index].id!;
                                 try {
-                                  logic.idParentBack?.value =
-                                      logic.mainItemList[index].parentId ?? -1;
+                                  depLogic.idParentBack?.value =
+                                      depLogic.mainItemList[index].parentId ??
+                                          -1;
                                 } catch (e) {
-                                  logic.idParentBack?.value = int.parse(
-                                      logic.mainItemList[index].parentId);
+                                  depLogic.idParentBack?.value = int.parse(
+                                      depLogic.mainItemList[index].parentId);
                                 }
 
-                                switch (logic.typeGo.value) {
-                                  case kRegularFlowKey:
-                                    {
-                                      logic.fetchSubList(logic.idGo?.value);
-                                      break;
-                                    }
-                                  case kUploadFlowKey:
-                                    {
-                                      Get.to(() => MedicalFormPage(
-                                            pharmacyTitle: logic
-                                                    .mainItemList[index]
-                                                    .nameAr ??
-                                                kPharmacyTitleKey,
-                                            isRate: false,
-                                            pharmacyLogo: logic
-                                                    .mainItemList[index].icon ??
-                                                kAddPhotoImg,
-                                            onSend: () {
-                                              /// id process
-                                            },
-                                          ));
-                                      break;
-                                    }
-                                }
+                                nextNavigatorPage(depLogic, index);
                               },
                               index: index,
                             ),
@@ -123,4 +101,37 @@ class DepartmentPage extends StatelessWidget {
       }),
     );
   }
+
+  void nextNavigatorPage(DepartmentLogic departLogic, int index) async {
+    int? id = departLogic.idGo?.value;
+    bool isServiceProvider = await departLogic.checkIsFlowType(id);
+
+    if (isServiceProvider == true) {
+      Get.to(() => ServiceProviderPage());
+    } else {
+      departLogic.fetchSubList(departLogic.idGo?.value);
+    }
+  }
 }
+/*
+   switch (logic.typeGo.value) {
+      case kRegularFlowValue:
+        {
+          logic.fetchSubList(logic.idGo?.value);
+          break;
+        }
+      case kUploadFlowValue:
+        {
+          Get.to(() => MedicalFormPage(
+                pharmacyTitle:
+                    logic.mainItemList[index].nameAr ?? kPharmacyTitleKey,
+                isRate: false,
+                pharmacyLogo: logic.mainItemList[index].icon ?? kAddPhotoImg,
+                onSend: () {
+                  /// id process
+                },
+              ));
+          break;
+        }
+    }
+*/

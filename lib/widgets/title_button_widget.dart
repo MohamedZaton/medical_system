@@ -29,10 +29,10 @@ class TitleButtonWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          kCustomText(title,
-              fontSize: textSizeLargeMedium,
-              textColor: Colors.white,
-              fontFamily: fontMedium),
+          FittedBox(
+            child: kCustomText(title,
+                textColor: Colors.white, fontFamily: fontMedium),
+          ),
           if (rightImgPath != null) ...[
             SizedBox(
               width: 20,

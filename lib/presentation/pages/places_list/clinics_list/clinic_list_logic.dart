@@ -7,7 +7,7 @@ import '../../../../data/services/local_app_api.dart';
 class ClinicsListLogic extends GetxController {
   RxBool isLoading = false.obs;
   RxList<DepartItemModel> mainItemList = <DepartItemModel>[].obs;
-  RxString title = kClinicsTitleKey.obs;
+  RxString title = kServicesListKey.obs;
 
   @override
   void onReady() {

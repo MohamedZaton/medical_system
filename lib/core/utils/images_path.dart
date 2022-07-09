@@ -12,3 +12,5 @@ const String kLogoAppImg = 'assets/logo/logo.png';
 const String kMicroScopeImg = 'assets/icons/lab.png';
 const String kOrderBoxImg = 'assets/icons/box_order.png';
 const String kAddPhotoImg = 'assets/icons/add-photo.png';
+const String kSuccessImg = 'assets/icons/success.png';
+const String kFailedImg = 'assets/icons/failed.png';

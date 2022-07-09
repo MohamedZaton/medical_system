@@ -1,7 +1,9 @@
 import 'package:developer/data/models/reserv_model.dart' as reservList;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/repositories/user_repository_impl.dart';
+import '../../../tools/constants.dart';
 
 class OrdersLogic extends GetxController {
   RxBool isLoading = false.obs;
@@ -31,6 +33,23 @@ class OrdersLogic extends GetxController {
     }, (fetchlist) {
       mainItemList.value = fetchlist;
       isLoading.value = false;
+
+      return;
+    });
+  }
+
+  Future<void> cancelOrder(reservList.Data resevModel) async {
+    final response =
+        await UserRepositoryImpl().deletePutReservationOrder(resevModel.id!);
+    response.fold((l) {
+      Get.snackbar(kCancelTitleTxt, kCancelRejectedTxt,
+          backgroundColor: Colors.amber);
+      fetchList();
+      return;
+    }, (r) {
+      Get.snackbar(kCancelTitleTxt, kCancelAcceptedTxt,
+          backgroundColor: Colors.green);
+      fetchList();
 
       return;
     });

@@ -45,6 +45,9 @@ class OrdersPage extends StatelessWidget {
                           child: OrderItemWgt(
                             orderItem: logic.mainItemList[index],
                             index: index,
+                            onPress: () {
+                              logic.cancelOrder(logic.mainItemList[index]);
+                            },
                           ), // ,
                         );
                       },

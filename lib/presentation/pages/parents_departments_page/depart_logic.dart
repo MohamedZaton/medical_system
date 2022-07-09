@@ -3,13 +3,15 @@ import 'package:developer/tools/api_keys.dart';
 import 'package:get/get.dart';
 
 import '../../../data/repositories/user_repository_impl.dart';
+import '../../../data/services/server_app_api.dart';
 
 class DepartmentLogic extends GetxController {
   RxBool isLoading = false.obs;
   RxList<categoryList.Data> mainItemList = <categoryList.Data>[].obs;
   RxInt? idGo = 0.obs;
   RxInt? idParentBack = 0.obs;
-  RxString typeGo = kParentFlowKey.obs;
+  RxString typeGo = kParentFlowValue.obs;
+  RxBool isFlowTypeKey = false.obs;
 
   @override
   void onReady() {
@@ -22,6 +24,14 @@ class DepartmentLogic extends GetxController {
   void onClose() {
     // TODO: implement onClose
     super.onClose();
+  }
+
+  Future<bool> checkIsFlowType(int? id) async {
+    final response = await ServerAppApi().getSubDepartmentRequest(id!);
+    String responseStr = response.toString();
+    isFlowTypeKey.value = responseStr.toString().contains(kFlowTypeParamKey);
+    print("isFlowTypeKey= ${isFlowTypeKey.value}");
+    return isFlowTypeKey.value;
   }
 
   void fetchParentList() async {
@@ -50,7 +60,7 @@ class DepartmentLogic extends GetxController {
     isLoading.value = true;
     final response = await UserRepositoryImpl().getSubCtgList(id);
     response.fold((l) {
-      print("[getAds] error: " + l.message);
+      print("[getDepartment] error: " + l.message);
       isLoading.value = false;
     }, (fetchlist) {
       mainItemList.value = fetchlist;

@@ -35,10 +35,14 @@ class ServerAppApi implements AppApi {
 
   @override
   Future<Response> postUploadFlowRequest(
-      UploadModel uploadModel, File file) async {
+    UploadModel uploadModel,
+    File file,
+  ) async {
+    String token = await LocalData().readAccessToken();
+
     dio.options.headers["locale"] = "ar";
+    dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
-    dio.options.headers["Content-Type"] = 'application/x-www-form-urlencoded';
 
     String fileName = file.path.split('/').last;
     String UploadUrl = baseServer + 'client/createReservation';
@@ -46,7 +50,7 @@ class ServerAppApi implements AppApi {
     var formData = FormData.fromMap({
       'reservation_date': uploadModel.reservationDate,
       'reservation_time': uploadModel.reservationTime,
-      'service_id': uploadModel.serviceId,
+      'service_provider_id': uploadModel.serviceId,
       'zone_id': uploadModel.zoneId,
       'image': await MultipartFile.fromFile(file.path, filename: fileName),
     });
@@ -58,7 +62,6 @@ class ServerAppApi implements AppApi {
 /*  Future addImage(
       reservationDate, reservationTime, serviceId, zoneId, File file) async {
     String fileName = file.path.split('/').last;
-
     var formData = FormData.fromMap({
       'reservation_date': reservationDate,
       'reservation_time': reservationTime,
@@ -66,7 +69,6 @@ class ServerAppApi implements AppApi {
       'zone_id': zoneId,
       'image': await MultipartFile.fromFile(file.path, filename: fileName),
     });
-
     await dio.post("${host}/add", data: formData).then((data) {
       ad_data = data.data;
     });
@@ -120,6 +122,16 @@ class ServerAppApi implements AppApi {
   }
 
   @override
+  Future<Response> putReservationRequest(int id) async {
+    String ReservDeleteUrl = baseServer + 'client/cancelReservation/$id';
+    String token = await LocalData().readAccessToken();
+    dio.options.headers["Authorization"] = "Bearer ${token}";
+    dio.options.headers["Accept"] = 'application/json';
+    Response reservResponse = await dio.put(ReservDeleteUrl);
+    return reservResponse;
+  }
+
+  @override
   Future<Response> getDeleverRequest() async {
     String deliverUrl = baseServer + 'client/deliveriesList';
     String token = await LocalData().readAccessToken();
@@ -147,6 +159,26 @@ class ServerAppApi implements AppApi {
     dio.options.headers["Accept"] = 'application/json';
     Response childResponse = await dio.get(parentCtgUrl);
     return childResponse;
+  }
+
+  @override
+  Future<Response> getServiceDetailsRequest(int id) async {
+    String serviceDetailsUrl = baseServer + 'client/serviceDetails/$id';
+    String token = await LocalData().readAccessToken();
+    dio.options.headers["Authorization"] = "Bearer ${token}";
+    dio.options.headers["Accept"] = 'application/json';
+    Response serviceDetailResponse = await dio.get(serviceDetailsUrl);
+    return serviceDetailResponse;
+  }
+
+  @override
+  Future<Response> getServicesListRequest(int id) async {
+    String serviceListsUrl = baseServer + 'client/getServicesList/$id';
+    String token = await LocalData().readAccessToken();
+    dio.options.headers["Authorization"] = "Bearer ${token}";
+    dio.options.headers["Accept"] = 'application/json';
+    Response serviceListResponse = await dio.get(serviceListsUrl);
+    return serviceListResponse;
   }
 
   @override

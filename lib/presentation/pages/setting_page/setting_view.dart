@@ -143,17 +143,24 @@ class SettingPage extends StatelessWidget {
         child: ListView(
           children: numbersWatsAppList
               .map(
-                (item) => OvalButtonWdgt(
-                  text: item,
-                  imagePath: kWhatsAppImg,
-                  onPressed: () async {
-                    var whatsappUrl = "whatsapp://send?phone=$item";
-                    await canLaunchUrl(Uri.parse(whatsappUrl))
-                        ? launchUrl(Uri.parse(whatsappUrl))
-                        : print(
-                            "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
-                    Get.back();
-                  },
+                (item) => Column(
+                  children: [
+                    OvalButtonWdgt(
+                      text: item,
+                      imagePath: kWhatsAppImg,
+                      onPressed: () async {
+                        var whatsappUrl = "whatsapp://send?phone=$item";
+                        await canLaunchUrl(Uri.parse(whatsappUrl))
+                            ? launchUrl(Uri.parse(whatsappUrl))
+                            : print(
+                                "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
+                        Get.back();
+                      },
+                    ),
+                    SizedBox(
+                      height: 6,
+                    )
+                  ],
                 ),
               )
               .toList(),

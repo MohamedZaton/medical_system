@@ -34,7 +34,8 @@ class SplashPage extends StatelessWidget {
           },
           child: FluxImage(imageUrl: kLogoAppImg),
           onEnd: () async {
-            if (await LocalData().readAcceptAutoLogin()) {
+            final bool isAuto = await LocalData().readAcceptAutoLogin();
+            if (isAuto) {
               return Get.offAll(() => HomePage());
             } else {
               return Get.offAll(() => SignInPage());

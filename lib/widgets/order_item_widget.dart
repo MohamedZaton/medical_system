@@ -9,10 +9,12 @@ enum Status { PENDING, INPROGRESS, REJECTED, COMPLETED, CANCELED }
 class OrderItemWgt extends StatelessWidget {
   final reservList.Data orderItem;
   final int index;
+  final Function() onPress;
   const OrderItemWgt({
     Key? key,
     required this.orderItem,
     required this.index,
+    required this.onPress,
   }) : super(key: key);
 
   @override
@@ -46,7 +48,7 @@ class OrderItemWgt extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  /// main info 2
+                  /// status name
                   Flexible(
                     flex: 1,
                     child: Container(
@@ -71,30 +73,36 @@ class OrderItemWgt extends StatelessWidget {
                     ),
                   ),
 
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      width: 60,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                  /// delete button cancel
+                  if (orderItem.status != Status.CANCELED.name) ...[
+                    Flexible(
+                      flex: 1,
+                      child: InkWell(
+                        onTap: onPress,
+                        child: Container(
+                          width: 60,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.delete_forever_outlined,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                         ),
                       ),
-                      child: Icon(
-                        Icons.delete_forever_outlined,
-                        color: Colors.white,
-                        size: 30,
-                      ),
                     ),
-                  ),
+                  ],
                 ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  /// main type
+                  /// type order name
 
                   Flexible(
                     flex: 1,
@@ -108,7 +116,7 @@ class OrderItemWgt extends StatelessWidget {
                     ),
                   ),
 
-                  /// main pic 2
+                  /// price
                   Flexible(
                     flex: 1,
                     child: Container(

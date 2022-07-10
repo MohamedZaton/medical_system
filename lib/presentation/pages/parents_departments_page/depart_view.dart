@@ -1,5 +1,7 @@
 import 'package:developer/core/utils/screens.dart';
+import 'package:developer/presentation/pages/home/home_view.dart';
 import 'package:developer/presentation/pages/service_provider/service_provider_view.dart';
+import 'package:developer/widgets/title_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -51,13 +53,30 @@ class DepartmentPage extends StatelessWidget {
 
                 Expanded(
                     child: (() {
+                  if (depLogic.isNetworkProblem.value) {
+                    return Center(
+                      child: MessageImgButtonWdgt(
+                        message: " ${depLogic.problemMessage.value}",
+                        imageUrl: kProblemImg,
+                        button: TitleButtonWidget(
+                          title: kTryAgainTxt,
+                          onPressed: () {
+                            Get.off(() => HomePage());
+                          },
+                        ),
+                      ),
+                    );
+                  }
+
                   if (depLogic.isLoading.value) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (depLogic.isLoading.value == false &&
                       depLogic.mainItemList.length <= 0) {
                     return Center(
                         child: MessageImgButtonWdgt(
-                            message: kNoParentDepTxt, imageUrl: kOrderBoxImg));
+                            message:
+                                kNoParentDepTxt + "\nid : ${depLogic.idGo}",
+                            imageUrl: kOrderBoxImg));
                   } else {
                     return Container(
                       child: ListView.builder(

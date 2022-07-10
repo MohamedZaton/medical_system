@@ -32,6 +32,7 @@ class HomeLogic extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
+    //NetworkStatusService();
   }
 
   @override

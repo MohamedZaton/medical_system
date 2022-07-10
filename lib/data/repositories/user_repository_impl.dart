@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:developer/core/network/network_info.dart';
 import 'package:developer/data/models/ads_model.dart';
 import 'package:developer/data/models/ads_model.dart' as listAds;
 import 'package:developer/data/models/deliver_model.dart';
@@ -20,6 +21,7 @@ import '../../core/error/failure.dart';
 import '../../data/models/category_model.dart' as categoryList;
 import '../../data/models/service_pdr_model.dart' as servicePdrList;
 import '../../domain/repositories/user_repository.dart';
+import '../../tools/constants.dart';
 import '../models/category_model.dart';
 import '../models/log_in_model.dart';
 import '../models/log_in_rp_model.dart';
@@ -47,7 +49,11 @@ class UserRepositoryImpl implements UserRepository {
       print("token : " + _token);
       return right(responseModel);
     } catch (e) {
-      return left(Failure(e.toString()));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : e.toString(),
+      ));
     }
   }
 
@@ -66,7 +72,11 @@ class UserRepositoryImpl implements UserRepository {
       print("token : " + _token);
       return right(logInRpModel);
     } catch (e) {
-      return left(Failure(e.toString()));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : e.toString(),
+      ));
     }
   }
 
@@ -80,7 +90,11 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(message);
     } catch (e) {
-      return left(Failure(e.toString()));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : e.toString(),
+      ));
     }
   }
 
@@ -96,7 +110,11 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(profileInfoModel);
     } catch (e) {
-      return left(Failure(e.toString()));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : e.toString(),
+      ));
     }
   }
 
@@ -124,7 +142,11 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(adsList!);
     } catch (e) {
-      return left(Failure(e.toString()));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : e.toString(),
+      ));
     }
   }
 
@@ -140,7 +162,11 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(resList!);
     } catch (e) {
-      return left(Failure(e.toString()));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : e.toString(),
+      ));
     }
   }
 
@@ -156,7 +182,11 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(resList!);
     } catch (e) {
-      return left(Failure(e.toString()));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : e.toString(),
+      ));
     }
   }
 
@@ -180,7 +210,10 @@ class UserRepositoryImpl implements UserRepository {
       List<categoryList.Data>? resList = subCategModel.data;
       return right(resList!);
     } catch (e) {
-      return left(Failure("[getSubCtgList] : ${e.toString()}"));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+          isConnect ? kNoNetworkTxt : "[getSubCtgList] : ${e.toString()}"));
     }
   }
 
@@ -195,7 +228,10 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(servData!);
     } catch (e) {
-      return left(Failure("[getServiceDetails] : ${e.toString()}"));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+          isConnect ? kNoNetworkTxt : "[getServiceDetails] : ${e.toString()}"));
     }
   }
 
@@ -209,7 +245,10 @@ class UserRepositoryImpl implements UserRepository {
       List<servicesList.Data>? servList = servicesListModel.data;
       return right(servList!);
     } catch (e) {
-      return left(Failure("[getServicesList] : ${e.toString()}"));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+          isConnect ? kNoNetworkTxt : "[getServicesList] : ${e.toString()}"));
     }
   }
 
@@ -223,7 +262,11 @@ class UserRepositoryImpl implements UserRepository {
       List<servicePdrList.Data>? serviceList = serviceProviderModel.data;
       return right(serviceList!);
     } catch (e) {
-      return left(Failure("[getServiceProviderList] : ${e.toString()}"));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(isConnect
+          ? kNoNetworkTxt
+          : "[getServiceProviderList] : ${e.toString()}"));
     }
   }
 
@@ -237,7 +280,11 @@ class UserRepositoryImpl implements UserRepository {
       bool isSuccess = response.data[kSuccessMsgUploadValue] ?? false;
       return right(isSuccess);
     } catch (e) {
-      return left(Failure("${e.toString()}"));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : "${e.toString()}",
+      ));
     }
   }
 
@@ -249,7 +296,11 @@ class UserRepositoryImpl implements UserRepository {
 
       return right(isSuccess);
     } catch (e) {
-      return left(Failure("${e.toString()}"));
+      bool isConnect = await NetworkInfoImpl().isConnected;
+
+      return left(Failure(
+        isConnect ? kNoNetworkTxt : "${e.toString()}",
+      ));
     }
   }
 }

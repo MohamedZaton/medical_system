@@ -14,3 +14,5 @@ const String kOrderBoxImg = 'assets/icons/box_order.png';
 const String kAddPhotoImg = 'assets/icons/add-photo.png';
 const String kSuccessImg = 'assets/icons/success.png';
 const String kFailedImg = 'assets/icons/failed.png';
+const String kOfflineImg = 'assets/icons/offline.png';
+const String kProblemImg = 'assets/icons/issue_problem.png';

@@ -52,10 +52,17 @@ class ServerAppApi implements AppApi {
       'reservation_time': uploadModel.reservationTime,
       'service_provider_id': uploadModel.serviceId,
       'zone_id': uploadModel.zoneId,
-      'image': (hasImage)
-          ? await MultipartFile.fromFile(file.path, filename: fileName)
-          : null,
     });
+
+    if (hasImage) {
+      formData = FormData.fromMap({
+        'reservation_date': uploadModel.reservationDate,
+        'reservation_time': uploadModel.reservationTime,
+        'service_provider_id': uploadModel.serviceId,
+        'zone_id': uploadModel.zoneId,
+        'image': await MultipartFile.fromFile(file.path, filename: fileName),
+      });
+    }
 
     final UploadResponse = await dio.post(UploadUrl, data: formData);
     return UploadResponse;

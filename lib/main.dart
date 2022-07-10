@@ -7,6 +7,7 @@ import 'config/routes/app_routes.dart';
 
 void main() async {
   runApp(const MyApp());
+  // DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {

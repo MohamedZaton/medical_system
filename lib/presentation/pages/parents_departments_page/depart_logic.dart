@@ -12,6 +12,8 @@ class DepartmentLogic extends GetxController {
   RxInt? idParentBack = 0.obs;
   RxString typeGo = kParentFlowValue.obs;
   RxBool isFlowTypeKey = false.obs;
+  RxString problemMessage = "".obs;
+  RxBool isNetworkProblem = false.obs;
 
   @override
   void onReady() {
@@ -35,6 +37,7 @@ class DepartmentLogic extends GetxController {
   }
 
   void fetchParentList() async {
+    isNetworkProblem.value = false;
     idGo?.value = -1;
     isLoading.value = true;
     print("[fetch_ParentList] sub id: idGo?.value");
@@ -43,6 +46,8 @@ class DepartmentLogic extends GetxController {
     response.fold((l) {
       print("[getAds] error: " + l.message);
       isLoading.value = false;
+      isNetworkProblem.value = true;
+      problemMessage.value = l.message.toString();
     }, (fetchlist) {
       mainItemList.value = fetchlist;
       isLoading.value = false;

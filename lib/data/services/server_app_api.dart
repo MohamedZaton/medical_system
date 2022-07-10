@@ -34,17 +34,17 @@ class ServerAppApi implements AppApi {
   }
 
   @override
-  Future<Response> postUploadFlowRequest(
-    UploadModel uploadModel,
-    File file,
-  ) async {
+  Future<Response> postUploadFlowRequest(UploadModel uploadModel, File file,
+      {bool hasImage = true}) async {
     String token = await LocalData().readAccessToken();
 
     dio.options.headers["locale"] = "ar";
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
-
-    String fileName = file.path.split('/').last;
+    String fileName = '';
+    if (hasImage) {
+      fileName = file.path.split('/').last;
+    }
     String UploadUrl = baseServer + 'client/createReservation';
 
     var formData = FormData.fromMap({
@@ -52,7 +52,9 @@ class ServerAppApi implements AppApi {
       'reservation_time': uploadModel.reservationTime,
       'service_provider_id': uploadModel.serviceId,
       'zone_id': uploadModel.zoneId,
-      'image': await MultipartFile.fromFile(file.path, filename: fileName),
+      'image': (hasImage)
+          ? await MultipartFile.fromFile(file.path, filename: fileName)
+          : null,
     });
 
     final UploadResponse = await dio.post(UploadUrl, data: formData);

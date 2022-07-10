@@ -113,6 +113,7 @@ class MedicalFormPage extends StatelessWidget {
                               logic.setUploadModel(UploadModel(
                                 serviceId: serviceId,
                                 zoneId: zoneId,
+                                serviceProviderId: serviceId,
                               ));
                               logic.getImage();
                             }),

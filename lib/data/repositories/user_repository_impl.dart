@@ -185,11 +185,12 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, serviceDetails.Data>> getServiceDetails(int id) async {
+  Future<Either<Failure, serviceDetails.Data>> getServiceDetails(
+      int? id) async {
     try {
-      final response = await ServerAppApi().getServiceDetailsRequest(id);
+      final response = await ServerAppApi().getServiceDetailsRequest(id!);
       ServiceDetailsModel serviceDetailsModel =
-          ServiceDetailsModel.fromJson(response);
+          ServiceDetailsModel.fromJson(response.data);
       serviceDetails.Data? servData = serviceDetailsModel.data;
 
       return right(servData!);
@@ -227,13 +228,13 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> createMedicalPaper(
-      UploadModel uploadModel, File file) async {
+  Future<Either<Failure, bool>> createReservationPaper(
+      UploadModel uploadModel, File file,
+      {bool hasImage = true}) async {
     try {
-      final response =
-          await ServerAppApi().postUploadFlowRequest(uploadModel, file);
+      final response = await ServerAppApi()
+          .postUploadFlowRequest(uploadModel, file, hasImage: hasImage);
       bool isSuccess = response.data[kSuccessMsgUploadValue] ?? false;
-
       return right(isSuccess);
     } catch (e) {
       return left(Failure("${e.toString()}"));

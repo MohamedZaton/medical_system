@@ -53,8 +53,7 @@ dependencies:
 
   intl: ^0.17.0
   # network
-  connectivity_plus: ^2.3.0
-  connectivity: ^3.0.6
+  data_connection_checker: ^0.3.4
   url_launcher: ^6.0.20
   dio: ^4.0.6
 

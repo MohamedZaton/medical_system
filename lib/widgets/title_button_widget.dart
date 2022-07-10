@@ -3,7 +3,6 @@ import 'package:developer/widgets/flux_image.dart';
 import 'package:flutter/material.dart';
 
 import '../tools/colors.dart';
-import '../tools/styles.dart';
 
 class TitleButtonWidget extends StatelessWidget {
   final String? title;
@@ -30,8 +29,7 @@ class TitleButtonWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FittedBox(
-            child: kCustomText(title,
-                textColor: Colors.white, fontFamily: fontMedium),
+            child: Text(title!),
           ),
           if (rightImgPath != null) ...[
             SizedBox(

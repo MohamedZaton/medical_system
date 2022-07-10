@@ -91,9 +91,9 @@ class ServicePrItemWgt extends StatelessWidget {
               /// main pic 2
               FluxImage(
                 imageUrl: serviceItemModel.logo!,
-                fit: BoxFit.fitWidth,
-                width: 100,
-                height: 100,
+                fit: BoxFit.contain,
+                width: 70,
+                height: 70,
               ),
             ],
           ),

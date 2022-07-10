@@ -1,19 +1,18 @@
+import 'package:developer/data/models/service_details_model.dart'
+    as serviceDetails;
 import 'package:flutter/material.dart';
 
+import '../../../../widgets/shadow_btn_widget.dart';
 import '../../../core/utils/images_path.dart';
 import '../../../core/utils/screens.dart';
-import '../../../data/models/booking_doctor_model.dart';
 import '../../../tools/colors.dart';
-import '../../../tools/constants.dart';
-import '../../../../widgets/shadow_btn_widget.dart';
 
 class DoctorInfoPage extends StatelessWidget {
+  final serviceDetails.Data? doctorInfoModel;
   const DoctorInfoPage({
     Key? key,
     required this.doctorInfoModel,
   }) : super(key: key);
-
-  final BookingDoctorModel? doctorInfoModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class DoctorInfoPage extends StatelessWidget {
                 height: ScreenDevices.width(context) * 0.09,
                 child: ShadowButton(
                   backgroundColor: kSeeMoreColor,
-                  name: kDemoAddressFourTxt,
+                  name: doctorInfoModel?.zone.toString(),
                   onPressed: () {},
                 ),
               ),
@@ -60,44 +59,47 @@ class DoctorInfoPage extends StatelessWidget {
           ),
 
           /// work days doctor
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: ScreenDevices.width(context) * 0.70,
-                height: ScreenDevices.width(context) * 0.09,
-                child: ShadowButton(
-                  backgroundColor: kSeeMoreColor,
-                  name:
-                      "من ${doctorInfoModel!.dayStart} إلي  ${doctorInfoModel!.dayEnd}",
-                  onPressed: () {},
+          if (doctorInfoModel!.openAt != null &&
+              doctorInfoModel!.closedAt != null) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: ScreenDevices.width(context) * 0.15,
-                height: ScreenDevices.width(context) * 0.09,
-                child: Image.asset(
-                  kCalenderIcon,
-                  scale: 3,
+                Container(
+                  width: ScreenDevices.width(context) * 0.70,
+                  height: ScreenDevices.width(context) * 0.09,
+                  child: ShadowButton(
+                    backgroundColor: kSeeMoreColor,
+                    name:
+                        "من ${doctorInfoModel!.openAt} إلي  ${doctorInfoModel!.closedAt}",
+                    onPressed: () {},
+                  ),
                 ),
-                decoration: BoxDecoration(
-                    color: kSeeMoreColor,
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: ScreenDevices.width(context) * 0.15,
+                  height: ScreenDevices.width(context) * 0.09,
+                  child: Image.asset(
+                    kCalenderIcon,
+                    scale: 3,
+                  ),
+                  decoration: BoxDecoration(
+                      color: kSeeMoreColor,
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
 
           /// work time day
-          Row(
+          /*  Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
@@ -128,7 +130,7 @@ class DoctorInfoPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(15))),
               ),
             ],
-          ),
+          ),*/
 
           SizedBox(
             height: 3,

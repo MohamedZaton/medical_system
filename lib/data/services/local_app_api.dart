@@ -133,7 +133,8 @@ class LocalAppApi implements AppApi {
   }
 
   @override
-  Future<Response> postUploadFlowRequest(UploadModel uploadModel, File file) {
+  Future<Response> postUploadFlowRequest(UploadModel uploadModel, File file,
+      {bool hasImage = true}) {
     // TODO: implement postUploadFlowRequest
     throw UnimplementedError();
   }

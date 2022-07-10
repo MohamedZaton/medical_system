@@ -1,15 +1,16 @@
+import 'package:developer/data/models/service_details_model.dart'
+    as serviceDetails;
 import 'package:developer/tools/constants.dart';
 import 'package:developer/widgets/oval_btn_widget.dart';
 import 'package:developer/widgets/side_menu_bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../widgets/shadow_btn_widget.dart';
 import '../../../core/utils/images_path.dart';
 import '../../../core/utils/screens.dart';
-import '../../../data/models/booking_doctor_model.dart';
 import '../../../tools/colors.dart';
 import '../../../tools/styles.dart';
-import '../../../../widgets/shadow_btn_widget.dart';
 import '../divisions/divisions_logic.dart';
 import 'booking_doctor_logic.dart';
 
@@ -17,13 +18,12 @@ class PatientBkPage extends StatelessWidget {
   final logic = Get.put(BookingDoctorLogic());
   final divisionsLogic = Get.put(DivisionsLogic());
   DateTime initDate = DateTime.now();
+  final serviceDetails.Data? doctorInfoModel;
 
   PatientBkPage({
     Key? key,
     required this.doctorInfoModel,
   }) : super(key: key);
-
-  final BookingDoctorModel? doctorInfoModel;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +134,7 @@ class PatientBkPage extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                "اختيار نوع الكشف",
+                "${doctorInfoModel?.name.toString()} ${kPriceTxt}",
                 style: kTitleTextStyle.copyWith(color: kDarkAccent),
               ),
             ),
@@ -144,57 +144,18 @@ class PatientBkPage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                if (divisionsLogic.selectedIndex == 0) ...[
-                  Container(
-                    width: ScreenDevices.width(context) * 0.90,
-                    height: ScreenDevices.heigth(context) * 0.05,
-                    child: ShadowButton(
-                      backgroundColor: (logic.isHomeVisited == false)
-                          ? kDarkAccent
-                          : kSeeMoreColor,
-                      name:
-                          " ${kClinicExaminationTxt} ${doctorInfoModel!.clinicPrice} ",
-                      onPressed: () {
-                        logic.selectHomePriceVisit(select: false);
-                      },
-                    ),
+                Container(
+                  width: ScreenDevices.width(context) * 0.90,
+                  height: ScreenDevices.heigth(context) * 0.05,
+                  child: ShadowButton(
+                    backgroundColor: kDarkAccent,
+                    name: " ${kEgpTxt} ${doctorInfoModel!.price} ",
+                    onPressed: () {},
                   ),
-                ] else ...[
-                  Container(
-                    width: ScreenDevices.width(context) * 0.90,
-                    height: ScreenDevices.heigth(context) * 0.05,
-                    child: ShadowButton(
-                      backgroundColor: kSeeMoreColor,
-                      name:
-                          "  $kHomeExaminationTxt ${doctorInfoModel!.homePrice} ",
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
+                ),
               ],
             ),
 
-            SizedBox(
-              height: 20,
-            ),
-            if (divisionsLogic.selectedIndex != 0) ...[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: ScreenDevices.width(context) * 0.90,
-                    height: ScreenDevices.heigth(context) * 0.05,
-                    child: ShadowButton(
-                      backgroundColor: kDarkAccent,
-                      name: logic.selectedAddress,
-                      onPressed: () {
-                        selectAddressDialog(logic);
-                      },
-                    ),
-                  ),
-                ],
-              )
-            ],
             SizedBox(
               height: 3,
             ),

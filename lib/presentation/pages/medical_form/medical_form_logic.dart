@@ -46,7 +46,7 @@ class MedicalFormLogic extends GetxController {
   Future<void> sendMedicalPaper() async {
     print("start uploading image ");
     final response =
-        await UserRepositoryImpl().createMedicalPaper(uploadModel!, image);
+        await UserRepositoryImpl().createReservationPaper(uploadModel!, image);
     response.fold((failure) {
       Get.snackbar("Failed Upload", failure.message,
           backgroundColor: kDarkAccent);

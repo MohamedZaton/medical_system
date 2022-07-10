@@ -39,6 +39,8 @@ const String kNoParentDepTxt = "لأا يوجد اقسام رئيسية";
 // setting
 const kProfileTxt = "الملف الشخصي";
 const kLanguageTxt = "اللغة";
+const kPriceTxt = "السعر";
+const kEgpTxt = "جنية";
 const kDepartmentsTxt = "الاقسام";
 const kServiceProviderTxt = "مقدم الخدمة";
 const kWhatsappTxt = "الواتساب ";

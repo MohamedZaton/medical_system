@@ -1,5 +1,4 @@
 import 'package:developer/presentation/pages/booking_doctor/patient_booking.dart';
-import 'package:developer/presentation/pages/message/message_view.dart';
 import 'package:developer/tools/colors.dart';
 import 'package:developer/tools/constants.dart';
 import 'package:developer/tools/styles.dart';
@@ -7,21 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
-import '../../../core/utils/screens.dart';
 import '../../../../widgets/flux_image.dart';
 import '../../../../widgets/shadow_btn_widget.dart';
+import '../../../core/utils/screens.dart';
+import '../services_list_page/services_list_logic.dart';
 import 'booking_doctor_logic.dart';
 import 'doctor_info.dart';
 
 class BookingDoctorPage extends StatelessWidget {
-  final logic = Get.put(BookingDoctorLogic());
+  final servDetailsLogic = Get.put(BookingDoctorLogic());
+  final serviceListLogic = Get.find<ServicesListLogic>();
+
   static const String id = "/doctors_booking";
 
   BookingDoctorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BookingDoctorLogic>(builder: (logic) {
+    return Obx(() {
+      int? oldId = serviceListLogic.idGo?.value;
+      if (oldId != null) {
+        servDetailsLogic.idGo?.value = oldId;
+      }
       return Scaffold(
         appBar: AppBar(
           title: Text(kDoctorBk),
@@ -45,12 +51,10 @@ class BookingDoctorPage extends StatelessWidget {
                       /// image doctor avatar
                       Container(
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: kDarkAccent),
-                        width: 100,
-                        height: 100,
                         child: FluxImage(
-                          imageUrl: logic.selectedDoctorModel.value.imagePath!,
+                          imageUrl: servDetailsLogic
+                              .detailsModel.value.serviceProviderLogo
+                              .toString(),
                           width: 80,
                           height: 80,
                           fit: BoxFit.contain,
@@ -61,7 +65,7 @@ class BookingDoctorPage extends StatelessWidget {
                       ),
                       Container(
                         child: RatingBar.builder(
-                          initialRating: 3,
+                          initialRating: 4.0,
                           minRating: 1,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
@@ -77,21 +81,25 @@ class BookingDoctorPage extends StatelessWidget {
                       ),
 
                       ///  name doctor
-                      Text(
-                        logic.selectedDoctorModel.value.name!,
-                        style: kHeaderTextStyle.copyWith(color: kDarkAccent),
+                      FittedBox(
+                        child: Text(
+                          servDetailsLogic
+                              .detailsModel.value.serviceProviderName
+                              .toString(),
+                          style: kHeaderTextStyle.copyWith(color: kDarkAccent),
+                        ),
                       ),
                       SizedBox(
                         height: 280,
                         child: IndexedStack(
-                          index: logic.bookingPage,
+                          index: servDetailsLogic.bookingPage.value,
                           children: [
                             DoctorInfoPage(
                                 doctorInfoModel:
-                                    logic.selectedDoctorModel.value),
+                                    servDetailsLogic.detailsModel.value),
                             PatientBkPage(
                                 doctorInfoModel:
-                                    logic.selectedDoctorModel.value),
+                                    servDetailsLogic.detailsModel.value),
                           ],
                         ),
                       ),
@@ -107,10 +115,10 @@ class BookingDoctorPage extends StatelessWidget {
                                 backgroundColor: kDarkAccent,
                                 name: " احجز ",
                                 onPressed: () {
-                                  if (logic.bookingPage == 1) {
-                                    Get.to(() => MessagePage());
+                                  if (servDetailsLogic.bookingPage == 1) {
+                                    servDetailsLogic.sendBookingPaper();
                                   } else {
-                                    logic.nextPage(page: 1);
+                                    servDetailsLogic.nextPage(page: 1);
                                   }
                                 },
                               ),
@@ -118,14 +126,14 @@ class BookingDoctorPage extends StatelessWidget {
                             SizedBox(
                               width: 10,
                             ),
-                            (logic.bookingPage > 0)
+                            (servDetailsLogic.bookingPage > 0)
                                 ? Container(
                                     width: ScreenDevices.width(context) * 0.40,
                                     child: ShadowButton(
                                       backgroundColor: kDarkAccent,
                                       name: " رجوع ",
                                       onPressed: () {
-                                        logic.previousPage();
+                                        servDetailsLogic.previousPage();
                                       },
                                     ),
                                   )

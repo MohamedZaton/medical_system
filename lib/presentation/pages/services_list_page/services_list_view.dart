@@ -1,3 +1,4 @@
+import 'package:developer/presentation/pages/booking_doctor/booking_doctor_view.dart';
 import 'package:developer/presentation/pages/service_provider/service_provider_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,14 +8,10 @@ import '../../../core/utils/screens.dart';
 import '../../../tools/constants.dart';
 import '../../../widgets/message_img_btn_widget.dart';
 import '../../../widgets/title_button_widget.dart';
-import '../booking_doctor/booking_doctor_logic.dart';
-import '../divisions/divisions_logic.dart';
 import 'services_list_logic.dart';
 
 class ServicesListPage extends StatelessWidget {
   final serviceListLogic = Get.put(ServicesListLogic());
-  final divisonLogic = Get.put(DivisionsLogic());
-  final bookingDoctorLogic = Get.put(BookingDoctorLogic());
 
   static const String id = "/services_list";
 
@@ -73,12 +70,14 @@ class ServicesListPage extends StatelessWidget {
                                           ScreenDevices.heigth(context) * 0.01),
                                   child: TitleButtonWidget(
                                     title:
-                                        '${serviceListLogic.serviceItemsList[index].name} ${serviceListLogic.serviceItemsList[index].price} جنية ',
+                                        '${serviceListLogic.serviceItemsList[index].name}   السعر ${serviceListLogic.serviceItemsList[index].price} جنية ',
                                     rightImgPath: serviceListLogic
                                         .serviceItemsList[index].image,
                                     onPressed: () {
-                                      /// details id
-                                      /// go details services
+                                      serviceListLogic.idGo?.value =
+                                          serviceListLogic
+                                              .serviceItemsList[index].id!;
+                                      Get.to(() => BookingDoctorPage());
                                     },
                                   ),
                                 );

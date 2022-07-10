@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../tools/styles.dart';
 
 Widget ShadowButton(
-    {required String name,
+    {required String? name,
     Color backgroundColor = kLightPrimary,
     double height = 60.0,
     required Function() onPressed}) {

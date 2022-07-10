@@ -33,7 +33,7 @@ abstract class UserRepository {
   Future<Either<Failure, List<categoryList.Data>>> getSubCtgList(int id);
   Future<Either<Failure, List<servicesList.Data>>> getServicesList(int id);
   Future<Either<Failure, serviceDetails.Data>> getServiceDetails(int id);
-  Future<Either<Failure, bool>> createMedicalPaper(
+  Future<Either<Failure, bool>> createReservationPaper(
       UploadModel uploadModel, File file);
   Future<Either<Failure, List<servicePdrList.Data>>> getServiceProviderList(
       int id);

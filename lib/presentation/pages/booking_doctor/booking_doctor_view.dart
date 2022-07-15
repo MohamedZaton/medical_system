@@ -15,7 +15,7 @@ import 'doctor_info.dart';
 
 class BookingDoctorPage extends StatelessWidget {
   final servDetailsLogic = Get.put(BookingDoctorLogic());
-  final serviceListLogic = Get.find<ServicesListLogic>();
+  final serviceListLogic = Get.put(ServicesListLogic());
 
   static const String id = "/doctors_booking";
 

@@ -98,12 +98,12 @@ class BookingDoctorLogic extends GetxController {
   }
 
   Future<void> sendBookingPaper() async {
-    print("start uploading image ");
+    print("start send booking  doctor ");
     File image = new File('');
     uploadModel.value = UploadModel(
       reservationDate: selectDayTitle,
       reservationTime: selectTimeTitle,
-      serviceProviderId: detailsModel.value.id.toString(),
+      serviceProviderId: detailsModel.value.serviceProviderId.toString(),
       zoneId: detailsModel.value.id.toString(),
       serviceId: detailsModel.value.id.toString(),
     );
@@ -118,7 +118,7 @@ class BookingDoctorLogic extends GetxController {
         message: kUploadFaildTxt,
         nameButton: kBackTxt,
         onPressed: () {
-          Get.off(HomePage());
+          Get.offAll(HomePage());
         },
       ));
 

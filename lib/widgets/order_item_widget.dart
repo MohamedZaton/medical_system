@@ -74,7 +74,7 @@ class OrderItemWgt extends StatelessWidget {
                   ),
 
                   /// delete button cancel
-                  if (orderItem.status != Status.CANCELED.name) ...[
+                  if (orderItem.status == Status.PENDING.name) ...[
                     Flexible(
                       flex: 1,
                       child: InkWell(
@@ -123,7 +123,7 @@ class OrderItemWgt extends StatelessWidget {
                       width: 120,
                       child: ShadowButton(
                         height: 30,
-                        name: " جنيه ${orderItem.totalPrice.toString()}",
+                        name: " جنيه ${orderItem.price.toString()}",
                         onPressed: () {},
                       ),
                     ),
@@ -141,7 +141,7 @@ class OrderItemWgt extends StatelessWidget {
 Map<String, Color> kStatueRevColorsMap = {
   Status.COMPLETED.name: Colors.green,
   Status.PENDING.name: Colors.blueGrey,
-  Status.INPROGRESS.name: Colors.blueGrey,
+  Status.INPROGRESS.name: Colors.brown,
   Status.CANCELED.name: Colors.red,
   Status.REJECTED.name: Colors.red,
 };

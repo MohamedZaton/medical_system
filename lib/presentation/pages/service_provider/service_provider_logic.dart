@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../tools/api_keys.dart';
+import '../parents_departments_page/depart_logic.dart';
 
 class ServiceProviderLogic extends GetxController {
   RxBool isLoading = false.obs;
@@ -11,6 +12,7 @@ class ServiceProviderLogic extends GetxController {
 
   RxString typeGo = kParentFlowValue.obs;
   RxBool isFlowTypeKey = false.obs;
+  final depLogic = Get.find<DepartmentLogic>();
 
   @override
   void onInit() {
@@ -26,11 +28,15 @@ class ServiceProviderLogic extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
+    servicePrItemList.value.clear();
   }
 
-  void fetchServerProviderList() async {
+  Future<void> fetchServerProviderList() async {
+    int? oldId = depLogic.idGo?.value;
+    if (oldId != null) {
+      idGo?.value = oldId;
+    }
     print("[ServiceProviderLogic ][fetch_SubList] sub id: ${idGo?.value}");
 
     isLoading.value = true;

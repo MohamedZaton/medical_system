@@ -9,11 +9,13 @@ import '../../../core/utils/images_path.dart';
 import '../../../tools/constants.dart';
 import '../../../widgets/message_img_btn_widget.dart';
 import '../../../widgets/parent_depart_widget.dart';
+import '../service_provider/service_provider_logic.dart';
 import 'depart_logic.dart';
 
 class DepartmentPage extends StatelessWidget {
   final depLogic = Get.put(DepartmentLogic());
   static const String id = "/department";
+  final servProviderLogic = Get.put(ServiceProviderLogic());
 
   @override
   build(BuildContext context) {
@@ -56,7 +58,7 @@ class DepartmentPage extends StatelessWidget {
                   if (depLogic.isNetworkProblem.value) {
                     return Center(
                       child: MessageImgButtonWdgt(
-                        message: " ${depLogic.problemMessage.value}",
+                        title: " ${depLogic.problemMessage.value}",
                         imageUrl: kProblemImg,
                         button: TitleButtonWidget(
                           title: kTryAgainTxt,
@@ -74,9 +76,7 @@ class DepartmentPage extends StatelessWidget {
                       depLogic.mainItemList.length <= 0) {
                     return Center(
                         child: MessageImgButtonWdgt(
-                            message:
-                                kNoParentDepTxt + "\nid : ${depLogic.idGo}",
-                            imageUrl: kOrderBoxImg));
+                            title: kNoParentDepTxt, imageUrl: kOrderBoxImg));
                   } else {
                     return Container(
                       child: ListView.builder(
@@ -126,6 +126,7 @@ class DepartmentPage extends StatelessWidget {
     bool isServiceProvider = await departLogic.checkIsFlowType(id);
 
     if (isServiceProvider == true) {
+      servProviderLogic.fetchServerProviderList();
       Get.to(() => ServiceProviderPage());
     } else {
       departLogic.fetchSubList(departLogic.idGo?.value);

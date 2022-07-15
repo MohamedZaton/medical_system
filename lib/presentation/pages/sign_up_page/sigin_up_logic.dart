@@ -1,5 +1,6 @@
 import 'package:developer/data/models/register_model.dart';
 import 'package:developer/data/repositories/user_repository_impl.dart';
+import 'package:developer/presentation/pages/home/home_view.dart';
 import 'package:developer/tools/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,14 +20,15 @@ class SignUpLogic extends GetxController {
       //error
       Get.snackbar(kSignUpText, kSignUpFailedText, backgroundColor: Colors.red);
       isLoading = false;
-
+      Get.offAll(() => HomePage());
       return;
     }, (r) {
       //success
       Get.snackbar(kSignUpText, kSignUpSuccessText,
           backgroundColor: Colors.green);
-      isLoading = false;
 
+      isLoading = false;
+      Get.offAll(() => HomePage());
       return;
     });
     update();

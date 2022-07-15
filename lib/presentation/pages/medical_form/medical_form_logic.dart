@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:developer/core/utils/images_path.dart';
 import 'package:developer/data/models/upload_model.dart';
+import 'package:developer/data/models/zones_model.dart' as zoneList;
 import 'package:developer/presentation/pages/home/home_view.dart';
 import 'package:developer/presentation/pages/message/message_view.dart';
 import 'package:developer/tools/colors.dart';
@@ -18,9 +19,17 @@ class MedicalFormLogic extends GetxController {
   final ImagePicker _picker = ImagePicker();
   bool isUploaded = false;
   UploadModel? uploadModel;
-  String selectedAddressPharmices = kSelectedAddressTxt;
-  void choseAddressPharmices(String address) {
-    selectedAddressPharmices = address;
+  List<zoneList.Data>? zonesList = [];
+  String? selectedZoneName = kZonesTxt;
+
+  int? selectedZoneId = 1;
+  void choseAddressPharmices(int? addressId) {
+    selectedZoneId = addressId;
+    update();
+  }
+
+  void choseAddressName(String? nameAddress) {
+    selectedZoneName = nameAddress;
     update();
   }
 
@@ -43,6 +52,24 @@ class MedicalFormLogic extends GetxController {
     }
   }
 
+  void setZonesList(List<zoneList.Data>? zones) {
+    zonesList = zones;
+    update();
+  }
+
+  Future<void> fetchZonesList() async {
+    print("get zones list : [ fetchZonesList ] ");
+    final response = await UserRepositoryImpl().getZonesList();
+    response.fold((failure) {
+      Get.snackbar("Failed Upload", "failed get zone list",
+          backgroundColor: kDarkAccent);
+      return;
+    }, (zonesListData) {
+      setZonesList(zonesListData);
+      return;
+    });
+  }
+
   Future<void> sendMedicalPaper() async {
     print("start uploading image ");
     final response =
@@ -56,7 +83,7 @@ class MedicalFormLogic extends GetxController {
         message: kUploadFaildTxt,
         nameButton: kBackTxt,
         onPressed: () {
-          Get.off(HomePage());
+          Get.offAll(HomePage());
         },
       ));
 
@@ -80,9 +107,16 @@ class MedicalFormLogic extends GetxController {
   }
 
   @override
+  void onInit() {
+    super.onInit();
+    fetchZonesList();
+  }
+
+  @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
+    fetchZonesList();
   }
 
   @override

@@ -14,8 +14,11 @@ import 'package:developer/data/models/service_details_model.dart'
     as serviceDetails;
 import 'package:developer/data/models/services_list_model.dart' as servicesList;
 import 'package:developer/data/models/upload_model.dart';
+import 'package:developer/data/models/zones_model.dart';
+import 'package:developer/data/models/zones_model.dart' as zoneList;
 import 'package:developer/data/services/server_app_api.dart';
 import 'package:developer/tools/api_keys.dart';
+import 'package:dio/dio.dart';
 
 import '../../core/error/failure.dart';
 import '../../data/models/category_model.dart' as categoryList;
@@ -35,32 +38,31 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, RegisterRpModel>> createNewUser(
       RegisterModel registerModel) async {
+    Response response = await ServerAppApi().postRegisterRequest(registerModel);
+    LocalData().writeAutoLogin();
+    LocalData().writeLogin(LogInModel(
+        phone: registerModel.phone, password: registerModel.password));
     try {
-      final response = await ServerAppApi().postRegisterRequest(registerModel);
       RegisterRpModel responseModel = RegisterRpModel.fromJson(response.data);
       String _token = responseModel.accessToken.toString();
 
       /// save token
       LocalData().writeAccessToken(_token);
-      LocalData().writeAutoLogin();
-      LocalData().writeLogin(LogInModel(
-          phone: registerModel.phone, password: registerModel.password));
 
       print("token : " + _token);
       return right(responseModel);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-        isConnect ? kNoNetworkTxt : e.toString(),
+        messageFailure,
       ));
     }
   }
 
   @override
   Future<Either<Failure, LogInRpModel>> loginUser(LogInModel logInModel) async {
+    Response response = await ServerAppApi().postLoginRequest(logInModel);
     try {
-      final response = await ServerAppApi().postLoginRequest(logInModel);
       LogInRpModel logInRpModel = LogInRpModel.fromJson(response.data);
       String _token = logInRpModel.accessToken.toString();
 
@@ -72,48 +74,43 @@ class UserRepositoryImpl implements UserRepository {
       print("token : " + _token);
       return right(logInRpModel);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-        isConnect ? kNoNetworkTxt : e.toString(),
+        messageFailure,
       ));
     }
   }
 
   @override
   Future<Either<Failure, String>> logOutUser() async {
+    LocalData().clearAccessToken();
+    LocalData().writeRejectAutoLogin();
+    Response response = await ServerAppApi().getLogOutRequest();
     try {
-      LocalData().clearAccessToken();
-      LocalData().writeRejectAutoLogin();
-      final response = await ServerAppApi().getLogOutRequest();
       String message = response.data['message'];
 
       return right(message);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-        isConnect ? kNoNetworkTxt : e.toString(),
+        messageFailure,
       ));
     }
   }
 
   @override
   Future<Either<Failure, ProfileInfoModel>> profileInfoUser() async {
-    dynamic response;
-
+    Response response = await ServerAppApi().getProfileInfoRequest();
     try {
-      response = await ServerAppApi().getProfileInfoRequest();
       ProfileInfoModel profileInfoModel =
           ProfileInfoModel.fromJson(response.data);
       LocalData().writeProfileInfo(profileInfoModel);
 
       return right(profileInfoModel);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-        isConnect ? kNoNetworkTxt : e.toString(),
+        messageFailure,
       ));
     }
   }
@@ -123,7 +120,7 @@ class UserRepositoryImpl implements UserRepository {
   Future<void> refreshToken() async {
     LogInModel logInModel = await LocalData().readLogin();
 
-    final response = await ServerAppApi().postLoginRequest(logInModel);
+    Response response = await ServerAppApi().postLoginRequest(logInModel);
     LogInRpModel logInRpModel = LogInRpModel.fromJson(response.data);
     String _token = logInRpModel.accessToken.toString();
 
@@ -133,140 +130,155 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<Either<Failure, List<listAds.Data>>> getAdsUser() async {
-    dynamic response;
-
+    Response response = await ServerAppApi().getAdsRequest();
     try {
-      response = await ServerAppApi().getAdsRequest();
       AdsModel adsModel = AdsModel.fromJson(response.data);
       List<listAds.Data>? adsList = adsModel.data;
 
       return right(adsList!);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-        isConnect ? kNoNetworkTxt : e.toString(),
+        messageFailure,
       ));
     }
   }
 
   @override
   Future<Either<Failure, List<reservList.Data>>> getReservList() async {
-    dynamic response;
+    Response response = await ServerAppApi().getReservationRequest();
 
     try {
-      response = await ServerAppApi().getReservationRequest();
-
       ReservModel reservModel = ReservModel.fromJson(response.data);
       List<reservList.Data>? resList = reservModel.data;
 
       return right(resList!);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-        isConnect ? kNoNetworkTxt : e.toString(),
+        messageFailure,
+      ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<zoneList.Data>>> getZonesList() async {
+    Response response = await ServerAppApi().getZonesListRequest();
+
+    try {
+      ZonesModel zonesModel = ZonesModel.fromJson(response.data);
+      List<zoneList.Data>? zoneMenu = zonesModel.data;
+
+      return right(zoneMenu!);
+    } catch (e) {
+      String messageFailure = await errorMessage(response);
+      return left(Failure(
+        messageFailure,
       ));
     }
   }
 
   @override
   Future<Either<Failure, List<deliverList.Data>>> getDeliverList() async {
-    dynamic response;
+    Response response = await ServerAppApi().getDeleverRequest();
 
     try {
-      response = await ServerAppApi().getDeleverRequest();
-
       DeliverModel deliverModel = DeliverModel.fromJson(response.data);
       List<deliverList.Data>? resList = deliverModel.data;
 
       return right(resList!);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-        isConnect ? kNoNetworkTxt : e.toString(),
+        messageFailure,
       ));
     }
   }
 
   @override
   Future<Either<Failure, List<categoryList.Data>>> getParentCtgList() async {
+    Response response = await ServerAppApi().getParentDepartmentRequest();
+
     try {
-      final response = await ServerAppApi().getParentDepartmentRequest();
       CategoryModel parentCategModel = CategoryModel.fromJson(response.data);
       List<categoryList.Data>? resList = parentCategModel.data;
       return right(resList!);
     } catch (e) {
-      return left(Failure(e.toString()));
+      String messageFailure = await errorMessage(response);
+      return left(Failure(
+        messageFailure,
+      ));
     }
   }
 
   @override
   Future<Either<Failure, List<categoryList.Data>>> getSubCtgList(int id) async {
+    Response response = await ServerAppApi().getSubDepartmentRequest(id);
+
     try {
-      final response = await ServerAppApi().getSubDepartmentRequest(id);
       CategoryModel subCategModel = CategoryModel.fromJson(response.data);
       List<categoryList.Data>? resList = subCategModel.data;
       return right(resList!);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-          isConnect ? kNoNetworkTxt : "[getSubCtgList] : ${e.toString()}"));
+        messageFailure,
+      ));
     }
   }
 
   @override
   Future<Either<Failure, serviceDetails.Data>> getServiceDetails(
       int? id) async {
+    Response response = await ServerAppApi().getServiceDetailsRequest(id!);
+
     try {
-      final response = await ServerAppApi().getServiceDetailsRequest(id!);
       ServiceDetailsModel serviceDetailsModel =
           ServiceDetailsModel.fromJson(response.data);
       serviceDetails.Data? servData = serviceDetailsModel.data;
 
       return right(servData!);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-          isConnect ? kNoNetworkTxt : "[getServiceDetails] : ${e.toString()}"));
+        messageFailure,
+      ));
     }
   }
 
   @override
   Future<Either<Failure, List<servicesList.Data>>> getServicesList(
       int? id) async {
+    Response response = await ServerAppApi().getServicesListRequest(id!);
+
     try {
-      final response = await ServerAppApi().getServicesListRequest(id!);
       ServicesListModel servicesListModel =
           ServicesListModel.fromJson(response.data);
       List<servicesList.Data>? servList = servicesListModel.data;
       return right(servList!);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-          isConnect ? kNoNetworkTxt : "[getServicesList] : ${e.toString()}"));
+        messageFailure,
+      ));
     }
   }
 
   @override
   Future<Either<Failure, List<servicePdrList.Data>>> getServiceProviderList(
       int? id) async {
+    Response response = await ServerAppApi().getSubDepartmentRequest(id!);
+
     try {
-      final response = await ServerAppApi().getSubDepartmentRequest(id!);
       ServiceProviderModel serviceProviderModel =
           ServiceProviderModel.fromJson(response.data);
       List<servicePdrList.Data>? serviceList = serviceProviderModel.data;
       return right(serviceList!);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
-      return left(Failure(isConnect
-          ? kNoNetworkTxt
-          : "[getServiceProviderList] : ${e.toString()}"));
+      String messageFailure = await errorMessage(response);
+      return left(Failure(
+        messageFailure,
+      ));
     }
   }
 
@@ -274,9 +286,10 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, bool>> createReservationPaper(
       UploadModel uploadModel, File file,
       {bool hasImage = true}) async {
+    Response response = await ServerAppApi()
+        .postUploadFlowRequest(uploadModel, file, hasImage: hasImage);
+
     try {
-      final response = await ServerAppApi()
-          .postUploadFlowRequest(uploadModel, file, hasImage: hasImage);
       bool isSuccess = response.data[kSuccessMsgUploadValue] ?? false;
       return right(isSuccess);
     } catch (e) {
@@ -290,17 +303,45 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<Either<Failure, bool>> deletePutReservationOrder(int id) async {
+    Response response = await ServerAppApi().putReservationRequest(id);
+
     try {
-      final response = await ServerAppApi().putReservationRequest(id);
       bool isSuccess = response.data[kSuccessMsgUploadValue] ?? false;
 
       return right(isSuccess);
     } catch (e) {
-      bool isConnect = await NetworkInfoImpl().isConnected;
-
+      String messageFailure = await errorMessage(response);
       return left(Failure(
-        isConnect ? kNoNetworkTxt : "${e.toString()}",
+        messageFailure,
       ));
     }
+  }
+
+  Future<String> errorMessage(Response response) async {
+    bool isConnect = await NetworkInfoImpl().isConnected;
+    String msg = response.statusMessage ?? "";
+    if (!isConnect) {
+      msg = kNoNetworkTxt;
+      return msg;
+    }
+    switch (response.statusCode) {
+      case 500:
+        {
+          msg = kNoServerTxt;
+          break;
+        }
+      case 401:
+        {
+          msg = kWrongPwdOrPhoneTxt;
+          break;
+        }
+      case 403:
+        {
+          msg = kWrongPwdOrPhoneTxt;
+          break;
+        }
+    }
+
+    return msg;
   }
 }

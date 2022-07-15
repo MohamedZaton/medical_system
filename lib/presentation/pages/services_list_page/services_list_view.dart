@@ -24,6 +24,7 @@ class ServicesListPage extends StatelessWidget {
     // await Firebase.initializeApp();
     /// find method transfer data between views
     final servProviderLogic = Get.find<ServiceProviderLogic>();
+    int? idServProvider = servProviderLogic.idGo?.value;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -35,7 +36,6 @@ class ServicesListPage extends StatelessWidget {
           child: Column(
             children: [
               Expanded(child: Obx(() {
-                int? idServProvider = servProviderLogic.idGo?.value;
                 if (idServProvider != null) {
                   serviceListLogic.idGo?.value = idServProvider;
                 }
@@ -55,7 +55,7 @@ class ServicesListPage extends StatelessWidget {
                             serviceListLogic.serviceItemsList.isEmpty) {
                           return Center(
                               child: MessageImgButtonWdgt(
-                                  message: kNoParentDepTxt,
+                                  title: kNoParentDepTxt,
                                   imageUrl: kOrderBoxImg));
                         } else {
                           return Container(
@@ -70,7 +70,9 @@ class ServicesListPage extends StatelessWidget {
                                           ScreenDevices.heigth(context) * 0.01),
                                   child: TitleButtonWidget(
                                     title:
-                                        '${serviceListLogic.serviceItemsList[index].name}   السعر ${serviceListLogic.serviceItemsList[index].price} جنية ',
+                                        '${serviceListLogic.serviceItemsList[index].name}',
+                                    subTitle:
+                                        ' السعر ${serviceListLogic.serviceItemsList[index].price} جنية ',
                                     rightImgPath: serviceListLogic
                                         .serviceItemsList[index].image,
                                     onPressed: () {

@@ -26,6 +26,7 @@ class ServicesListLogic extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    serviceItemsList.value.clear();
   }
 
   void fetchServicesList() async {

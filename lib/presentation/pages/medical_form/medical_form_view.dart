@@ -1,5 +1,6 @@
 import 'package:developer/core/utils/screens.dart';
 import 'package:developer/data/models/upload_model.dart';
+import 'package:developer/data/models/zones_model.dart' as zoneList;
 import 'package:developer/presentation/pages/orders_page/orders_logic.dart';
 import 'package:developer/tools/colors.dart';
 import 'package:developer/widgets/flux_image.dart';
@@ -24,14 +25,11 @@ class MedicalFormPage extends StatelessWidget {
   final String? serviceId;
   final String? zoneId;
 
-  final List<String>? addressList;
-
   MedicalFormPage({
     Key? key,
     this.pharmacyLogo = kAddPhotoImg,
     this.pharmacyTitle = kPharmacyTitleKey,
     this.isRate = false,
-    this.addressList = const <String>[],
     this.serviceId = '1',
     this.zoneId = '1',
   }) : super(key: key);
@@ -112,7 +110,7 @@ class MedicalFormPage extends StatelessWidget {
                             onPressed: () {
                               logic.setUploadModel(UploadModel(
                                 serviceId: serviceId,
-                                zoneId: zoneId,
+                                zoneId: logic.selectedZoneId.toString(),
                                 serviceProviderId: serviceId,
                               ));
                               logic.getImage();
@@ -133,14 +131,15 @@ class MedicalFormPage extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    if (addressList!.length > 0) ...[
+                    if (logic.zonesList!.length > 0) ...[
                       Container(
                         width: ScreenDevices.width(context) * 0.90,
                         child: ShadowButton(
                           backgroundColor: kDarkAccent,
-                          name: logic.selectedAddressPharmices,
+                          name: logic.selectedZoneName,
                           onPressed: () {
-                            selectAddressDialog(logic, context, addressList!);
+                            selectAddressDialog(
+                                logic, context, logic.zonesList);
                           },
                         ),
                       ),
@@ -176,7 +175,7 @@ class MedicalFormPage extends StatelessWidget {
   }
 
   Future<dynamic> selectAddressDialog(MedicalFormLogic controller,
-      BuildContext context, List<String> addressList) {
+      BuildContext context, List<zoneList.Data>? addressZonesList) {
     return Get.defaultDialog(
       title: kSelectedAddressTxt,
       titleStyle: TextStyle(color: kLightAccent),
@@ -186,13 +185,15 @@ class MedicalFormPage extends StatelessWidget {
         height: ScreenDevices.heigth(context) * 0.50,
         width: ScreenDevices.width(context) * 0.70,
         child: ListView(
-          children: addressList.map((item) {
+          children: addressZonesList!.map((item) {
             return Column(
               children: [
                 OvalButtonWdgt(
-                  text: item,
+                  text: item.nameAr!,
                   onPressed: () {
-                    controller.choseAddressPharmices(item);
+                    controller.choseAddressPharmices(item.id);
+                    controller.choseAddressName(item.nameAr);
+
                     Get.back();
                   },
                 ),

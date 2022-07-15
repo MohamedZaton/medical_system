@@ -13,6 +13,7 @@ import 'package:developer/data/models/reserv_model.dart' as reservList;
 import 'package:developer/data/models/service_details_model.dart'
     as serviceDetails;
 import 'package:developer/data/models/services_list_model.dart' as servicesList;
+import 'package:developer/data/models/zones_model.dart' as zoneList;
 
 import '../../data/models/category_model.dart' as categoryList;
 import '../../data/models/service_pdr_model.dart' as servicePdrList;
@@ -37,4 +38,5 @@ abstract class UserRepository {
       UploadModel uploadModel, File file);
   Future<Either<Failure, List<servicePdrList.Data>>> getServiceProviderList(
       int id);
+  Future<Either<Failure, List<zoneList.Data>>> getZonesList();
 }

@@ -3,11 +3,11 @@ import 'package:developer/widgets/flux_image.dart';
 import 'package:flutter/material.dart';
 
 class MessageImgButtonWdgt extends StatelessWidget {
-  final String? message;
+  final String? title;
   final String? imageUrl;
   final Widget? button;
   const MessageImgButtonWdgt(
-      {Key? key, required this.message, required this.imageUrl, this.button})
+      {Key? key, required this.title, required this.imageUrl, this.button})
       : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class MessageImgButtonWdgt extends StatelessWidget {
           SizedBox(height: 8),
           FittedBox(
             child: Text(
-              message.toString(),
+              title.toString(),
               style: Theme.of(context)
                   .textTheme
                   .headline5!

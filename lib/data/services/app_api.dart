@@ -36,6 +36,7 @@ abstract class AppApi {
   Future<Response> postUploadFlowRequest(UploadModel uploadModel, File file,
       {bool hasImage = true});
   Future<Response> getLogOutRequest();
+  Future<Response> getZonesListRequest();
   Future<Response> getProfileInfoRequest();
   Future<Response> getAdsRequest();
   Future<Response> getReservationRequest();

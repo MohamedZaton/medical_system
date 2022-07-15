@@ -18,7 +18,7 @@ class ServiceProviderPage extends StatelessWidget {
   final servProviderLogic = Get.put(ServiceProviderLogic());
 
   /// find method transfer data between views
-  final depLogic = Get.find<DepartmentLogic>();
+  final depLogic = Get.put(DepartmentLogic());
 
   ServiceProviderPage({Key? key}) : super(key: key);
 
@@ -30,11 +30,6 @@ class ServiceProviderPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Obx(() {
-        int? oldId = depLogic.idGo?.value;
-        if (oldId != null) {
-          servProviderLogic.idGo?.value = oldId;
-        }
-
         return Container(
           margin: EdgeInsets.all(16.0),
           child: Column(
@@ -48,19 +43,24 @@ class ServiceProviderPage extends StatelessWidget {
                     servProviderLogic.servicePrItemList.length <= 0) {
                   return Center(
                       child: MessageImgButtonWdgt(
-                          message: kNoParentDepTxt, imageUrl: kOrderBoxImg));
+                          title: kNoParentDepTxt, imageUrl: kOrderBoxImg));
                 } else {
                   return Container(
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: servProviderLogic.servicePrItemList.length,
                       itemBuilder: (context, index) {
+                        int rateInt = int.parse(servProviderLogic
+                            .servicePrItemList[index].rate
+                            .toString());
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: ScreenDevices.heigth(context) * 0.01),
                           child: ServicePrItemWgt(
                             serviceItemModel:
                                 servProviderLogic.servicePrItemList[index],
+                            hasRating: true,
+                            initialRating: rateInt.toDouble(),
                             onPressed: () {
                               servProviderLogic.typeGo.value = servProviderLogic
                                   .servicePrItemList[index].flowType
@@ -95,7 +95,7 @@ class ServiceProviderPage extends StatelessWidget {
                                                   .servicePrItemList[index]
                                                   .name ??
                                               kPharmacyTitleKey,
-                                          isRate: false,
+                                          isRate: true,
                                           pharmacyLogo: servProviderLogic
                                                   .servicePrItemList[index]
                                                   .logo ??

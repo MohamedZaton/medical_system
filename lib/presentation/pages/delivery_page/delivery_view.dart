@@ -29,7 +29,7 @@ class DeliveryPage extends StatelessWidget {
                     logic.mainItemList.length <= 0) {
                   return Center(
                       child: MessageImgButtonWdgt(
-                          message: kOrderYetTxt, imageUrl: kOrderBoxImg));
+                          title: kOrderYetTxt, imageUrl: kOrderBoxImg));
                 } else {
                   return Container(
                     child: ListView.builder(

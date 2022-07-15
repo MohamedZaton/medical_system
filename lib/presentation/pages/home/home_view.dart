@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../tools/colors.dart';
+import '../delivery_page/delivery_logic.dart';
 import '../delivery_page/delivery_view.dart';
+import '../orders_page/orders_logic.dart';
 import '../orders_page/orders_view.dart';
+import '../parents_departments_page/depart_logic.dart';
 import '../parents_departments_page/depart_view.dart';
+import '../setting_page/setting_logic.dart';
 import '../setting_page/setting_view.dart';
 import 'home_logic.dart';
 import 'home_tab.dart';
@@ -14,6 +18,10 @@ class HomePage extends StatelessWidget {
   static const String id = "/home_page";
 
   final logic = Get.put(HomeLogic());
+  final orderLogic = Get.put(OrdersLogic());
+  final departmentLogic = Get.put(DepartmentLogic());
+  final deliveryLogic = Get.put(DeliveryLogic());
+  final settingLogic = Get.put(SettingLogic());
   Widget tabItem(
       {required HomeLogic controller,
       required int index,

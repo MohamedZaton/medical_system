@@ -9,6 +9,8 @@ import '../../../widgets/order_item_widget.dart';
 import 'orders_logic.dart';
 
 class OrdersPage extends StatelessWidget {
+  static const String id = "/order";
+
   final logic = Get.put(OrdersLogic());
   @override
   build(BuildContext context) {
@@ -29,7 +31,7 @@ class OrdersPage extends StatelessWidget {
                     logic.mainItemList.length <= 0) {
                   return Center(
                       child: MessageImgButtonWdgt(
-                          message: kOrderYetTxt, imageUrl: kOrderBoxImg));
+                          title: kOrderYetTxt, imageUrl: kOrderBoxImg));
                 } else {
                   return Container(
                     alignment: Alignment.center,
@@ -47,6 +49,7 @@ class OrdersPage extends StatelessWidget {
                             index: index,
                             onPress: () {
                               logic.cancelOrder(logic.mainItemList[index]);
+                              logic.fetchList();
                             },
                           ), // ,
                         );

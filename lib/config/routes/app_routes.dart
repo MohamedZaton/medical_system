@@ -1,5 +1,6 @@
 import 'package:developer/presentation/pages/divisions/division_view.dart';
 import 'package:developer/presentation/pages/divisions/divisions_logic.dart';
+import 'package:developer/presentation/pages/orders_page/orders_logic.dart';
 import 'package:developer/presentation/pages/profile/profile_controller.dart';
 import 'package:developer/presentation/pages/profile/profile_view.dart';
 import 'package:developer/presentation/pages/service_provider/service_provider_logic.dart';
@@ -16,6 +17,7 @@ import '../../presentation/pages/medical_form/medical_form_logic.dart';
 import '../../presentation/pages/medical_form/medical_form_view.dart';
 import '../../presentation/pages/message/message_logic.dart';
 import '../../presentation/pages/message/message_view.dart';
+import '../../presentation/pages/orders_page/orders_view.dart';
 import '../../presentation/pages/parents_departments_page/depart_logic.dart';
 import '../../presentation/pages/parents_departments_page/depart_view.dart';
 import '../../presentation/pages/places_list/clinics_list/clinic_list_logic.dart';
@@ -62,6 +64,13 @@ class AppRoutes {
         }),
       ),
       GetPage(
+        name: OrdersPage.id,
+        page: () => OrdersPage(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut<OrdersLogic>(() => OrdersLogic());
+        }),
+      ),
+      GetPage(
         name: SettingPage.id,
         page: () => SettingPage(),
         binding: BindingsBuilder(() {
@@ -73,7 +82,6 @@ class AppRoutes {
         page: () => DepartmentPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut<DepartmentLogic>(() => DepartmentLogic());
-          Get.lazyPut<ServiceProviderLogic>(() => ServiceProviderLogic());
         }),
       ),
       GetPage(

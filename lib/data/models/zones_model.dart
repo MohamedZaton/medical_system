@@ -1,16 +1,16 @@
 import 'dart:convert';
 
-ReservModel reservModelFromJson(String str) =>
-    ReservModel.fromJson(json.decode(str));
-String reservModelToJson(ReservModel data) => json.encode(data.toJson());
+ZonesModel zonesModelFromJson(String str) =>
+    ZonesModel.fromJson(json.decode(str));
+String zonesModelToJson(ZonesModel data) => json.encode(data.toJson());
 
-class ReservModel {
-  ReservModel({
+class ZonesModel {
+  ZonesModel({
     this.success,
     this.data,
   });
 
-  ReservModel.fromJson(dynamic json) {
+  ZonesModel.fromJson(dynamic json) {
     success = json['success'];
     if (json['data'] != null) {
       data = [];
@@ -21,11 +21,11 @@ class ReservModel {
   }
   bool? success;
   List<Data>? data;
-  ReservModel copyWith({
+  ZonesModel copyWith({
     bool? success,
     List<Data>? data,
   }) =>
-      ReservModel(
+      ZonesModel(
         success: success ?? this.success,
         data: data ?? this.data,
       );
@@ -45,39 +45,33 @@ String dataToJson(Data data) => json.encode(data.toJson());
 class Data {
   Data({
     this.id,
-    this.serviceName,
-    this.price,
-    this.status,
+    this.nameEn,
+    this.nameAr,
   });
 
   Data.fromJson(dynamic json) {
     id = json['id'];
-    serviceName = json['service_name'];
-    price = json['price'];
-    status = json['status'];
+    nameEn = json['name_en'];
+    nameAr = json['name_ar'];
   }
   int? id;
-  String? serviceName;
-  String? price;
-  String? status;
+  String? nameEn;
+  String? nameAr;
   Data copyWith({
     int? id,
-    String? serviceName,
-    String? price,
-    String? status,
+    String? nameEn,
+    String? nameAr,
   }) =>
       Data(
         id: id ?? this.id,
-        serviceName: serviceName ?? this.serviceName,
-        price: price ?? this.price,
-        status: status ?? this.status,
+        nameEn: nameEn ?? this.nameEn,
+        nameAr: nameAr ?? this.nameAr,
       );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
-    map['service_name'] = serviceName;
-    map['price'] = price;
-    map['status'] = status;
+    map['name_en'] = nameEn;
+    map['name_ar'] = nameAr;
     return map;
   }
 }

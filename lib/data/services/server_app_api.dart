@@ -41,16 +41,16 @@ class ServerAppApi implements AppApi {
     dio.options.headers["locale"] = "ar";
     dio.options.headers["Authorization"] = "Bearer ${token}";
     dio.options.headers["Accept"] = 'application/json';
-    String fileName = '';
-    if (hasImage) {
-      fileName = file.path.split('/').last;
-    }
+
+    String fileName = file.path.split('/').last;
+
     String UploadUrl = baseServer + 'client/createReservation';
 
     var formData = FormData.fromMap({
       'reservation_date': uploadModel.reservationDate,
       'reservation_time': uploadModel.reservationTime,
-      'service_provider_id': uploadModel.serviceId,
+      'service_provider_id': uploadModel.serviceProviderId,
+      'service_id': uploadModel.serviceId,
       'zone_id': uploadModel.zoneId,
     });
 
@@ -58,7 +58,8 @@ class ServerAppApi implements AppApi {
       formData = FormData.fromMap({
         'reservation_date': uploadModel.reservationDate,
         'reservation_time': uploadModel.reservationTime,
-        'service_provider_id': uploadModel.serviceId,
+        'service_provider_id': uploadModel.serviceProviderId,
+        // 'service_id': uploadModel.serviceId,
         'zone_id': uploadModel.zoneId,
         'image': await MultipartFile.fromFile(file.path, filename: fileName),
       });
@@ -128,6 +129,16 @@ class ServerAppApi implements AppApi {
     Response reservResponse = await dio.get(ReservUrl);
 
     return reservResponse;
+  }
+
+  @override
+  Future<Response> getZonesListRequest() async {
+    String zonesUrl = baseServer + 'client/zonesList';
+    String token = await LocalData().readAccessToken();
+    dio.options.headers["Authorization"] = "Bearer ${token}";
+    dio.options.headers["Accept"] = 'application/json';
+    Response zonesResponse = await dio.get(zonesUrl);
+    return zonesResponse;
   }
 
   @override

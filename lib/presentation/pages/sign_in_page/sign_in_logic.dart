@@ -17,9 +17,9 @@ class SignInLogic extends GetxController {
   void loginUser(LogInModel logInModel) async {
     isLoading = true;
     final responce = await UserRepositoryImpl().loginUser(logInModel);
-    responce.fold((l) {
+    responce.fold((f) {
       //error
-      Get.snackbar(kSignInText, kSignUpFailedText, backgroundColor: Colors.red);
+      Get.snackbar(kSignInText, f.message, backgroundColor: Colors.red);
       isLoading = false;
 
       return;
@@ -29,7 +29,7 @@ class SignInLogic extends GetxController {
           backgroundColor: Colors.green);
       isLoading = false;
       getInfoUser();
-      return Get.to(() => HomePage());
+      return Get.offAll(() => HomePage());
     });
     update();
   }

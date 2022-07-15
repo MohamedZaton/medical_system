@@ -31,11 +31,14 @@ const String kSignUpSuccessText = "تم تسجيلك بنجاح ";
 const String kSignUpFailedText = "هناك خطافى التسجيل";
 const String kSignOutText = "تسجيل الخروج";
 const String kCompleted = "مكتمل";
+const String kZonesTxt = "المناطق";
 const String kWaiting = "قيد الانتظار";
 const String kCancel = "تم الالغاء";
 const String kDelivery = "فى الطريق";
 const String kOrderYetTxt = "لم تقم باى طلب حتى الان ";
 const String kNoNetworkTxt = "لا يوجد اتصال بالإنترنت ";
+const String kNoServerTxt = "هناك مشكلة فى السيرفر";
+const String kWrongPwdOrPhoneTxt = "التسجيل غير صحيح تاكد من الرقم و كلمة السر";
 const String kNoParentDepTxt = "لا يوجد اقسام ";
 // setting
 const kProfileTxt = "الملف الشخصي";

@@ -31,6 +31,7 @@ class OrdersLogic extends GetxController {
 
       return;
     }, (fetchlist) {
+      mainItemList.value.clear();
       mainItemList.value = fetchlist;
       isLoading.value = false;
 

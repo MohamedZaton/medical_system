@@ -22,7 +22,7 @@ class ProfileLogic extends GetxController {
       phoneNumber = profileInfoModel.data!.phone.toString();
     }, (profileModel) {
       userName = profileModel.data!.name.toString();
-      phoneNumber = profileModel.data!.name.toString();
+      phoneNumber = profileModel.data!.phone.toString();
     });
 
     update();

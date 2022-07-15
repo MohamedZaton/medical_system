@@ -6,6 +6,7 @@ import '../tools/colors.dart';
 
 class TitleButtonWidget extends StatelessWidget {
   final String? title;
+  final String? subTitle;
   final String? rightImgPath;
   final Color backgroundColor;
   final double radius;
@@ -17,7 +18,8 @@ class TitleButtonWidget extends StatelessWidget {
       this.backgroundColor = kDarkAccent,
       this.radius = 40.0,
       required this.onPressed,
-      this.rightImgPath = null})
+      this.rightImgPath,
+      this.subTitle})
       : super(key: key);
 
   @override
@@ -26,10 +28,20 @@ class TitleButtonWidget extends StatelessWidget {
       height: 60,
       minWidth: double.infinity,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          SizedBox(
+            width: 5,
+          ),
           FittedBox(
-            child: Text(title!),
+            child: Column(
+              children: [
+                Text(title!),
+                if (subTitle != null) ...[
+                  Text(subTitle!),
+                ],
+              ],
+            ),
           ),
           if (rightImgPath != null) ...[
             SizedBox(

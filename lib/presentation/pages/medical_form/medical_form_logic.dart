@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../data/repositories/user_repository_impl.dart';
 import '../../../tools/constants.dart';
+import '../splash/splash_view.dart';
 
 class MedicalFormLogic extends GetxController {
   File image = new File('');
@@ -99,7 +100,7 @@ class MedicalFormLogic extends GetxController {
         message: kUploadSuccessTxt,
         nameButton: kBackTxt,
         onPressed: () {
-          Get.off(HomePage());
+          Get.offAll(SplashPage());
         },
       ));
       return;

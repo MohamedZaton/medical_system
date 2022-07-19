@@ -105,7 +105,9 @@ class SettingPage extends StatelessWidget {
                         text: kAboutAppTxt,
                         imagePath: kAboutImg,
                         isCenter: false,
-                        onPressed: () {},
+                        onPressed: () {
+                          aboutDialog(context, controller.aboutText);
+                        },
                       ),
                       SizedBox(
                         height: 6,
@@ -164,6 +166,29 @@ class SettingPage extends StatelessWidget {
                 ),
               )
               .toList(),
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> aboutDialog(BuildContext context, String about) {
+    return Get.defaultDialog(
+      title: "حول التطبيق",
+      titleStyle: TextStyle(color: kLightAccent),
+      middleTextStyle: TextStyle(color: Colors.green),
+      backgroundColor: Colors.white,
+      content: Container(
+        alignment: Alignment.centerRight,
+        height: ScreenDevices.heigth(context) * (about.length * 0.001),
+        width: ScreenDevices.width(context) * 0.8,
+        child: Text(
+          about,
+          softWrap: true,
+          textDirection: TextDirection.rtl,
+          style: Theme.of(context)
+              .textTheme
+              .bodyText2!
+              .copyWith(color: kDarkAccent),
         ),
       ),
     );

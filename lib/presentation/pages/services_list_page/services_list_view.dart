@@ -1,5 +1,4 @@
 import 'package:developer/presentation/pages/booking_doctor/booking_doctor_view.dart';
-import 'package:developer/presentation/pages/service_provider/service_provider_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,88 +13,84 @@ class ServicesListPage extends StatelessWidget {
   final serviceListLogic = Get.put(ServicesListLogic());
 
   static const String id = "/services_list";
-
+  dynamic argumentData = Get.arguments;
   ServicesListPage({Key? key}) : super(key: key);
 
   @override
   build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    // // Initialize Firebase.
-    // await Firebase.initializeApp();
-    /// find method transfer data between views
-    final servProviderLogic = Get.find<ServiceProviderLogic>();
-    int? idServProvider = servProviderLogic.idGo?.value;
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(serviceListLogic.title.value),
-        ),
-        body: Container(
-          margin: EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Expanded(child: Obx(() {
-                if (idServProvider != null) {
-                  serviceListLogic.idGo?.value = idServProvider;
-                }
-
-                /// ---
-                return Container(
-                  margin: EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      //WebBarWidget(),
-                      Expanded(
-                          child: (() {
-                        if (serviceListLogic.isLoading.value) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (serviceListLogic.isLoading.value == false &&
-                            serviceListLogic.serviceItemsList.isEmpty) {
-                          return Center(
-                              child: MessageImgButtonWdgt(
-                                  title: kNoParentDepTxt,
-                                  imageUrl: kOrderBoxImg));
-                        } else {
-                          return Container(
-                            child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount:
-                                  serviceListLogic.serviceItemsList.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical:
-                                          ScreenDevices.heigth(context) * 0.01),
-                                  child: TitleButtonWidget(
-                                    title:
-                                        '${serviceListLogic.serviceItemsList[index].name}',
-                                    subTitle:
-                                        ' السعر ${serviceListLogic.serviceItemsList[index].price} جنية ',
-                                    rightImgPath: serviceListLogic
-                                        .serviceItemsList[index].image,
-                                    onPressed: () {
-                                      serviceListLogic.idGo?.value =
-                                          serviceListLogic
-                                              .serviceItemsList[index].id!;
-                                      Get.to(() => BookingDoctorPage());
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        }
-                      }())),
-                    ],
-                  ),
-                );
-              })),
-            ],
+      child: Obx(() {
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(serviceListLogic.title.value),
           ),
-        ),
-      ),
+          body: Container(
+            margin: EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Expanded(
+                  child:
+
+                      /// ---
+                      Container(
+                    margin: EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        //WebBarWidget(),
+                        Expanded(
+                            child: (() {
+                          if (serviceListLogic.isLoading.value) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (serviceListLogic.isLoading.value ==
+                                  false &&
+                              serviceListLogic.serviceItemsList.isEmpty) {
+                            return Center(
+                                child: MessageImgButtonWdgt(
+                                    title: kNoParentDepTxt,
+                                    imageUrl: kOrderBoxImg));
+                          } else {
+                            return Container(
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount:
+                                    serviceListLogic.serviceItemsList.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical:
+                                            ScreenDevices.heigth(context) *
+                                                0.01),
+                                    child: TitleButtonWidget(
+                                      title:
+                                          '${serviceListLogic.serviceItemsList[index].name}',
+                                      subTitle:
+                                          ' السعر ${serviceListLogic.serviceItemsList[index].price} جنية ',
+                                      rightImgPath: serviceListLogic
+                                          .serviceItemsList[index].image,
+                                      onPressed: () {
+                                        serviceListLogic.idGo?.value =
+                                            serviceListLogic
+                                                .serviceItemsList[index].id!;
+                                        Get.to(() => BookingDoctorPage());
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          }
+                        }())),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 }

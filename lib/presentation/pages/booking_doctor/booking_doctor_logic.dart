@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:developer/data/models/service_details_model.dart'
     as serviceDetails;
+import 'package:developer/presentation/pages/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +14,7 @@ import '../../../tools/colors.dart';
 import '../../../tools/constants.dart';
 import '../home/home_view.dart';
 import '../message/message_view.dart';
+import '../services_list_page/services_list_logic.dart';
 
 class BookingDoctorLogic extends GetxController {
   RxBool isLoading = false.obs;
@@ -22,6 +24,7 @@ class BookingDoctorLogic extends GetxController {
   RxInt? idGo = 0.obs;
   Rx<UploadModel?> uploadModel = UploadModel().obs;
   RxBool isUploaded = false.obs;
+  final servListLogic = Get.find<ServicesListLogic>();
 
   ///date
   RxBool isdaySelected = false.obs;
@@ -82,6 +85,10 @@ class BookingDoctorLogic extends GetxController {
   }
 
   void fetchServicesDetails() async {
+    int? oldId = servListLogic.idGo?.value;
+    if (oldId != null) {
+      idGo?.value = oldId;
+    }
     print("[BookingDoctorLogic ][fetchServicesDetails] sub id: ${idGo?.value}");
 
     isLoading.value = true;
@@ -104,7 +111,7 @@ class BookingDoctorLogic extends GetxController {
       reservationDate: selectDayTitle,
       reservationTime: selectTimeTitle,
       serviceProviderId: detailsModel.value.serviceProviderId.toString(),
-      zoneId: detailsModel.value.id.toString(),
+      zoneId: "1",
       serviceId: detailsModel.value.id.toString(),
     );
     final response = await UserRepositoryImpl()
@@ -118,7 +125,7 @@ class BookingDoctorLogic extends GetxController {
         message: kUploadFaildTxt,
         nameButton: kBackTxt,
         onPressed: () {
-          Get.offAll(HomePage());
+          Get.to(HomePage());
         },
       ));
 
@@ -134,7 +141,7 @@ class BookingDoctorLogic extends GetxController {
         message: kUploadSuccessTxt,
         nameButton: kBackTxt,
         onPressed: () {
-          Get.off(HomePage());
+          Get.offAll(SplashPage());
         },
       ));
       return;

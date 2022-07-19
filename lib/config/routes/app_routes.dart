@@ -20,8 +20,6 @@ import '../../presentation/pages/message/message_view.dart';
 import '../../presentation/pages/orders_page/orders_view.dart';
 import '../../presentation/pages/parents_departments_page/depart_logic.dart';
 import '../../presentation/pages/parents_departments_page/depart_view.dart';
-import '../../presentation/pages/places_list/clinics_list/clinic_list_logic.dart';
-import '../../presentation/pages/places_list/clinics_list/clinic_list_view.dart';
 import '../../presentation/pages/places_list/hospitals_list/hospitals_list_logic.dart';
 import '../../presentation/pages/places_list/hospitals_list/hospitals_list_view.dart';
 import '../../presentation/pages/places_list/medical_support_list/medical_support_list_logic.dart';
@@ -110,8 +108,8 @@ class AppRoutes {
         page: () => ServicesListPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut<ServicesListLogic>(() => ServicesListLogic());
-          Get.lazyPut<DivisionsLogic>(() => DivisionsLogic());
-          Get.lazyPut<BookingDoctorLogic>(() => BookingDoctorLogic());
+/*          Get.lazyPut<DivisionsLogic>(() => DivisionsLogic());
+          Get.lazyPut<BookingDoctorLogic>(() => BookingDoctorLogic());*/
         }),
       ),
       GetPage(
@@ -126,14 +124,6 @@ class AppRoutes {
         page: () => HospitalsListPage(),
         binding: BindingsBuilder(() {
           Get.lazyPut<HospitalsListLogic>(() => HospitalsListLogic());
-        }),
-      ),
-      GetPage(
-        name: ClinicsListPage.id,
-        page: () => ClinicsListPage(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut<ClinicsListLogic>(() => ClinicsListLogic());
-          Get.lazyPut<DivisionsLogic>(() => DivisionsLogic());
         }),
       ),
       GetPage(

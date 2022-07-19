@@ -162,4 +162,10 @@ class LocalAppApi implements AppApi {
     // TODO: implement getZonesListRequest
     throw UnimplementedError();
   }
+
+  @override
+  Future<Response> getAboutsRequest() {
+    // TODO: implement getAboutsRequest
+    throw UnimplementedError();
+  }
 }

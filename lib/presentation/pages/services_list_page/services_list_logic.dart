@@ -9,9 +9,13 @@ class ServicesListLogic extends GetxController {
   RxList<servicesList.Data> serviceItemsList = <servicesList.Data>[].obs;
   RxString title = kServicesListKey.obs;
   RxInt? idGo = 0.obs;
+  dynamic argumentData = Get.arguments;
 
   @override
   void onInit() {
+    if (argumentData[0] != null) {
+      idGo?.value = argumentData[0][kIdProviderKey];
+    }
     super.onInit();
   }
 
@@ -19,17 +23,21 @@ class ServicesListLogic extends GetxController {
   void onReady() {
     ///implement onReady
 
-    super.onReady();
     fetchServicesList();
+    super.onReady();
   }
 
   @override
   void onClose() {
     super.onClose();
-    serviceItemsList.value.clear();
+    serviceItemsList.clear();
+    update();
   }
 
   void fetchServicesList() async {
+    if (argumentData[0] != null) {
+      idGo?.value = argumentData[0][kIdProviderKey];
+    }
     print("[ServicesListLogic ][fetchServicesList] sub id: ${idGo?.value}");
 
     isLoading.value = true;
@@ -37,6 +45,7 @@ class ServicesListLogic extends GetxController {
     response.fold((l) {
       print("[ServicesListLogic] error: " + l.message);
       isLoading.value = false;
+      update();
     }, (fetchList) {
       serviceItemsList.value = fetchList;
       isLoading.value = false;

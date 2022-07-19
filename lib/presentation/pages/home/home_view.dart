@@ -17,11 +17,12 @@ import 'home_tab.dart';
 class HomePage extends StatelessWidget {
   static const String id = "/home_page";
 
-  final logic = Get.put(HomeLogic());
   final orderLogic = Get.put(OrdersLogic());
   final departmentLogic = Get.put(DepartmentLogic());
   final deliveryLogic = Get.put(DeliveryLogic());
   final settingLogic = Get.put(SettingLogic());
+  final logic = Get.put(HomeLogic());
+
   Widget tabItem(
       {required HomeLogic controller,
       required int index,
@@ -51,79 +52,33 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeLogic>(builder: (controller) {
-      return Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: IndexedStack(
-            index: controller.tabIndex,
-            children: [
-              OrdersPage(),
-              DepartmentPage(),
-              DeliveryPage(),
-              SettingPage(),
-              HomeTabWidget(),
-            ],
+      return WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SafeArea(
+            child: IndexedStack(
+              index: controller.tabIndex,
+              children: [
+                OrdersPage(),
+                DepartmentPage(),
+                DeliveryPage(),
+                SettingPage(),
+                HomeTabWidget(),
+              ],
+            ),
           ),
-        ),
-        bottomNavigationBar: Container(
-          color: Colors.white,
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                height: 50,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        color: shadowColorGlobal,
-                        blurRadius: 10,
-                        spreadRadius: 2,
-                        offset: Offset(0, 3.0)),
-                  ],
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16.0, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      tabItem(
-                        controller: controller,
-                        index: 0,
-                        icon: Icons.wysiwyg_rounded,
-                      ),
-                      tabItem(
-                        controller: controller,
-                        index: 1,
-                        icon: Icons.playlist_add_check_outlined,
-                      ),
-                      Container(width: 45, height: 45),
-                      tabItem(
-                        controller: controller,
-                        index: 2,
-                        icon: Icons.airport_shuttle_outlined,
-                      ),
-                      tabItem(
-                        index: 3,
-                        controller: controller,
-                        icon: Icons.settings,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                width: ScreenDevices.width(context),
-                height: 30,
-                color: controller.tabIndex == 4 ? kCyanHomeColor : Colors.white,
-              ),
-              Container(
-                width: 70,
-                height: 70,
-                child: Container(
+          bottomNavigationBar: Container(
+            color: Colors.white,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 30),
+                  height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(100)),
                     boxShadow: [
                       BoxShadow(
                           color: shadowColorGlobal,
@@ -132,13 +87,65 @@ class HomePage extends StatelessWidget {
                           offset: Offset(0, 3.0)),
                     ],
                   ),
-                  child: tabItem(
-                      controller: controller,
-                      index: 4,
-                      icon: Icons.home_outlined),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 16.0, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        tabItem(
+                          controller: controller,
+                          index: 0,
+                          icon: Icons.wysiwyg_rounded,
+                        ),
+                        tabItem(
+                          controller: controller,
+                          index: 1,
+                          icon: Icons.playlist_add_check_outlined,
+                        ),
+                        Container(width: 45, height: 45),
+                        tabItem(
+                          controller: controller,
+                          index: 2,
+                          icon: Icons.airport_shuttle_outlined,
+                        ),
+                        tabItem(
+                          index: 3,
+                          controller: controller,
+                          icon: Icons.settings,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              )
-            ],
+                Container(
+                  width: ScreenDevices.width(context),
+                  height: 30,
+                  color:
+                      controller.tabIndex == 4 ? kCyanHomeColor : Colors.white,
+                ),
+                Container(
+                  width: 70,
+                  height: 70,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: shadowColorGlobal,
+                            blurRadius: 10,
+                            spreadRadius: 2,
+                            offset: Offset(0, 3.0)),
+                      ],
+                    ),
+                    child: tabItem(
+                        controller: controller,
+                        index: 4,
+                        icon: Icons.home_outlined),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       );

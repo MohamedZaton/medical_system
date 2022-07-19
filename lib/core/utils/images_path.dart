@@ -16,3 +16,4 @@ const String kSuccessImg = 'assets/icons/success.png';
 const String kFailedImg = 'assets/icons/failed.png';
 const String kOfflineImg = 'assets/icons/offline.png';
 const String kProblemImg = 'assets/icons/issue_problem.png';
+const String kZoneAreaImg = 'assets/icons/zone_target.png';

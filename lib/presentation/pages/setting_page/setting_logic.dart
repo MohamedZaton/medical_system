@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 class SettingLogic extends GetxController {
   String facebookPage = "";
   List<String> numbersWatsappList = [];
+  String aboutText =
+      "تطبيق WeCare Matrooh هو تطبيق خاص بأهل مطروح يهتم بكل النواحى الطبيه مثل الأشعه والتحاليل والعيادات والصيدليات";
   @override
   void onInit() {
     super.onInit();
@@ -38,6 +40,14 @@ class SettingLogic extends GetxController {
     numbersWatsappList =
         numbersText.substring(1, numbersText.length - 1).split(',');
     print("numbersWatsappList 0 :${numbersWatsappList[0].toString()}");
+    update();
+  }
+
+  void getAboutParagraph() async {
+    final responce = await ServerAppApi().getWhatsAppNumbersRequest();
+
+    print("getAboutParagraph  :${responce.data.toString()}");
+    aboutText = responce.data.toString();
     update();
   }
 

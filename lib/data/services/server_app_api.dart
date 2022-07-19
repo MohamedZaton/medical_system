@@ -224,6 +224,17 @@ class ServerAppApi implements AppApi {
   }
 
   @override
+  Future<Response> getAboutsRequest() async {
+    String facebookUrl = baseServer + 'client/getAbout';
+    String token = await LocalData().readAccessToken();
+    dio.options.headers["Authorization"] = "Bearer ${token}";
+    dio.options.headers["Accept"] = 'application/json';
+    Response response = await dio.get(facebookUrl);
+    print("about request : ${response.data.toString()}");
+    return response;
+  }
+
+  @override
   Future<List<DepartItemModel>> fetchDepartmentsItems() async {
     throw UnimplementedError();
   }

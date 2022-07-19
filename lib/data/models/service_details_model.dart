@@ -51,6 +51,7 @@ class Data {
     this.closedAt,
     this.details,
     this.zone,
+    this.address,
   });
 
   Data.fromJson(dynamic json) {
@@ -65,6 +66,7 @@ class Data {
     closedAt = json['closed_at'];
     details = json['details'];
     zone = json['zone'];
+    address = json['address'];
   }
   int? id;
   String? name;
@@ -77,6 +79,7 @@ class Data {
   dynamic closedAt;
   dynamic details;
   String? zone;
+  String? address;
   Data copyWith({
     int? id,
     String? name,
@@ -89,6 +92,7 @@ class Data {
     dynamic closedAt,
     dynamic details,
     String? zone,
+    String? address,
   }) =>
       Data(
         id: id ?? this.id,
@@ -102,6 +106,7 @@ class Data {
         closedAt: closedAt ?? this.closedAt,
         details: details ?? this.details,
         zone: zone ?? this.zone,
+        address: address ?? this.address,
       );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -116,6 +121,7 @@ class Data {
     map['closed_at'] = closedAt;
     map['details'] = details;
     map['zone'] = zone;
+    map['address'] = address;
     return map;
   }
 }

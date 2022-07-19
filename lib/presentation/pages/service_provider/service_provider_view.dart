@@ -15,10 +15,11 @@ import 'service_provider_logic.dart';
 class ServiceProviderPage extends StatelessWidget {
   static const String id = "/service_provider";
 
-  final servProviderLogic = Get.put(ServiceProviderLogic());
-
   /// find method transfer data between views
+
   final depLogic = Get.put(DepartmentLogic());
+
+  final servProviderLogic = Get.put(ServiceProviderLogic());
 
   ServiceProviderPage({Key? key}) : super(key: key);
 
@@ -74,9 +75,15 @@ class ServiceProviderPage extends StatelessWidget {
                                         "[ServiceProvider][flow-type ] --> ${kRegularFlowValue}");
 
                                     /// old
-                                    // servLogic.fetchServerProviderList();
+
                                     /// new
-                                    Get.to(() => ServicesListPage());
+                                    Get.to(() => ServicesListPage(),
+                                        arguments: [
+                                          {
+                                            kIdProviderKey:
+                                                servProviderLogic.idGo?.value
+                                          },
+                                        ]);
 
                                     break;
                                   }

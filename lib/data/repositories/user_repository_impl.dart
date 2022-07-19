@@ -230,6 +230,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, serviceDetails.Data>> getServiceDetails(
       int? id) async {
+    print("[getServiceDetails] id : $id");
     Response response = await ServerAppApi().getServiceDetailsRequest(id!);
 
     try {

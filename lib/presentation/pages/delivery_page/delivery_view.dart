@@ -21,7 +21,6 @@ class DeliveryPage extends StatelessWidget {
           child: Column(
             children: [
               //WebBarWidget(),
-
               Expanded(child: Obx(() {
                 if (logic.isLoading.value) {
                   return const Center(child: CircularProgressIndicator());

@@ -14,8 +14,8 @@ import 'booking_doctor_logic.dart';
 import 'doctor_info.dart';
 
 class BookingDoctorPage extends StatelessWidget {
-  final servDetailsLogic = Get.put(BookingDoctorLogic());
   final serviceListLogic = Get.put(ServicesListLogic());
+  final servBookingDetailsLogic = Get.put(BookingDoctorLogic());
 
   static const String id = "/doctors_booking";
 
@@ -24,13 +24,10 @@ class BookingDoctorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      int? oldId = serviceListLogic.idGo?.value;
-      if (oldId != null) {
-        servDetailsLogic.idGo?.value = oldId;
-      }
       return Scaffold(
         appBar: AppBar(
-          title: Text(kDoctorBk),
+          title: Text(kServiceProviderTxt),
+          centerTitle: true,
         ),
         body: SafeArea(
           child: Align(
@@ -52,7 +49,7 @@ class BookingDoctorPage extends StatelessWidget {
                       Container(
                         alignment: Alignment.center,
                         child: FluxImage(
-                          imageUrl: servDetailsLogic
+                          imageUrl: servBookingDetailsLogic
                               .detailsModel.value.serviceProviderLogo
                               .toString(),
                           width: 80,
@@ -83,23 +80,33 @@ class BookingDoctorPage extends StatelessWidget {
                       ///  name doctor
                       FittedBox(
                         child: Text(
-                          servDetailsLogic
+                          servBookingDetailsLogic
                               .detailsModel.value.serviceProviderName
                               .toString(),
                           style: kHeaderTextStyle.copyWith(color: kDarkAccent),
                         ),
                       ),
+
+                      /// details
+                      FittedBox(
+                        child: Text(
+                          servBookingDetailsLogic.detailsModel.value.details
+                              .toString(),
+                          style:
+                              kHeaderTextStyle.copyWith(color: kLightPrimary),
+                        ),
+                      ),
                       SizedBox(
                         height: 280,
                         child: IndexedStack(
-                          index: servDetailsLogic.bookingPage.value,
+                          index: servBookingDetailsLogic.bookingPage.value,
                           children: [
                             DoctorInfoPage(
                                 doctorInfoModel:
-                                    servDetailsLogic.detailsModel.value),
+                                    servBookingDetailsLogic.detailsModel.value),
                             PatientBkPage(
                                 doctorInfoModel:
-                                    servDetailsLogic.detailsModel.value),
+                                    servBookingDetailsLogic.detailsModel.value),
                           ],
                         ),
                       ),
@@ -115,10 +122,11 @@ class BookingDoctorPage extends StatelessWidget {
                                 backgroundColor: kDarkAccent,
                                 name: " احجز ",
                                 onPressed: () {
-                                  if (servDetailsLogic.bookingPage == 1) {
-                                    servDetailsLogic.sendBookingPaper();
+                                  if (servBookingDetailsLogic.bookingPage ==
+                                      1) {
+                                    servBookingDetailsLogic.sendBookingPaper();
                                   } else {
-                                    servDetailsLogic.nextPage(page: 1);
+                                    servBookingDetailsLogic.nextPage(page: 1);
                                   }
                                 },
                               ),
@@ -126,14 +134,14 @@ class BookingDoctorPage extends StatelessWidget {
                             SizedBox(
                               width: 10,
                             ),
-                            (servDetailsLogic.bookingPage > 0)
+                            (servBookingDetailsLogic.bookingPage > 0)
                                 ? Container(
                                     width: ScreenDevices.width(context) * 0.40,
                                     child: ShadowButton(
                                       backgroundColor: kDarkAccent,
                                       name: " رجوع ",
                                       onPressed: () {
-                                        servDetailsLogic.previousPage();
+                                        servBookingDetailsLogic.previousPage();
                                       },
                                     ),
                                   )

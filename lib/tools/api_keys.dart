@@ -24,6 +24,7 @@ const String kParentFlowValue = "ParentFlow";
 const String kFlowTypeParamKey = 'flow_type';
 const String kSuccessMsgUploadValue = "success";
 const String kFailedMsgUploadValue = "failed";
+const String kIdProviderKey = "Id_Provider";
 
 const Map<String, String> kDepartmentsApi = {
   kPharmacyTitleKey: kPharmacyPath,

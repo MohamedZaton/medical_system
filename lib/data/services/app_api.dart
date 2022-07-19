@@ -39,6 +39,7 @@ abstract class AppApi {
   Future<Response> getZonesListRequest();
   Future<Response> getProfileInfoRequest();
   Future<Response> getAdsRequest();
+  Future<Response> getAboutsRequest();
   Future<Response> getReservationRequest();
   Future<Response> putReservationRequest(int id);
   Future<Response> getDeleverRequest();

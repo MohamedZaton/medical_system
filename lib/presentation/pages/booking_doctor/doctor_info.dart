@@ -24,8 +24,8 @@ class DoctorInfoPage extends StatelessWidget {
             height: 5,
           ),
 
-          /// address doctor
-          Row(
+          /// zone doctor
+/*          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
@@ -43,10 +43,9 @@ class DoctorInfoPage extends StatelessWidget {
               Container(
                 width: ScreenDevices.width(context) * 0.15,
                 height: ScreenDevices.width(context) * 0.09,
-                child: Icon(
-                  Icons.location_on_outlined,
-                  color: Colors.white,
-                  size: 20,
+                child: Image.asset(
+                  kZoneAreaImg,
+                  scale: 20,
                 ),
                 decoration: BoxDecoration(
                     color: kSeeMoreColor,
@@ -56,7 +55,7 @@ class DoctorInfoPage extends StatelessWidget {
           ),
           SizedBox(
             height: 10,
-          ),
+          ),*/
 
           /// work days doctor
           if (doctorInfoModel!.openAt != null &&
@@ -98,8 +97,8 @@ class DoctorInfoPage extends StatelessWidget {
             ),
           ],
 
-          /// work time day
-          /*  Row(
+          /// address doctor
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
@@ -110,8 +109,7 @@ class DoctorInfoPage extends StatelessWidget {
                 height: ScreenDevices.heigth(context) * 0.06,
                 child: ShadowButton(
                   backgroundColor: kSeeMoreColor,
-                  name:
-                      " من ${doctorInfoModel!.timeStart} إلي  ${doctorInfoModel!.timeEnd}",
+                  name: "${doctorInfoModel!.address}",
                   onPressed: () {},
                 ),
               ),
@@ -121,16 +119,17 @@ class DoctorInfoPage extends StatelessWidget {
               Container(
                 width: ScreenDevices.width(context) * 0.15,
                 height: ScreenDevices.heigth(context) * 0.06,
-                child: Image.asset(
-                  kClockWallIcon,
-                  scale: 20,
+                child: Icon(
+                  Icons.location_on_outlined,
+                  color: Colors.white,
+                  size: 20,
                 ),
                 decoration: BoxDecoration(
                     color: kSeeMoreColor,
                     borderRadius: BorderRadius.all(Radius.circular(15))),
               ),
             ],
-          ),*/
+          ),
 
           SizedBox(
             height: 3,
